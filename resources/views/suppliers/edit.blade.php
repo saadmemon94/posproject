@@ -1,312 +1,296 @@
-@extends('layouts.app', [
-    'class' => 'sidebar-mini ',
-    'namePage' => 'Edit Supplier',
-    'activePage' => 'Edit Supplier',
-    'activeNav' => '',
-])
+@extends('dashboard.base')
 
 @section('content')
-  <div class="panel-header panel-header-sm">
-  </div>
-  <div class="content">
+<div class="container-fluid">
+  <div class="animated fadeIn">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-12">
         <div class="card">
           <div class="card-header">
             <h5 class="title">{{__(" Edit Supplier")}}</h5>
           </div>
-          <div class="card-body">
-            <form method="post" action="{{ route('supplier.update', ['supplier' => 1,]) }}" autocomplete="off"
+          <div class="card-body-custom">
+            <form id="supplier_update" method="post" action="{{ route('supplier.update', ['supplier' => $supplier[0]->supplier_id,]) }}" autocomplete="off"
             enctype="multipart/form-data">
               @csrf
               @method('put')
               @include('alerts.success')
               <div class="row">
-                <div class="card-body col-12 ">
-                  <fieldset class="col-md-12 border p-1 ">
-                    <legend class="w-auto">Supplier:</legend>
-                      <div class="row">
+                <div class="card-body-custom col-12 ">
+                  <div class="row">
+                    <div class="col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_ref_no" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Reference No.")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_ref_no" class="form-control col-12" value="{{ $supplier[0]->supplier_ref_no }}">
+                            @include('alerts.feedback', ['field' => 'supplier_ref_no'])
+                          </div>
                       </div>
-                      <div class="row">
-                        <div class="col-6">
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="refid" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Reference ID")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="refid" class="form-control" value="{{ old('refid', '') }}">
-                                    @include('alerts.feedback', ['field' => 'refid'])
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                                <div class="form-group">
-                                  <label for="name" class="col-sm-2 col-md-10 control-label">&nbsp;&nbsp;{{__(" Supplier Name")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="name" class="form-control" value="{{ old('name', '') }}">
-                                    @include('alerts.feedback', ['field' => 'name'])
-                                  </div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                  <label for="type" class="col-sm-2 col-md-10 control-label">&nbsp;&nbsp;{{__(" Supplier Type")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <select name="type" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Brand...">
-                                          <option value="general">General</option>
-                                          <option value="distributer">Distributer</option>
-                                          <option value="reseller">Reseller</option>
-                                    </select>
-                                    @include('alerts.feedback', ['field' => 'type'])
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="shopname" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Shop Name")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="shopname" class="form-control" value="{{ old('shopname', '') }}">
-                                    @include('alerts.feedback', ['field' => 'shopname'])
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-12 pr-1">
-                                <div class="form-group">
-                                  <label for="shopinfo" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Shop Description")}}</label>
-                                    <div class="col-sm-10 col-md-12">
-                                      <input type="text" name="shopinfo" rows="2" class="form-control" value="{{ old('shopinfo', '') }}">
-                                      @include('alerts.feedback', ['field' => 'shopinfo'])
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="balancepaid" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Balance Paid")}}</label>
-                                  <div class="col-sm-10 col-md-12 input-group mb-1">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text rs">Rs: </span>
-                                    </div>
-                                    <input type="number" name="balancepaid" class="form-control" value="{{ old('balancepaid', '') }}">
-                                    @include('alerts.feedback', ['field' => 'balancepaid'])
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                                <div class="form-group">
-                                  <label for="balancedues" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Balance Dues")}}</label>
-                                    <div class="col-sm-10 col-md-12 input-group mb-1">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text rs">Rs: </span>
-                                      </div>
-                                      <input type="number" name="balancedues" class="form-control" value="{{ old('balancedues', '') }}">
-                                      @include('alerts.feedback', ['field' => 'balancedues'])
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="creditduration" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Credit Duration")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="number" name="creditduration" class="form-control" value="{{ old('creditduration', '') }}">
-                                    @include('alerts.feedback', ['field' => 'creditduration'])
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                                <div class="form-group">
-                                  <label for="credittype" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Credit Type")}}</label>
-                                    <div class="col-sm-10 col-md-12">
-                                      <select name="credittype" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Credit Type">
-                                        <option value="days">Days</option>
-                                        <option value="months">Months</option>
-                                      </select>
-                                      @include('alerts.feedback', ['field' => 'credittype'])
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="creditlimit" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Credit Limit")}}</label>
-                                  <div class="col-sm-10 col-md-12 input-group mb-1">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text rs">Rs: </span>
-                                    </div>
-                                    <input type="number" name="creditlimit" class="form-control" value="{{ old('creditlimit', '') }}">
-                                    @include('alerts.feedback', ['field' => 'creditlimit'])
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="cashcreditrate" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Cash Credit Rate")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <select name="cashcreditrate" class="form-control">
-                                      <option value="cash">Cash</option>
-                                      <option value="credit">Credit</option>
-                                      <option value="nonbulk">Non Bulk Buyer</option>
-                                    </select>
-                                    @include('alerts.feedback', ['field' => 'cashcreditrate'])
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="row">
-                            <div class="col-xs-12 col-md-12 pr-1">
-                              <div class="form-group">
-                                <label for="email" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Email")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="email" class="form-control" value="{{ old('email', '') }}">
-                                    @include('alerts.feedback', ['field' => 'email'])
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-12 pr-1">
-                                <div class="form-group">
-                                  <label for="alternateemail" class="col-sm-2 col-md-6 control-label">&nbsp;&nbsp;{{__(" Alternate Email")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="alternateemail" class="form-control" value="{{ old('alternateemail', '') }}">
-                                    @include('alerts.feedback', ['field' => 'alternateemail'])
-                                  </div>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="cnicnumber" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Cnic Number")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="cnicnumber" class="form-control" value="{{ old('cnicnumber', '') }}">
-                                    @include('alerts.feedback', ['field' => 'cnicnumber'])
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="phonenumber" class="col-sm-2 col-md-8 control-label">&nbsp;&nbsp;{{__(" Phone Number")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="phonenumber" class="form-control" value="{{ old('phonenumber', '') }}">
-                                    @include('alerts.feedback', ['field' => 'phonenumber'])
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                                <div class="form-group">
-                                  <label for="officenumber" class="col-sm-2 col-md-10 control-label">&nbsp;&nbsp;{{__(" Office Number")}}</label>
-                                  <div class="col-sm-10 col-md-12">
-                                    <input type="text" name="officenumber" class="form-control" value="{{ old('officenumber', '') }}">
-                                    @include('alerts.feedback', ['field' => 'officenumber'])
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="alternatenumber" class="col-sm-2 col-md-12 control-label">&nbsp;&nbsp;{{__(" Alternate Phone Number")}}</label>
-                                <div class="col-sm-10 col-md-12">
-                                  <input type="text" name="alternatenumber" class="form-control" value="{{ old('alternatenumber', '') }}">
-                                  @include('alerts.feedback', ['field' => 'alternatenumber'])
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-2">
-                              <div class="form-group">
-                                <label for="status" class="col-sm-2 col-md-12 control-label">&nbsp;&nbsp;{{__(" Status")}}</label>
-                                <div class="col-sm-10 col-md-12">
-                                  <select name="status_id" class="form-control">
-                                    <option value="0">Active</option>
-                                    <option value="1">Inactive</option>
-                                  </select>
-                                  {{-- <input type="text" name="status_id" class="form-control" value="{{ old('status', '') }}"> --}}
-                                  @include('alerts.feedback', ['field' => 'status_id'])
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="zipcode" class="col-sm-2 col-md-6 control-label">&nbsp;&nbsp;{{__(" Zip Code")}}</label>
-                                <div class="col-sm-10 col-md-12">
-                                  <input type="text" name="zipcode" class="form-control" value="{{ old('zipcode', '') }}">
-                                  @include('alerts.feedback', ['field' => 'zipcode'])
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="town" class="col-sm-2 col-md-6 control-label">&nbsp;&nbsp;{{__(" Town")}}</label>
-                                <div class="col-sm-10 col-md-12">
-                                  <input type="text" name="town" class="form-control" value="{{ old('town', '') }}">
-                                  @include('alerts.feedback', ['field' => 'town'])
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 pr-1">
-                              <div class="form-group">
-                                <label for="area" class="col-sm-2 col-md-6 control-label">&nbsp;&nbsp;{{__(" Area")}}</label>
-                                <div class="col-sm-10 col-md-12">
-                                  <input type="text" name="area" class="form-control" value="{{ old('area', '') }}">
-                                  @include('alerts.feedback', ['field' => 'area'])
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                    </div>
+                    <div class="col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_type" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Supplier Type")}}</label>
+                        <div class=" col-12">
+                          <select name="supplier_type" class="selectpicker form-control col-12" data-live-search="true" data-live-search-style="begins" title="Select Brand...">
+                            <option value="general" {{ $supplier[0]->supplier_type == 'general' ? 'selected' : '' }}>General</option>
+                            <option value="booker" {{ $supplier[0]->supplier_type == 'booker' ? 'selected' : '' }}>Booker</option>
+                          </select>
+                          @include('alerts.feedback', ['field' => 'supplier_type'])
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-xs-12 col-md-12 pr-1">
-                          <div class="form-group">
-                            <label for="shopaddress" class="col-sm-2 col-md-6 control-label">&nbsp;&nbsp;{{__(" Shop Address")}}</label>
-                            <div class="col-sm-10 col-md-12">
-                              <input type="text" name="shopaddress" class="form-control" value="{{ old('shopaddress', '') }}">
-                              @include('alerts.feedback', ['field' => 'shopaddress'])
-                            </div>
+                    </div>
+                    <div class="col-3 ">
+                        <div class="form-group">
+                          <label for="supplier_name" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Supplier Name")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_name" class="form-control col-12" value="{{ $supplier[0]->supplier_name }}">
+                            @include('alerts.feedback', ['field' => 'supplier_name'])
                           </div>
                         </div>
+                    </div>
+                    <div class="col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_shop_name" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Shop Name")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_shop_name" class="form-control col-12" value="{{ $supplier[0]->supplier_shop_name }}">
+                            @include('alerts.feedback', ['field' => 'supplier_shop_name'])
+                          </div>
                       </div>
-                      <div class="row">
-                        <div class="col-xs-12 col-md-12 pr-1">
-                          <div class="form-group">
-                            <label for="residentaddress" class="col-sm-2 col-md-6 control-label">&nbsp;&nbsp;{{__(" Residential Address")}}</label>
-                            <div class="col-sm-10 col-md-12">
-                              <input type="text" name="residentaddress" class="form-control" value="{{ old('residentaddress', '') }}">
-                              @include('alerts.feedback', ['field' => 'residentaddress'])
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-6 ">
+                        <div class="form-group">
+                          <label for="supplier_shop_info" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Shop Description")}}</label>
+                            <div class=" col-12">
+                              <input type="text" name="supplier_shop_info" rows="2" class="form-control col-12" value="{{ $supplier[0]->supplier_shop_info }}">
+                              @include('alerts.feedback', ['field' => 'supplier_shop_info'])
                             </div>
+                        </div>
+                    </div>
+                    <div class=" col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_balance_paid" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Balance Paid")}}</label>
+                          <div class=" col-12 input-group ">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text rs">Rs: </span>
+                            </div>
+                            <input type="number" name="supplier_balance_paid" class="form-control" value="{{ $supplier[0]->supplier_balance_paid }}">
+                            @include('alerts.feedback', ['field' => 'supplier_balance_paid'])
+                          </div>
+                      </div>
+                    </div>
+                    <div class=" col-3 ">
+                        <div class="form-group">
+                          <label for="supplier_balance_dues" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Balance Dues")}}</label>
+                            <div class=" col-12 input-group ">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text rs">Rs: </span>
+                              </div>
+                              <input type="number" name="supplier_balance_dues" class="form-control" value="{{ $supplier[0]->supplier_balance_dues }}">
+                              @include('alerts.feedback', ['field' => 'supplier_balance_dues'])
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-6">
+                      <div class="form-group">
+                        <label for="supplier_email" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Email")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_email" class="form-control col-12" value="{{ $supplier[0]->supplier_email }}">
+                            @include('alerts.feedback', ['field' => 'supplier_email'])
+                          </div>
+                      </div>
+                    </div>
+                    <div class=" col-6">
+                        <div class="form-group">
+                          <label for="supplier_alternate_email" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Alternate Email")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_alternate_email" class="form-control col-12" value="{{ $supplier[0]->supplier_alternate_email }}">
+                            @include('alerts.feedback', ['field' => 'supplier_alternate_email'])
                           </div>
                         </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_cnic_number" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Cnic Number")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_cnic_number" class="form-control col-12" value="{{ $supplier[0]->supplier_cnic_number }}">
+                            @include('alerts.feedback', ['field' => 'supplier_cnic_number'])
+                          </div>
                       </div>
-                  </fieldset>
+                    </div>
+                    <div class=" col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_phone_number" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Phone Number")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_phone_number" class="form-control col-12" value="{{ $supplier[0]->supplier_phone_number }}">
+                            @include('alerts.feedback', ['field' => 'supplier_phone_number'])
+                          </div>
+                      </div>
+                    </div>
+                    <div class=" col-3 ">
+                        <div class="form-group">
+                          <label for="supplier_office_number" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Office Number")}}</label>
+                          <div class=" col-12">
+                            <input type="text" name="supplier_office_number" class="form-control col-12" value="{{ $supplier[0]->supplier_office_number }}">
+                            @include('alerts.feedback', ['field' => 'supplier_office_number'])
+                          </div>
+                        </div>
+                    </div>
+                    <div class=" col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_alternate_number" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Alternate Phone")}}</label>
+                        <div class=" col-12">
+                          <input type="text" name="supplier_alternate_number" class="form-control col-12" value="{{ $supplier[0]->supplier_alternate_number }}">
+                          @include('alerts.feedback', ['field' => 'supplier_alternate_number'])
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-3">
+                      <div class="form-group">
+                        <label for="status_id" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Status")}}</label>
+                        <div class=" col-12">
+                          <select name="status_id" class="form-control col-12">
+                            <option value="1" {{ $supplier[0]->supplier_type == '1' ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ $supplier[0]->supplier_type == '0' ? 'selected' : '' }}>Inactive</option>
+                          </select>
+                          {{-- <input type="text" name="status_id" class="form-control" value="{{ $supplier[0]->supplier_status }}"> --}}
+                          @include('alerts.feedback', ['field' => 'status_id'])
+                        </div>
+                      </div>
+                    </div>
+                    <div class=" col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_zipcode" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Zip Code")}}</label>
+                        <div class=" col-12">
+                          <input type="text" name="supplier_zipcode" class="form-control col-12" value="{{ $supplier[0]->supplier_zipcode }}">
+                          @include('alerts.feedback', ['field' => 'supplier_zipcode'])
+                        </div>
+                      </div>
+                    </div>
+                    <div class=" col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_town" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Town")}}</label>
+                        <div class=" col-12">
+                          <input type="text" name="supplier_town" class="form-control col-12" value="{{ $supplier[0]->supplier_town }}">
+                          @include('alerts.feedback', ['field' => 'supplier_town'])
+                        </div>
+                      </div>
+                    </div>
+                    <div class=" col-3 ">
+                      <div class="form-group">
+                        <label for="supplier_area" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Area")}}</label>
+                        <div class=" col-12">
+                          <input type="text" name="supplier_area" class="form-control col-12" value="{{ $supplier[0]->supplier_area }}">
+                          @include('alerts.feedback', ['field' => 'supplier_area'])
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-12 ">
+                      <div class="form-group">
+                        <label for="supplier_shop_address" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Shop Address")}}</label>
+                        <div class=" col-12">
+                          <input type="text" name="supplier_shop_address" class="form-control col-12" value="{{ $supplier[0]->supplier_shop_address }}">
+                          @include('alerts.feedback', ['field' => 'supplier_shop_address'])
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-12 ">
+                      <div class="form-group">
+                        <label for="supplier_resident_address" class=" col-12 control-label">&nbsp;&nbsp;{{__(" Residential Address")}}</label>
+                        <div class=" col-12">
+                          <input type="text" name="supplier_resident_address" class="form-control col-12" value="{{ $supplier[0]->supplier_resident_address }}">
+                          @include('alerts.feedback', ['field' => 'supplier_resident_address'])
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="card-footer row">
-                <div class="col-sm-10 col-md-6">
-                  <button type="button" class="btn btn-secondary btn-round ">{{__('Back')}}</button>
-                  <button type="button" class="btn btn-danger btn-round ">{{__('Delete')}}</button>
+                <div class="col-6">
+                  <button type="submit" class="btn btn-info btn-round pull-left">{{__('Update')}}</button>
                 </div>
-                <div class="col-sm-10 col-md-6">
-                  <button type="submit" class="btn btn-info btn-round pull-right">{{__('Update')}}</button>
+            </form>
+                <div class="col-6">
+                  <a type="button" href="{{ URL::previous() }}" class="btn btn-secondary btn-round pull-right">{{__('Back')}}</a>
+                  <form action="{{ route('supplier.destroy', $supplier[0]->supplier_id) }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger btn-round pull-right">{{__('Delete')}}</button>
+                  </form>
                 </div>
               </div>
               <hr class="half-rule"/>
-            </form>
+            {{-- </form> --}}
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+@endsection
+
+@section('javascript')
+<script>
+  $(function (){
+    $('#supplier_update').validate({
+      rules: {
+        supplier_ref_no: 'required',
+        supplier_name: 'required',
+        supplier_balance_paid: 'required',
+        supplier_balance_dues: 'required',
+        status_id: 'required',
+      },
+      messages: {
+        supplier_ref_no: 'Please Enter Supplier Ref No',
+        supplier_name: 'Please Enter Supplier Name',
+        supplier_balance_paid: 'Please Enter Supplier Balance Paid',
+        supplier_balance_dues: 'Please Enter Supplier Balance Dues',
+        status_id: 'Please Select Status',
+      },
+      errorElement: 'em',
+      errorPlacement: function ( error, element ) {
+        error.addClass( 'invalid-feedback' );
+        if ( element.prop( 'type' ) === 'checkbox' ) {
+          error.insertAfter( element.parent( 'label' ) );
+        } else {
+          error.insertAfter( element );
+        }
+      },
+      // errorElement: 'span',
+      // errorPlacement: function (error, element) {
+      //   error.addClass('invalid-feedback');
+      //   element.closest('.form-group').append(error);
+      // },
+      errorClass: "error fail-alert",
+      validClass: "valid success-alert",
+      highlight: function ( element, errorClass, validClass ) {
+        $( element ).addClass( 'is-invalid' ).removeClass( 'is-valid' );
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        // $( element ).addClass( 'is-valid' ).removeClass( 'is-invalid' );
+        $( element ).removeClass( 'is-invalid' );
+
+      }
+    });
+    $.validator.setDefaults( {
+      // debug: true,
+      // success: "valid",
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+  });
+</script>
 @endsection
