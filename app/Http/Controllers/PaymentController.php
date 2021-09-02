@@ -135,7 +135,7 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $validate = Validator::make($request->all(), [ 
+        $validate = Validator::make($request->all(), [
             'payment_id'                 => '',
             'payment_ref_no'             => '',
             'payment_type'               => 'required',//'initial/opening_balance', 'opening_stock', 'credit', 'debit', 'deposit', 'transfer', 'refund', 'sale_return', 'purchase_return'
@@ -154,7 +154,7 @@ class PaymentController extends Controller
             'payment_document'           => '',
             'created_by'                 => '',
         ]);
-        if ($validate->fails()) {    
+        if ($validate->fails()) {
         //    return response()->json("Fields Required", 400);
             return redirect()->back()->withErrors($validate);
 
@@ -179,9 +179,12 @@ class PaymentController extends Controller
         $customer_amount_paid = $getcustomer->customer_amount_paid;
         $customer_amount_dues = $getcustomer->customer_amount_dues;
 
-        $sale_purch_invoice_id = $request->sale_invoice_id;
-        $searchsale = DB::table('sales')->where('sale_invoice_id', '=', $sale_purch_invoice_id)->first();
-        
+        $searchsale=NULL;
+        if($request->sale_invoice_id){
+            $sale_purch_invoice_id = $request->sale_invoice_id;
+            $searchsale = DB::table('sales')->where('sale_invoice_id', '=', $sale_purch_invoice_id)->first();
+        }
+
         if($payment_amount_recieved > $customer_amount_dues){
             $sale_amount_paid = $searchsale->sale_amount_paid + $payment_amount_recieved;
             $sale_amount_dues = $searchsale->sale_amount_dues - $payment_amount_recieved;
@@ -220,7 +223,7 @@ class PaymentController extends Controller
 
         $update = DB::table('customers')->where('customer_id','=', $customer_id)->update($customer_edits);
         $sale_data = DB::table('sales')->where('sale_invoice_id','=', $request->sale_invoice_id)->first();
-        
+
         if($sale_data !== NULL){
             $sale_id = $sale_data->sale_id;
         }
@@ -273,7 +276,7 @@ class PaymentController extends Controller
         $save = DB::table('payments')->insert($payment_adds);
         $id = DB::getPdo()->lastInsertId();
         // $add_id = DB::table('payments')->insertGetId($payment_adds)
-        
+
         $user_data = User::where('id', $sale_data->sale_added_by)->first();
         $warehouse_data = Warehouse::where('warehouse_id', $sale_data->warehouse_id)->first();
         $customer_data = Customer::where('customer_id', $sale_data->sale_customer_id)->first();
@@ -294,7 +297,7 @@ class PaymentController extends Controller
     public function purchasestore(Request $request)
     {
         // dd($request->all());
-        $validate = Validator::make($request->all(), [ 
+        $validate = Validator::make($request->all(), [
             'payment_id'                 => '',
             'payment_ref_no'             => '',
             'payment_type'               => 'required',//'initial/opening_balance', 'opening_stock', 'credit', 'debit', 'deposit', 'transfer', 'refund', 'sale_return', 'purchase_return'
@@ -313,7 +316,7 @@ class PaymentController extends Controller
             'payment_document'           => '',
             'created_by'                 => '',
         ]);
-        if ($validate->fails()) {    
+        if ($validate->fails()) {
         //    return response()->json("Fields Required", 400);
            return redirect()->back()->withErrors($validate);
 
@@ -379,7 +382,7 @@ class PaymentController extends Controller
 
         $update = DB::table('suppliers')->where('supplier_id','=', $supplier_id)->update($supplier_edits);
         $purchase_data = DB::table('purchases')->where('purchase_invoice_id','=', $request->purchase_invoice_id)->first();
-        
+
         // dd($purchase_data);
         if($purchase_data !== NULL){
             $purchase_id = $purchase_data->purchase_id;
@@ -435,7 +438,7 @@ class PaymentController extends Controller
         // dd($save);
         $id = DB::getPdo()->lastInsertId();
         // $add_id = DB::table('payments')->insertGetId($payment_adds)
-        
+
         $user_data = User::where('id', $purchase_data->purchase_created_by)->first();
         $warehouse_data = Warehouse::where('warehouse_id', $purchase_data->warehouse_id)->first();
         $supplier_data = Supplier::where('supplier_id', $purchase_data->purchase_supplier_id)->first();

@@ -22,12 +22,12 @@
                                             <div class="form-col-3">
                                                 <div class="form-group">
                                                     <label for="product_company"
-                                                        class=" col-12 control-label">&nbsp;&nbsp;{{ __(' Company') }}</label>
+                                                        class=" col-12 control-label">&nbsp;&nbsp;{{ __(' Select Company for Print') }}</label>
                                                     <div class=" col-12">
                                                         <select name="product_company"
                                                             class="selectpicker form-control col-12" data-live-search="true"
-                                                            data-live-search-style="begins" title="Select Company...">
-                                                            <option selected value="">Select</option>
+                                                            data-live-search-style="begins" title="Select Company for Print...">
+                                                            <option selected value="">Select Company for Print</option>
                                                             @foreach ($companies as $single_company)
                                                                 <option value="{{ $single_company->company_name }}">
                                                                     {{ $single_company->company_name }}</option>
@@ -43,7 +43,7 @@
                                                         class=" col-12 control-label">&nbsp;&nbsp;{{ __('') }}</label>
                                                     <div class=" col-12">
                                                         <button type="submit" id="save-btn"
-                                                            class="btn btn-info btn-round pull-right">{{ __('Print') }}</button>
+                                                            class="btn btn-info btn-round pull-right">{{ __('Print Company Now') }}</button>
                                                     </div>
                                                 </div>
 
@@ -73,7 +73,7 @@
                                     <td>{{ $value->product_ref_no }}</td>
                                     <td>{{ $value->product_name }}</td>
                                     <td>{{ $value->product_company."/".$value->product_brand }}</td>
-                                    <td>{{ $value->product_quantity_available }}</td> 
+                                    <td>{{ $value->product_quantity_available }}</td>
                                     <td>{{ $value->product_alert_quantity }}</td>
                                   </tr>
                                   @endforeach

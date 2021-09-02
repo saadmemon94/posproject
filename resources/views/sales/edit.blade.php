@@ -791,8 +791,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- payment modal -->
-                                {{-- <div id="add-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                <!-- payment modal -->
+                {{-- <div id="add-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                   <div role="document" class="modal-dialog">
                       <div class="modal-content">
                           <div class="modal-header">
@@ -864,289 +864,289 @@
                       </div>
                   </div>
                 </div> --}}
-                                <!-- product list modal -->
-                                <div id="product-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true" class="modal fade text-left">
-                                    <div role="document" class="modal-dialog">
-                                        <div class="modal-content-pos">
-                                            <div class="modal-header">
-                                                <h5 id="exampleModalLabel" class="modal-title">Products List</h5>
-                                                <button type="button" id="productclose" data-dismiss="modal"
-                                                    aria-label="Close" class="close"><span aria-hidden="true"><i
-                                                            class="fa fa-times"></i></span></button>
+                <!-- product list modal -->
+                <div id="product-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal fade text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content-pos">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">Products List</h5>
+                                <button type="button" id="productclose" data-dismiss="modal"
+                                    aria-label="Close" class="close"><span aria-hidden="true"><i
+                                            class="fa fa-times"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{-- <div class="row">
+                                        <div class=" col-12 ">
+                                            <div class="search-box form-group">
+                                            <label for="product_code_name" class=" col-10 control-label">&nbsp;&nbsp;{{__(" Search Product")}}</label>
+                                                <div class="col-12">
+                                                <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Scan/Search product by name/code" class="form-control"  />
+                                                </div>
+                                                @include('alerts.feedback', ['field' => 'product_code_name'])
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        {{-- <div class="row">
-                                                        <div class=" col-12 ">
-                                                            <div class="search-box form-group">
-                                                            <label for="product_code_name" class=" col-10 control-label">&nbsp;&nbsp;{{__(" Search Product")}}</label>
-                                                                <div class="col-12">
-                                                                <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Scan/Search product by name/code" class="form-control"  />
-                                                                </div>
-                                                                @include('alerts.feedback', ['field' => 'product_code_name'])
-                                                            </div>
-                                                        </div>
-                                                        </div> --}}
-                                                        <div class="row">
-                                                            <div class=" col-12 ">
-                                                                <div class="form-group">
-                                                                    <div class=" col-12">
-                                                                        <div class="table-responsive-sm"
-                                                                            style="height:500px; overflow-x:auto">
-                                                                            <table id="productTable"
-                                                                                class="table table-sm table-hover table-striped table-fixed table-bordered dataTable display compact hover order-column">
-                                                                                <thead class="thead pos">
-                                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
-                                                                                    {{-- <tr>
-                                              <th>RefID</th>
-                                              <th>Barcode</th>
-                                              <th>Product</th>
-                                              <th>T.P</th>
-                                              <th>Cash(Pc)</th>
-                                              <th>Cash(Pk)</th>
-                                              <th>Credit</th>
-                                              <th>Non Bulk</th>
-                                              <th>Available</th>
-                                              <th>Action</th>
-                                              $table->integer('product_total_quantity');
-                                          </tr> --}}
-                                                                                    <tr>
-                                                                                        {{-- <th>Ref.Id</th> --}}
-                                                                                        <th></th>
-                                                                                        <th colspan="2">Product Info</th>
-                                                                                        {{-- <th>Barcode</th> --}}
-                                                                                        {{-- <th colspan="2">Company/Brand</th> --}}
-                                                                                        {{-- <th>Brand</th> --}}
-                                                                                        {{-- <th colspan="3">Total Quantity</th> --}}
-                                                                                        {{-- <th>Totl.Pkt</th>
-                                            <th>Totl.Crt</th> --}}
-                                                                                        <th colspan="3">Aval Quantity</th>
-                                                                                        {{-- <th>Aval.Pkt</th>
-                                            <th>Aval.Crt</th> --}}
-                                                                                        {{-- <th>Damage Qty</th> --}}
-                                                                                        {{-- <th>Piece Carton</th> --}}
-                                                                                        <th colspan="3">Trade Price</th>
-                                                                                        {{-- <th>T.P.Pkt</th>
-                                            <th>T.P.Crt</th> --}}
-                                                                                        <th colspan="3">Cash Price</th>
-                                                                                        {{-- <th>Cash.P.Pkt</th>
-                                            <th>Cash.P.Crt</th> --}}
-                                                                                        <th colspan="3">Credit Price</th>
-                                                                                        {{-- <th>Credit.P.Pkt</th>
-                                            <th>Credit.P.Crt</th> --}}
-                                                                                        {{-- <th>Expiry</th> --}}
-                                                                                        {{-- <th>Status</th> --}}
-                                                                                        <th
-                                                                                            class="disabled-sorting text-left">
-                                                                                            Add</th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        {{-- <th>Ref.Id</th> --}}
-                                                                                        <th></th>
-                                                                                        <th>Name</th>
-                                                                                        <th>Barcode</th>
-                                                                                        {{-- <th>Company</th>
-                                            <th>Brand</th> --}}
-                                                                                        {{-- <th>Pc</th>
-                                            <th>Pkt</th>
-                                            <th>Crt</th> --}}
-                                                                                        <th>Pc</th>
-                                                                                        <th>Pkt</th>
-                                                                                        <th>Crt</th>
-                                                                                        {{-- <th>Damage Qty</th> --}}
-                                                                                        {{-- <th>Piece Carton</th> --}}
-                                                                                        <th>Pc</th>
-                                                                                        <th>Pkt</th>
-                                                                                        <th>Crt</th>
-                                                                                        <th>Pc</th>
-                                                                                        <th>Pkt</th>
-                                                                                        <th>Crt</th>
-                                                                                        <th>Pc</th>
-                                                                                        <th>Pkt</th>
-                                                                                        <th>Crt</th>
-                                                                                        {{-- <th>Expiry</th> --}}
-                                                                                        {{-- <th>Status</th> --}}
-                                                                                        <th
-                                                                                            class="disabled-sorting text-left">
-                                                                                            Add</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    {{-- @foreach ($products as $key => $value)
-                                          <tr>
-                                            <td></td>
-                                            <td>{{ $value->product_name }}</td>
-                                            <!-- <td>{ $value->product_ref_no }}</td> -->
-                                            <td>{{ $value->product_barcode }}</td>
-                                            <td>{{ $value->product_pieces_available }}</td>
-                                            <td>{{ $value->product_packets_available }}</td>
-                                            <td>{{ $value->product_cartons_available }}</td>
-                                            <td>{{ $value->product_trade_price_piece }}</td>
-                                            <td>{{ $value->product_trade_price_packet }}</td>
-                                            <td>{{ $value->product_trade_price_carton }}</td>
-                                            <td>{{ $value->product_cash_price_piece }}</td>
-                                            <td>{{ $value->product_cash_price_packet }}</td>
-                                            <td>{{ $value->product_cash_price_carton }}</td>
-                                            <td>{{ $value->product_credit_price_piece }}</td>
-                                            <td>{{ $value->product_credit_price_packet }}</td>
-                                            <td>{{ $value->product_credit_price_carton }}</td>
-                                            <!-- <td>{ $value->product_nonbulk_price_piece }}</td> -->
-                                            <td class="text-right">
-                                              <a type="button" href="{{ route('product.edit', ['product' => $value->product_id,]) }}" rel="tooltip" class="btn btn-info btn-icon btn-sm " data-original-title="+" title="+">
-                                                <i class="fa fa-plus-square"></i>
-                                              </a>
-                                            </td>
-                                          </tr>
-                                          @endforeach --}}
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-3">
-                                                            <button id="submit-btn" type="button"
-                                                                class="btn btn-primary">Submit</button>
+                                        </div>
+                                        </div> --}}
+                                        <div class="row">
+                                            <div class=" col-12 ">
+                                                <div class="form-group">
+                                                    <div class=" col-12">
+                                                        <div class="table-responsive-sm"
+                                                            style="height:500px; overflow-x:auto">
+                                                            <table id="productTable"
+                                                                class="table table-sm table-hover table-striped table-fixed table-bordered dataTable display compact hover order-column">
+                                                                <thead class="thead pos">
+                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
+                                                                    {{-- <tr>
+                                <th>RefID</th>
+                                <th>Barcode</th>
+                                <th>Product</th>
+                                <th>T.P</th>
+                                <th>Cash(Pc)</th>
+                                <th>Cash(Pk)</th>
+                                <th>Credit</th>
+                                <th>Non Bulk</th>
+                                <th>Available</th>
+                                <th>Action</th>
+                                $table->integer('product_total_quantity');
+                            </tr> --}}
+                                                                    <tr>
+                                                                        {{-- <th>Ref.Id</th> --}}
+                                                                        <th></th>
+                                                                        <th colspan="2">Product Info</th>
+                                                                        {{-- <th>Barcode</th> --}}
+                                                                        {{-- <th colspan="2">Company/Brand</th> --}}
+                                                                        {{-- <th>Brand</th> --}}
+                                                                        {{-- <th colspan="3">Total Quantity</th> --}}
+                                                                        {{-- <th>Totl.Pkt</th>
+                            <th>Totl.Crt</th> --}}
+                                                                        <th colspan="3">Aval Quantity</th>
+                                                                        {{-- <th>Aval.Pkt</th>
+                            <th>Aval.Crt</th> --}}
+                                                                        {{-- <th>Damage Qty</th> --}}
+                                                                        {{-- <th>Piece Carton</th> --}}
+                                                                        <th colspan="3">Trade Price</th>
+                                                                        {{-- <th>T.P.Pkt</th>
+                            <th>T.P.Crt</th> --}}
+                                                                        <th colspan="3">Cash Price</th>
+                                                                        {{-- <th>Cash.P.Pkt</th>
+                            <th>Cash.P.Crt</th> --}}
+                                                                        <th colspan="3">Credit Price</th>
+                                                                        {{-- <th>Credit.P.Pkt</th>
+                            <th>Credit.P.Crt</th> --}}
+                                                                        {{-- <th>Expiry</th> --}}
+                                                                        {{-- <th>Status</th> --}}
+                                                                        <th
+                                                                            class="disabled-sorting text-left">
+                                                                            Add</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        {{-- <th>Ref.Id</th> --}}
+                                                                        <th></th>
+                                                                        <th>Name</th>
+                                                                        <th>Barcode</th>
+                                                                        {{-- <th>Company</th>
+                            <th>Brand</th> --}}
+                                                                        {{-- <th>Pc</th>
+                            <th>Pkt</th>
+                            <th>Crt</th> --}}
+                                                                        <th>Pc</th>
+                                                                        <th>Pkt</th>
+                                                                        <th>Crt</th>
+                                                                        {{-- <th>Damage Qty</th> --}}
+                                                                        {{-- <th>Piece Carton</th> --}}
+                                                                        <th>Pc</th>
+                                                                        <th>Pkt</th>
+                                                                        <th>Crt</th>
+                                                                        <th>Pc</th>
+                                                                        <th>Pkt</th>
+                                                                        <th>Crt</th>
+                                                                        <th>Pc</th>
+                                                                        <th>Pkt</th>
+                                                                        <th>Crt</th>
+                                                                        {{-- <th>Expiry</th> --}}
+                                                                        {{-- <th>Status</th> --}}
+                                                                        <th
+                                                                            class="disabled-sorting text-left">
+                                                                            Add</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{-- @foreach ($products as $key => $value)
+                            <tr>
+                            <td></td>
+                            <td>{{ $value->product_name }}</td>
+                            <!-- <td>{ $value->product_ref_no }}</td> -->
+                            <td>{{ $value->product_barcode }}</td>
+                            <td>{{ $value->product_pieces_available }}</td>
+                            <td>{{ $value->product_packets_available }}</td>
+                            <td>{{ $value->product_cartons_available }}</td>
+                            <td>{{ $value->product_trade_price_piece }}</td>
+                            <td>{{ $value->product_trade_price_packet }}</td>
+                            <td>{{ $value->product_trade_price_carton }}</td>
+                            <td>{{ $value->product_cash_price_piece }}</td>
+                            <td>{{ $value->product_cash_price_packet }}</td>
+                            <td>{{ $value->product_cash_price_carton }}</td>
+                            <td>{{ $value->product_credit_price_piece }}</td>
+                            <td>{{ $value->product_credit_price_packet }}</td>
+                            <td>{{ $value->product_credit_price_carton }}</td>
+                            <!-- <td>{ $value->product_nonbulk_price_piece }}</td> -->
+                            <td class="text-right">
+                                <a type="button" href="{{ route('product.edit', ['product' => $value->product_id,]) }}" rel="tooltip" class="btn btn-info btn-icon btn-sm " data-original-title="+" title="+">
+                                <i class="fa fa-plus-square"></i>
+                                </a>
+                            </td>
+                            </tr>
+                            @endforeach --}}
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="mt-3">
+                                            <button id="submit-btn" type="button"
+                                                class="btn btn-primary">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- customer list modal -->
-                                <div id="customer-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true" class="modal fade text-left">
-                                    <div role="document" class="modal-dialog">
-                                        <div class="modal-content-pos">
-                                            <div class="modal-header">
-                                                <h5 id="exampleModalLabel" class="modal-title">Customers List</h5>
-                                                <button type="button" data-dismiss="modal" aria-label="Close"
-                                                    class="close"><span aria-hidden="true"><i
-                                                            class="fa fa-times"></i></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- customer list modal -->
+                <div id="customer-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal fade text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content-pos">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">Customers List</h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="close"><span aria-hidden="true"><i
+                                            class="fa fa-times"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class=" col-6 ">
+                                                <div class="form-group">
+                                                    <label for="customer_name"
+                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __('Customer Name') }}</label>
+                                                    <div class=" col-12 input-group ">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text barcode">
+                                                                <a class="" data-toggle="modal"
+                                                                    data-target="#product-list"
+                                                                    id="product-list-btn"><i
+                                                                        class="fa fa-user"></i></a>
+                                                            </span>
+                                                        </div>
+                                                        {{-- <div class="input-group pos"> --}}
+                                                        <input type="text" name="customer_name"
+                                                            id="customercodesearch"
+                                                            placeholder="Customer Name"
+                                                            class="form-control customercodesearch" />
+                                                        {{-- <select required name="customer_name" id="customer_name" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
+                        @foreach ($customers as $customer)
+                            <option value="{{$customer->id}}">{{$customer->name}}</option>
+                        @endforeach
+                        </select> --}}
+                                                        {{-- </div> --}}
+                                                        @include('alerts.feedback', ['field' =>
+                                                        'customer_name'])
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class=" col-6 ">
-                                                                <div class="form-group">
-                                                                    <label for="customer_name"
-                                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __('Customer Name') }}</label>
-                                                                    <div class=" col-12 input-group ">
-                                                                        <div class="input-group-prepend">
-                                                                            <span class="input-group-text barcode">
-                                                                                <a class="" data-toggle="modal"
-                                                                                    data-target="#product-list"
-                                                                                    id="product-list-btn"><i
-                                                                                        class="fa fa-user"></i></a>
-                                                                            </span>
-                                                                        </div>
-                                                                        {{-- <div class="input-group pos"> --}}
-                                                                        <input type="text" name="customer_name"
-                                                                            id="customercodesearch"
-                                                                            placeholder="Customer Name"
-                                                                            class="form-control customercodesearch" />
-                                                                        {{-- <select required name="customer_name" id="customer_name" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
-                                        @foreach ($customers as $customer)
-                                          <option value="{{$customer->id}}">{{$customer->name}}</option>
-                                        @endforeach
-                                      </select> --}}
-                                                                        {{-- </div> --}}
-                                                                        @include('alerts.feedback', ['field' =>
-                                                                        'customer_name'])
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class=" col-6 ">
-                                                                <div class="form-group">
-                                                                    <label for="customer_code"
-                                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __(' Customer Code') }}</label>
-                                                                    <div class=" col-12 input-group ">
-                                                                        <div class="input-group-prepend">
-                                                                            <span class="input-group-text barcode">
-                                                                                <a class="" id="product-list-btn"><i
-                                                                                        class="fa fa-barcode"></i></a>
-                                                                            </span>
-                                                                        </div>
-                                                                        <input type="hidden" name="customer_code_hidden"
-                                                                            value="customer_code">
-                                                                        {{-- <div class="input-group pos"> --}}
-                                                                        <input type="text" name="customer_code"
-                                                                            id="customercodeSearch"
-                                                                            placeholder="Customer Code"
-                                                                            class="form-control" />
-                                                                        {{-- <select required name="customer_code" id="customer_code" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
-                                        @foreach ($customers as $customer)
-                                          <option value="{{$customer->customer_id}}">{{$customer->customer_name}}</option>
-                                        @endforeach
-                                      </select> --}}
-                                                                        {{-- </div> --}}
-                                                                        @include('alerts.feedback', ['field' =>
-                                                                        'customer_code'])
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                            <div class=" col-6 ">
+                                                <div class="form-group">
+                                                    <label for="customer_code"
+                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __(' Customer Code') }}</label>
+                                                    <div class=" col-12 input-group ">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text barcode">
+                                                                <a class="" id="product-list-btn"><i
+                                                                        class="fa fa-barcode"></i></a>
+                                                            </span>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class=" col-12 ">
-                                                                <div class="form-group">
-                                                                    <div class=" col-12">
-                                                                        <div class="table-responsive-sm"
-                                                                            style="height:300px; overflow-x:hidden">
-                                                                            <table id="myTable"
-                                                                                class="table table-sm table-hover table-striped table-fixed table-bordered display compact order-column">
-                                                                                <thead class="thead pos">
-                                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
-                                                                                    <tr>
-                                                                                        <th>RefID</th>
-                                                                                        <th>Name</th>
-                                                                                        <th>Status</th>
-                                                                                        <th>Action</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    @foreach ($customers as $key => $value)
-                                                                                        <tr>
-                                                                                            <td>{{ $value->customer_ref_no }}
-                                                                                            </td>
-                                                                                            <td>{{ $value->customer_name }}
-                                                                                            </td>
-                                                                                            <td>{{ $value->status_id }}
-                                                                                            </td>
-                                                                                            <td class="text-right">
-                                                                                                <a type="button"
-                                                                                                    href="{{ route('customer.edit', ['customer' => $value->customer_id]) }}"
-                                                                                                    rel="tooltip"
-                                                                                                    class="btn btn-info btn-icon btn-sm "
-                                                                                                    data-original-title="+"
-                                                                                                    title="+">
-                                                                                                    <i
-                                                                                                        class="fa fa-plus-square"></i>
-                                                                                                </a>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    @endforeach
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-3">
-                                                            <button id="submit-btn" type="button"
-                                                                class="btn btn-primary">submit</button>
+                                                        <input type="hidden" name="customer_code_hidden"
+                                                            value="customer_code">
+                                                        {{-- <div class="input-group pos"> --}}
+                                                        <input type="text" name="customer_code"
+                                                            id="customercodeSearch"
+                                                            placeholder="Customer Code"
+                                                            class="form-control" />
+                                                        {{-- <select required name="customer_code" id="customer_code" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
+                        @foreach ($customers as $customer)
+                            <option value="{{$customer->customer_id}}">{{$customer->customer_name}}</option>
+                        @endforeach
+                        </select> --}}
+                                                        {{-- </div> --}}
+                                                        @include('alerts.feedback', ['field' =>
+                                                        'customer_code'])
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-12 ">
+                                                <div class="form-group">
+                                                    <div class=" col-12">
+                                                        <div class="table-responsive-sm"
+                                                            style="height:300px; overflow-x:hidden">
+                                                            <table id="myTable"
+                                                                class="table table-sm table-hover table-striped table-fixed table-bordered display compact order-column">
+                                                                <thead class="thead pos">
+                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
+                                                                    <tr>
+                                                                        <th>RefID</th>
+                                                                        <th>Name</th>
+                                                                        <th>Status</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($customers as $key => $value)
+                                                                        <tr>
+                                                                            <td>{{ $value->customer_ref_no }}
+                                                                            </td>
+                                                                            <td>{{ $value->customer_name }}
+                                                                            </td>
+                                                                            <td>{{ $value->status_id }}
+                                                                            </td>
+                                                                            <td class="text-right">
+                                                                                <a type="button"
+                                                                                    href="{{ route('customer.edit', ['customer' => $value->customer_id]) }}"
+                                                                                    rel="tooltip"
+                                                                                    class="btn btn-info btn-icon btn-sm "
+                                                                                    data-original-title="+"
+                                                                                    title="+">
+                                                                                    <i
+                                                                                        class="fa fa-plus-square"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="mt-3">
+                                            <button id="submit-btn" type="button"
+                                                class="btn btn-primary">submit</button>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                         </div>
                         <div class="card-footer row">
                             <div class="col-6">

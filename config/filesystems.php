@@ -46,12 +46,22 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            // 'permissions' => [
+            //     'file' => [
+            //         'public' => 0664,
+            //         'private' => 0600,
+            //     ],
+            //     'dir' => [
+            //         'public' => 0775,
+            //         'private' => 0700,
+            //     ],
+            // ],
         ],
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path('public'),
+            'url' => env('APP_URL').'/public',
             'visibility' => 'public',
         ],
 
@@ -64,21 +74,18 @@ return [
             'url' => env('AWS_URL'),
         ],
 
-    ],
+        'documents' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/documents'),
+            'url' => env('APP_URL').'/documents',
+            'visibility' => 'public',
+        ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Symbolic Links
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the symbolic links that will be created when the
-    | `storage:link` Artisan command is executed. The array keys should be
-    | the locations of the links and the values should be their targets.
-    |
-    */
+        'links' => [
+            public_path('storage') => storage_path('app/public'),
+            // public_path('storage/documents') => storage_path('app/public/documents'),
+        ],
 
-    'links' => [
-        public_path('storage') => storage_path('app/public'),
     ],
 
 ];

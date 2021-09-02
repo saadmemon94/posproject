@@ -2,7 +2,7 @@
 <!--
 * @version v2.0.1
 * @link https://alsyedstore.com
-* Copyright (c) 2020 
+* Copyright (c) 2020
 -->
 
 <html lang="en">
@@ -50,11 +50,11 @@
     <link href="{{ asset('css/mydatatables.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('css/dataTables.bootstrap.min.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/keyboard.css') }}" rel="stylesheet">
- 
+
     <!-- Main styles for this application-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    
+
     @yield('css')
 
     <!-- Global site tag (gtag.js) - Google Analytics-->
@@ -102,7 +102,7 @@
       }
 
     </style> --}}
-    
+
   </head>
 
 
@@ -117,7 +117,7 @@
       <div class="c-body">
         <main class="c-main">
 
-          @yield('content') 
+          @yield('content')
 
         </main>
         {{-- @include('dashboard.shared.footer') --}}
@@ -133,7 +133,7 @@
     {{-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
     <script src="{{ asset('js/select2.js') }}"></script>
-    
+
     <script>
       $(document).ready(function() {
         clockUpdate();
@@ -179,7 +179,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>  --}}
     <script src="{{ asset('js/jquery.validate.js') }}"></script>
     <script src="{{ asset('js/shortcut.js') }}"></script>
-    <script src="{{ asset('js/jquery.keyboard.js') }}"></script>  
+    <script src="{{ asset('js/jquery.keyboard.js') }}"></script>
     <script src="{{ asset('js/jquery.keyboard.extension-autocomplete.js') }}"></script>
     {{-- <script src="{{ asset('js/parsley.js') }}"></script> --}}
 
