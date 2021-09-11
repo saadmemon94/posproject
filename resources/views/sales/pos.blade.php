@@ -11,7 +11,7 @@
             <ul class="pos-menu list-unstyled d-flex flex-md-row align-items-md-center">
               <li class="nav-item">
                 <a class="navbar-brand" href="#" id="btnFullscreen" title="Full Screen"><i class="fa fa-expand"></i></a>
-              </li> 
+              </li>
               <!-- &nbsp;&nbsp;
               <li class="nav-item">
                 <a class="navbar-brand" class="dropdown-item" href="#" title="POS Setting"><i class="fa fa-cogs"></i></a>
@@ -44,8 +44,8 @@
               </li> -->
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-user"></i> 
-                  <span>{{Auth::user()->name}}</span> 
+                  <i class="fa fa-user"></i>
+                  <span>{{Auth::user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="{{ route('logout') }}"
@@ -71,7 +71,7 @@
                         <source src="{{ asset('assets') }}/beep/beep-07.mp3">
                         </source>
                     </audio>
-                    <div class="">
+                    <div class="___class_+?4___">
                         <div class="header">
                             <center>
                                 <h5 class="title" style="color: #d63031">{{ __(' Sale Counter(POS)') }}</h5>
@@ -123,7 +123,7 @@
                                                             <div class="form-col-12 input-group ">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text barcode">
-                                                                        <a class="" data-toggle="modal"
+                                                                        <a class="___class_+?26___" data-toggle="modal"
                                                                             data-target="#customer-list"
                                                                             id="product-list-btn"><i
                                                                                 class="fa fa-search"></i></a>
@@ -214,7 +214,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-3">
+                                                    <div class="form-last-col-5">
                                                         <div class="form-group">
                                                             <label for="party_balance_dues"
                                                                 class="form-col-12 control-label">{{ __(' Party Balance Dues') }}</label>
@@ -244,7 +244,7 @@
                             </div> --}}
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-2">
+                                                    {{-- <div class="form-last-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_status"
                                                                 class="form-col-12 control-label">{{ __(' Sale Status') }}</label>
@@ -256,24 +256,23 @@
                                                                     <option value="pending">Pending</option>
                                                                     <option value="created">Created</option>
                                                                     <option value="completed">Completed</option>
-                                                                    //completed/pending/created
                                                                 </select>
                                                                 @include('alerts.feedback', ['field' => 'sale_status'])
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     {{-- <div class="form-last-col-2">
-                            <div class="form-group">
-                              <label for="customer_amount_dues" class="form-col-12 control-label">&nbsp;&nbsp;{{__(" Customer Dues")}}</label>
-                              <div class="form-col-12 input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text rs">Rs: </span>
-                                </div>
-                                <input readonly type="number" name="customer_amount_dues" id="customer_balance_dues" class="form-control" value="{{ old('customer_amount_dues', '') }}">
-                                @include('alerts.feedback', ['field' => 'customer_amount_dues'])
-                              </div>
-                            </div>
-                          </div> --}}
+                                                        <div class="form-group">
+                                                        <label for="customer_amount_dues" class="form-col-12 control-label">&nbsp;&nbsp;{{__(" Customer Dues")}}</label>
+                                                        <div class="form-col-12 input-group">
+                                                            <div class="input-group-prepend">
+                                                            <span class="input-group-text rs">Rs: </span>
+                                                            </div>
+                                                            <input readonly type="number" name="customer_amount_dues" id="customer_balance_dues" class="form-control" value="{{ old('customer_amount_dues', '') }}">
+                                                            @include('alerts.feedback', ['field' => 'customer_amount_dues'])
+                                                        </div>
+                                                        </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-first-col-2">
@@ -355,25 +354,27 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-last-col-4">
                                                         <div class="row">
-                                                            <label for=""
-                                                                class="form-col-12 control-label">{{ __('Payterm ') }}&nbsp;&nbsp;{{ ' Credit Limit' }}</label>
+                                                            {{-- <label for=""
+                                                                class="form-col-12 control-label">{{ __('Payterm ') }}&nbsp;&nbsp;{{ ' Credit Limit' }}</label> --}}
                                                             <div class="form-col-6">
-                                                                {{-- <label for="payterm_duratype" class="form-col-12 control-label">{{__("Payterm")}}</label> --}}
+                                                                <label for="payterm_duratype"
+                                                                    class="form-col-12 control-label">{{ __('Payterm') }}</label>
                                                                 <input readonly type="text" name="payterm_duratype"
                                                                     id="payterm_duratype" class="form-control col-12"
                                                                     value="0 Days">
                                                             </div>
-                                                            <div class="form-col-6">
-                                                                {{-- <label for="customer_credit_limit" class=" form-col-12 control-label">{{__("Credit Lim")}}</label> --}}
+                                                            <div class="form-last-col-6">
+                                                                <label for="customer_credit_limit"
+                                                                    class=" form-col-12 control-label">{{ __('Credit Limit') }}</label>
                                                                 <input readonly type="number" name="customer_credit_limit"
                                                                     id="customer_credit_limit" class="form-control col-12"
                                                                     value="0">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-2">
+                                                    {{-- <div class="form-last-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_document"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Upload Doc') }}</label>
@@ -387,7 +388,7 @@
                                                                     class="form-control col-12" value="">
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12">
@@ -401,21 +402,29 @@
                                                                             <tr class="row thead-dark-custom">
                                                                                 <th class="col-2 firstcol" scope="col">
                                                                                     Barcode</th>
-                                                                                <th class="col-3 mycol" scope="col">Product
+                                                                                <th class="col-3 mycol" scope="col">
+                                                                                    Product
                                                                                 </th>
-                                                                                <th class="col-1 mycol" scope="col">Pieces
+                                                                                <th class="col-1 mycol" scope="col">
+                                                                                    Pieces
                                                                                 </th>
-                                                                                <th class="col-1 mycol" scope="col">Packets
+                                                                                <th class="col-1 mycol" scope="col">
+                                                                                    Packets
                                                                                 </th>
-                                                                                <th class="col-1 mycol" scope="col">Cartons
+                                                                                <th class="col-1 mycol" scope="col">
+                                                                                    Cartons
                                                                                 </th>
-                                                                                <th class="col-1 mycol" scope="col">Price
+                                                                                <th class="col-1 mycol" scope="col">
+                                                                                    Price
                                                                                 </th>
-                                                                                <th class="col-1 mycol" scope="col">Discount
+                                                                                <th class="col-1 mycol" scope="col">
+                                                                                    Discount
                                                                                 </th>
-                                                                                <th class="col-1 mycol" scope="col">Total
+                                                                                <th class="col-1 mycol" scope="col">
+                                                                                    Total
                                                                                 </th>
-                                                                                <th class="col-1 lastcol" scope="col">Action
+                                                                                <th class="col-1 lastcol" scope="col">
+                                                                                    Action
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
@@ -436,7 +445,8 @@
                                                                                             <span
                                                                                                 class="input-group-text barcode">
                                                                                                 <a class=""
-                                                                                                    data-toggle="modal"
+                                                                                                    data-toggle="
+                                                                                                    modal"
                                                                                                     data-target="#product-list"
                                                                                                     id="product-list-btn"><i
                                                                                                         class="fa fa-barcode"></i></a>
@@ -454,7 +464,14 @@
                                                                                         <input type="hidden"
                                                                                             name="product_id_i"
                                                                                             id="product_id_i" value="">
+                                                                                        <input type="hidden"
+                                                                                            name="product_company_i"
+                                                                                            id="product_company_i" value="">
+                                                                                        <input type="hidden"
+                                                                                            name="product_brand_i"
+                                                                                            id="product_brand_i" value="">
                                                                                         {{-- <select placeholder="Scan/Search product by name/code" name="product_code_name" id="product_code_name" class="form-control select2-single col-10">
+
                                               select2-single
                                               c-multi-select
                                               js-example-basic-single my-class
@@ -652,21 +669,23 @@
                                                                         </tbody>
                                                                         <tfoot class="thead-dark">
                                                                             <tr class="row tfoot-dark-custom">
-                                                                                <th class="col-8 firstcol" scope="col">
+                                                                                <th class="col-10 firstcol" scope="col">
                                                                                     Remarks</th>
-                                                                                <th class="col-2 mycol" scope="col">Payment
-                                                                                    Status</th>
-                                                                                <th class="col-2 lastcol" scope="col">Return
+                                                                                {{-- <th class="col-2 mycol" scope="col">
+                                                                                    Payment
+                                                                                    Status</th> --}}
+                                                                                <th class="col-2 lastcol" scope="col">
+                                                                                    Return
                                                                                     Change</th>
                                                                             </tr>
                                                                             <tr class="row table-info">
-                                                                                <td class="col-8 firstcol" scope="col">
+                                                                                <td class="col-10 firstcol" scope="col">
                                                                                     <input type="text" name="sale_note"
                                                                                         id="sale_note"
                                                                                         class="form-control col-12"
                                                                                         value="">
                                                                                 </td>
-                                                                                <td class="col-2 mycol" scope="col">
+                                                                                {{-- <td class="col-2 mycol" scope="col">
                                                                                     <select readonly
                                                                                         name="sale_payment_status"
                                                                                         class="selectpicker form-control col-12"
@@ -679,9 +698,8 @@
                                                                                         </option>
                                                                                         <option value="overdue">Overdue
                                                                                         </option>
-                                                                                        //due,paid,partial,overdue,
                                                                                     </select>
-                                                                                </td>
+                                                                                </td> --}}
                                                                                 <td class="col-2 lastcol" scope="col">
                                                                                     <input readonly type="number" min="0"
                                                                                         name="sale_return_change"
@@ -1030,8 +1048,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">Sale Payment</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i
-                                class="fa fa-times"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                            aria-hidden="true"><i class="fa fa-times"></i></span></button>
                 </div>
                 <div class="modal-body">
                     <form method="post" action="{{ route('sale.paymentadd') }}" autocomplete="off"
@@ -1051,8 +1069,9 @@
                                                     <div class="form-col-12 input-group ">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text barcode">
-                                                                <a class="" data-toggle="modal" data-target="#customer-list"
-                                                                    id="product-list-btn"><i class="fa fa-search"></i></a>
+                                                                <a class="___class_+?234___" data-toggle="modal"
+                                                                    data-target="#customer-list" id="product-list-btn"><i
+                                                                        class="fa fa-search"></i></a>
                                                             </span>
                                                         </div>
                                                         {{-- <div class="input-group pos"> --}}
@@ -1155,8 +1174,8 @@
                                                     <div class="form-col-12">
                                                         {{-- <input readonly type="text" name="payment_method" class="form-control col-12" value="{{ old('payment_method', 'Cash') }}"> --}}
                                                         <select required id="payment_method" name="payment_method"
-                                                            class="selectpicker form-control col-12" data-live-search="true"
-                                                            data-live-search-style="begins"
+                                                            class="selectpicker form-control col-12"
+                                                            data-live-search="true" data-live-search-style="begins"
                                                             title="Select Payment Method...">
                                                             <option value="cash">Cash</option>
                                                             <option value="credit">Credit</option>
@@ -1173,8 +1192,9 @@
                                                     <div class="form-col-12">
                                                         {{-- <input readonly type="text" name="payment_type" class="form-control col-12" value="{{ old('payment_type', 'Cash') }}"> --}}
                                                         <select required id="payment_type" name="payment_type"
-                                                            class="selectpicker form-control col-12" data-live-search="true"
-                                                            data-live-search-style="begins" title="Select Payment Type...">
+                                                            class="selectpicker form-control col-12"
+                                                            data-live-search="true" data-live-search-style="begins"
+                                                            title="Select Payment Type...">
                                                             <option value="recieving">Recieving</option>
                                                             <option value="paying">Paying</option>
                                                         </select>
@@ -1211,7 +1231,8 @@
                                                         {{-- <div class="input-group-prepend">
                                             <span class="input-group-text barcode"><i class="fa fa-file-text-o"></i></span>
                                           </div> --}}
-                                                        <input type="date" name="payment_invoice_date" class="form-control"
+                                                        <input type="date" name="payment_invoice_date"
+                                                            class="form-control"
                                                             value="{{ old('payment_invoice_date', '') }}">
                                                         @include('alerts.feedback', ['field' => 'payment_invoice_date'])
                                                     </div>
@@ -1357,218 +1378,6 @@
             </div>
         </div>
     </div>
-    <!-- financial modal -->
-    <div id="financial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        class="modal fade text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">Party Balance Sheet</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i
-                                class="fa fa-times"></i></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="customer_name"
-                                            class=" col-10 control-label">&nbsp;&nbsp;{{ __(' Customer Name') }}</label>
-                                        <div class=" col-12 input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text barcode">
-                                                    <a class="" data-toggle="modal" data-target="#product-list"
-                                                        id="product-list-btn"><i class="fa fa-user"></i></a>
-                                                </span>
-                                            </div>
-                                            <input type="text" name="customer_name" id="lims_productcodeSearch"
-                                                placeholder="Customer by name/code" class="form-control" />
-                                        </div>
-                                        @include('alerts.feedback', ['field' => 'customer_name'])
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class=" col-12 ">
-                                    <div class="form-group">
-                                        <div class=" col-12">
-                                            <div class="table-responsive transaction-list">
-                                                <table id="myTable"
-                                                    class="table table-hover table-striped order-list table-fixed">
-                                                    <thead class="thead-dark" style="position: sticky; top: 0; z-index: 1">
-                                                        <tr>
-                                                            <th class="col-1">RefNo</th>
-                                                            <th class="col-1">Date</th>
-                                                            <th class="col-2">Product</th>
-                                                            <th class="col-2">Transaction</th>
-                                                            <th class="col-1">Total(Rs)</th>
-                                                            <th class="col-1">Paid(Rs)</th>
-                                                            <th class="col-1">Method</th>
-                                                            <th class="col-1">Status</th>
-                                                            <th class="col-2">Balance Amount</th>
-                                                            {{-- <th class="col-1">Debit</th>
-                                              <th class="col-1">Credit</th> --}}
-                                                            {{-- $table->integer('product_total_quantity'); --}}
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="col-1">EP-243</td>
-                                                            <td class="col-1">2021/01/22</td>
-                                                            <td class="col-2">Earphone</td>
-                                                            <td class="col-2">Sale</td>
-                                                            <td class="col-1">2340.00</td>
-                                                            <td class="col-1">5000.00</td>
-                                                            <td class="col-1">Cash</td>
-                                                            <td class="col-1">Paid</td>
-                                                            <td class="col-2">-2660.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-1">MO-451</td>
-                                                            <td class="col-1">2021/01/25</td>
-                                                            <td class="col-2">Mouse</td>
-                                                            <td class="col-2">Purchase</td>
-                                                            <td class="col-1">1470.00</td>
-                                                            <td class="col-1">0.00</td>
-                                                            <td class="col-1">Credit</td>
-                                                            <td class="col-1">Due</td>
-                                                            <td class="col-2">1470.00</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- <div class="row">
-                                <div class="col-6 mt-1">
-                                    <label>Recieved Amount *</label>
-                                    <input type="text" name="paying_amount" class="form-control numkey" required step="any">
-                                </div>
-                                <div class="col-6 mt-1">
-                                    <label>Paying Amount *</label>
-                                    <input type="text" name="paid_amount" class="form-control numkey"  step="any">
-                                </div>
-                                <div class="col-6 mt-1">
-                                    <label>Change : </label>
-                                    <p id="change" class="ml-2">0.00</p>
-                                </div>
-                                <div class="col-6 mt-1">
-                                    <input type="hidden" name="paid_by_id">
-                                    <label>Paid By</label>
-                                    <select name="paid_by_id_select" class="form-control selectpicker">
-                                        <option value="1">Credit Card</option>
-                                        <option value="2">Cash</option>
-                                        <option value="3">Cheque</option>
-                                        <option value="4">Deposit</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-12 mt-3">
-                                    <div class="card-errors" role="alert"></div>
-                                </div>
-                                <div class="form-group col-12 cheque">
-                                    <label>Cheque Number *</label>
-                                    <input type="text" name="cheque_no" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-6 form-group">
-                                    <label>Sale Note</label>
-                                    <textarea rows="3" class="form-control" name="sale_note"></textarea>
-                                </div>
-                                <div class="col-6 form-group">
-                                    <label>Payment Note</label>
-                                    <textarea rows="3" class="form-control" name="payment_note"></textarea>
-                                </div>
-                            </div> --}}
-                            <div class="mt-3">
-                                <button id="submit-btn" type="button" class="btn btn-primary">submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- product list modal -->
     <div id="product-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
         class="modal fade text-left">
@@ -1576,8 +1385,8 @@
             <div class="modal-content-pos">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">Products List</h5>
-                    <button type="button" id="productclose" data-dismiss="modal" aria-label="Close" class="close"><span
-                            aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                    <button type="button" id="productclose" data-dismiss="modal" aria-label="Close"
+                        class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -1721,8 +1530,8 @@
             <div class="modal-content-pos">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">Pending Bill List</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i
-                                class="fa fa-times"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                            aria-hidden="true"><i class="fa fa-times"></i></span></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -1784,326 +1593,15 @@
                                 </div>
                             </div>
                             <!-- <div class="mt-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button id="submit-btn" type="button" class="btn btn-primary">submit</button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button id="submit-btn" type="button" class="btn btn-primary">submit</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {{-- <!-- recent transaction modal -->
-                <div id="recentTransaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                  <div role="document" class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Recent Transaction')}} <div class="badge badge-primary">{{trans('file.latest')}} 10</div></h5>
-                        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                      </div>
-                      <div class="modal-body">
-                          <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                              <a class="nav-link active" href="#sale-latest" role="tab" data-toggle="tab">{{trans('file.Sale')}}</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#draft-latest" role="tab" data-toggle="tab">{{trans('file.Draft')}}</a>
-                            </li>
-                          </ul>
-                          <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane show active" id="sale-latest">
-                                <div class="table-responsive">
-                                  <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th>{{trans('file.date')}}</th>
-                                        <th>{{trans('file.reference')}}</th>
-                                        <th>{{trans('file.customer')}}</th>
-                                        <th>{{trans('file.grand total')}}</th>
-                                        <th>{{trans('file.action')}}</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      @foreach ($recent_sale as $sale)
-                                      ?php $customer = DB::table('customers')->find($sale->customer_id); ?>
-                                      <tr>
-                                        <td>{{date('d-m-Y', strtotime($sale->created_at))}}</td>
-                                        <td>{{$sale->reference_no}}</td>
-                                        <td>{{$customer->name}}</td>
-                                        <td>{{$sale->grand_total}}</td>
-                                        <td>
-                                          <div class="btn-group">
-                                              @if (in_array('sales-edit', $all_permission))
-                                              <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-document-edit"></i></a>&nbsp;
-                                              @endif
-                                              @if (in_array('sales-delete', $all_permission))
-                                              {{ Form::open(['route' => ['sales.destroy', $sale->id], 'method' => 'DELETE'] ) }}
-                                              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()" title="Delete"><i class="fa fa-trash"></i></button>
-                                              {{ Form::close() }}
-                                              @endif
-                                          </div>
-                                        </td>
-                                      </tr>
-                                      @endforeach
-                                    </tbody>
-                                  </table>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="draft-latest">
-                                <div class="table-responsive">
-                                  <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th>{{trans('file.date')}}</th>
-                                        <th>{{trans('file.reference')}}</th>
-                                        <th>{{trans('file.customer')}}</th>
-                                        <th>{{trans('file.grand total')}}</th>
-                                        <th>{{trans('file.action')}}</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      @foreach ($recent_draft as $draft)
-                                      ?php $customer = DB::table('customers')->find($draft->customer_id); ?>
-                                      <tr>
-                                        <td>{{date('d-m-Y', strtotime($draft->created_at))}}</td>
-                                        <td>{{$draft->reference_no}}</td>
-                                        <td>{{$customer->name}}</td>
-                                        <td>{{$draft->grand_total}}</td>
-                                        <td>
-                                          <div class="btn-group">
-                                              @if (in_array('sales-edit', $all_permission))
-                                              <a href="{{url('sales/'.$draft->id.'/create') }}" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-document-edit"></i></a>&nbsp;
-                                              @endif
-                                              @if (in_array('sales-delete', $all_permission))
-                                              {{ Form::open(['route' => ['sales.destroy', $draft->id], 'method' => 'DELETE'] ) }}
-                                              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()" title="Delete"><i class="fa fa-trash"></i></button>
-                                              {{ Form::close() }}
-                                              @endif
-                                          </div>
-                                        </td>
-                                      </tr>
-                                      @endforeach
-                                    </tbody>
-                                  </table>
-                                </div>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- add cash register modal -->
-                <div id="cash-register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                    <div role="document" class="modal-dialog">
-                      <div class="modal-content">
-                        {!! Form::open(['route' => 'cashRegister.store', 'method' => 'post']) !!}
-                        <div class="modal-header">
-                          <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Cash Register')}}</h5>
-                          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        </div>
-                        <div class="modal-body">
-                          <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                            <div class="row">
-                              <div class="col-6 form-group warehouse-section">
-                                  <label>{{trans('file.Warehouse')}} *</strong> </label>
-                                  <select required name="product_warehouse" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
-                                      @foreach ($lims_warehouse_list as $warehouse)
-                                      <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                      @endforeach
-                                  </select>
-                              </div>
-                              <div class="col-6 form-group">
-                                  <label>{{trans('file.Cash in Hand')}} *</strong> </label>
-                                  <input type="number" name="cash_in_hand" required class="form-control">
-                              </div>
-                              <div class="col-12 form-group">
-                                  <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
-                              </div>
-                            </div>
-                        </div>
-                        {{ Form::close() }}
-                      </div>
-                    </div>
-                </div>
-                <!-- cash register details modal -->
-                <div id="register-details-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                    <div role="document" class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Cash Register Details')}}</h5>
-                          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        </div>
-                        <div class="modal-body">
-                          <p>{{trans('file.Please review the transaction and payments.')}}</p>
-                            <div class="row">
-                                <div class="col-12">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                              <td>{{trans('file.Cash in Hand')}}:</td>
-                                              <td id="cash_in_hand" class="text-right">0</td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Total Sale Amount')}}:</td>
-                                              <td id="total_sale_amount" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Total Payment')}}:</td>
-                                              <td id="total_payment" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Cash Payment')}}:</td>
-                                              <td id="cash_payment" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Credit Card Payment')}}:</td>
-                                              <td id="credit_card_payment" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Cheque Payment')}}:</td>
-                                              <td id="cheque_payment" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Gift Card Payment')}}:</td>
-                                              <td id="gift_card_payment" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Paypal Payment')}}:</td>
-                                              <td id="paypal_payment" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Total Sale Return')}}:</td>
-                                              <td id="total_sale_return" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Total Expense')}}:</td>
-                                              <td id="total_expense" class="text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td><strong>{{trans('file.Total Cash')}}:</strong></td>
-                                              <td id="total_cash" class="text-right"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-6" id="closing-section">
-                                  <form action="{{route('cashRegister.close')}}" method="POST">
-                                      @csrf
-                                      <input type="hidden" name="cash_register_id">
-                                      <button type="submit" class="btn btn-primary">{{trans('file.Close Register')}}</button>
-                                  </form>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <!-- today sale modal -->
-                <div id="today-sale-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                    <div role="document" class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Today Sale')}}</h5>
-                          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        </div>
-                        <div class="modal-body">
-                          <p>{{trans('file.Please review the transaction and payments.')}}</p>
-                            <div class="row">
-                                <div class="col-12">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                              <td>{{trans('file.Total Sale Amount')}}:</td>
-                                              <td class="total_sale_amount text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Cash Payment')}}:</td>
-                                              <td class="cash_payment text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Credit Card Payment')}}:</td>
-                                              <td class="credit_card_payment text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Cheque Payment')}}:</td>
-                                              <td class="cheque_payment text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Gift Card Payment')}}:</td>
-                                              <td class="gift_card_payment text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Paypal Payment')}}:</td>
-                                              <td class="paypal_payment text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Total Payment')}}:</td>
-                                              <td class="total_payment text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Total Sale Return')}}:</td>
-                                              <td class="total_sale_return text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Total Expense')}}:</td>
-                                              <td class="total_expense text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td><strong>{{trans('file.Total Cash')}}:</strong></td>
-                                              <td class="total_cash text-right"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <!-- today profit modal -->
-                <div id="today-profit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                    <div role="document" class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Today Profit')}}</h5>
-                          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <select required name="warehouseId" class="form-control">
-                                        <option value="0">{{trans('file.All Warehouse')}}</option>
-                                        @foreach ($lims_warehouse_list as $warehouse)
-                                        <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                              <td>{{trans('file.Product Revenue')}}:</td>
-                                              <td class="product_revenue text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Product Cost')}}:</td>
-                                              <td class="product_cost text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td>{{trans('file.Expense')}}:</td>
-                                              <td class="expense_amount text-right"></td>
-                                            </tr>
-                                            <tr>
-                                              <td><strong>{{trans('file.Profit')}}:</strong></td>
-                                              <td class="profit text-right"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                </div> --}}
+
     <hr class="half-rule" />
     {{-- </form> --}}
     </div>
@@ -2170,7 +1668,6 @@
                 }
             });
         });
-
     </script>
 
     <script type="text/javascript">
@@ -2195,7 +1692,8 @@
         var row_product_price;
         var pos;
 
-        var rownum = <?php echo $i; ?>;    $(document).ready(function(e) {
+        var rownum = <?php echo $i; ?>;
+        $(document).ready(function(e) {
             $('#customercodesearch').focus();
         });
 
@@ -2205,6 +1703,8 @@
             var product_name = $('#product_name_i').val();
             var product_ref = $('#product_code_i').val();
             var product_id = $('#product_id_i').val();
+            var product_company = $('#product_company_i').val();
+            var product_brand = $('#product_brand_i').val();
             // var product_namecode = product_name+product_ref;
             product_ref = product_name.split(',')[1];
             product_name = product_name.split(',')[0];
@@ -2212,9 +1712,9 @@
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
-            // var years = date.getFullYear();  
-            // var months = date.getMonth() + 1; 
-            // var days = date.getDate(); 
+            // var years = date.getFullYear();
+            // var months = date.getMonth() + 1;
+            // var days = date.getDate();
             // var dateString = date.toLocaleDateString();
             // var dateString = days + "/" + months + "/" + years;
             var timeString = date.toLocaleTimeString();
@@ -2223,7 +1723,7 @@
             hours >= 12 ? amPm = "PM" : amPm = "AM";
             hours > 12 && (hours = hours - 12);
             // var time2 = hours + ":" + minutes + ":" + amPm;
-            var time2 = `${hours}:${minutes}${amPm}`;
+            var time2 = `${hours}:${minutes}:${seconds}${amPm}`;
             var punch_time = " <" + time1 + ">";
             var punch_time2 = time2;
             // var punch_time = " <" + "{{ \Carbon\Carbon::now()->format('g:i:s A') }}" + ">"
@@ -2276,6 +1776,8 @@
             $('#product_name_i').val('');
             $('#product_code_i').val('');
             $('#product_id_i').val(0);
+            $('#product_company_i').val('');
+            $('#product_brand_i').val('');
             $('#sale_products_pieces_i').val(0);
             $('#sale_products_packets_i').val(0);
             $('#sale_products_cartons_i').val(0);
@@ -2309,8 +1811,8 @@
                 // var product_sub_total = $('#sale_products_sub_total').val();
 
                 // product_sub_total = product_unit_price * (Number(product_quantity)) - Number(product_discount);
-                product_sub_total = ((Number(product_pieces) * product_unit_price) + (product_packets *
-                    product_packet_price) + (product_cartons * product_carton_price)) - Number(
+                product_sub_total = ((Number(product_pieces) * product_unit_price) + (Number(product_packets) *
+                    product_packet_price) + (Number(product_cartons) * product_carton_price)) - Number(
                     product_discount);
 
                 if (product_quantity == 0) {
@@ -2333,6 +1835,10 @@
                     rownum + '" class="form-control col-12 p-row-' + rownum + '" value=' + product_ref +
                     '><input readonly type="hidden" name="product_id[]" id="product_id' + rownum +
                     '" class="form-control col-12 p-row-' + rownum + '" value=' + product_id +
+                    '><input readonly type="hidden" name="product_company[]" id="product_company' +
+                    rownum + '" class="form-control col-12 p-row-' + rownum + '" value=' + product_company +
+                    '><input readonly type="hidden" name="product_brand[]" id="product_brand' +
+                    rownum + '" class="form-control col-12 p-row-' + rownum + '" value=' + product_brand +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_pieces[]" id="sale_products_pieces' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '" value=' +
                     product_pieces +
@@ -2399,6 +1905,15 @@
                 $('#sale_grandtotal_price').val(grandtotal_amount);
                 customer_balance_dues3 = Number(customer_balance_dues2) + Number(grandtotal_amount);
                 $('#customer_balance_dues2').val(customer_balance_dues3);
+                var sale_payment_method = $('#sale_payment_method').val();
+                var customer_credit_limit = $('#customer_credit_limit').val();
+                if (sale_payment_method == 'credit') {
+                    // if (customer_balance_dues2 > customer_credit_limit) {
+                    if (customer_balance_dues3 > customer_credit_limit) {
+                        alert('Sum of Total Amount & Dues should be less than Credit limit');
+                        // $('#sale_amount_recieved').val(0);
+                    }
+                }
                 if (sale_amount_recieved >= grandtotal_amount) {
                     sale_return_change = Number(sale_amount_recieved) - Number(grandtotal_amount);
                     $('#sale_return_change').val(sale_return_change);
@@ -2466,6 +1981,8 @@
             if (Number(sale_amount_recieved) >= Number(grandtotal_amount)) {
                 sale_return_change = Number(sale_amount_recieved) - Number(grandtotal_amount);
                 $('#sale_return_change').val(sale_return_change);
+            } else {
+                $('#sale_return_change').val(0);
             }
 
             // if (Number(sale_amount_recieved) < Number(grandtotal_amount)) {
@@ -2539,8 +2056,10 @@
             $('#pending').val(1);
         });
 
-        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;    var productsnames_array = <?php echo json_encode($nameArray); ?>;    var productsnamescodes_array = <?php echo json_encode(
-        $namecodeArray); ?> ; // $(document).on('focus', "#sale_products_pieces_i", function(e){
+        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;
+        var productsnames_array = <?php echo json_encode($nameArray); ?>;
+        var productsnamescodes_array =
+            <?php echo json_encode($namecodeArray); ?>; // $(document).on('focus', "#sale_products_pieces_i", function(e){
         //   sale_product_name = $('#product_name_i').val();
         //   data = sale_product_name.split(',')[0];
         //   console.log(data);
@@ -2617,6 +2136,8 @@
                     var catchproduct_code = data[0]['product_ref_no'];
                     catchproduct_name = catchproduct_name + ", " + catchproduct_code;
                     var catchproduct_id = data[0]['product_id'];
+                    var catchproduct_company = data[0]['product_company'];
+                    var catchproduct_brand = data[0]['product_brand'];
                     var catchproduct_pieces = data[0]['product_pieces_available'];
                     var catchproduct_packets = data[0]['product_packets_available'];
                     var catchproduct_cartons = data[0]['product_cartons_available'];
@@ -2626,6 +2147,7 @@
                     var product_cash_price_piece = data[0]['product_cash_price_piece'];
                     var product_credit_price_piece = data[0]['product_credit_price_piece'];
                     var product_nonbulk_price_piece = data[0]['product_nonbulk_price_piece'];
+
                     var product_cash_price_packet = data[0]['product_cash_price_packet'];
                     var product_credit_price_packet = data[0]['product_credit_price_packet'];
                     var product_nonbulk_price_packet = data[0]['product_nonbulk_price_packet'];
@@ -2646,6 +2168,10 @@
                     $('#product_code_i').val(catchproduct_code);
                     $('#product_id_i').val('');
                     $('#product_id_i').val(catchproduct_id);
+                    $('#product_company_i').val('');
+                    $('#product_company_i').val(catchproduct_company);
+                    $('#product_brand_i').val('');
+                    $('#product_brand_i').val(catchproduct_brand);
                     // $('#sale_products_pieces_i').attr('max', maxproduct_pieces);
                     // $('#sale_products_packets_i').attr('max', maxproduct_packets);
                     // $('#sale_products_cartons_i').attr('max', maxproduct_cartons);
@@ -2717,7 +2243,7 @@
                     // '_token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     var catchproduct_pieces = data[0]['product_pieces_available'];
                     var sale_products_pieces = $('#sale_products_pieces_i').val();
                     var catchproduct_packets = data[0]['product_packets_available'];
@@ -2759,7 +2285,7 @@
                     // '_token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     var catchproduct_pieces = data[0]['product_pieces_available'];
                     var sale_products_pieces = $('#sale_products_pieces_i').val();
                     var catchproduct_packets = data[0]['product_packets_available'];
@@ -2799,7 +2325,7 @@
                     // '_token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     var catchproduct_pieces = data[0]['product_pieces_available'];
                     var sale_products_pieces = $('#sale_products_pieces_i').val();
                     var catchproduct_packets = data[0]['product_packets_available'];
@@ -2873,7 +2399,7 @@
 
         $("#sale_products_barcode_i").on('change', function() {
             setTimeout(function() {
-                console.log('barcode entered');
+                // console.log('barcode entered');
                 // $("#product_name_i").focus();
                 // $('#product_name_i').trigger('click');
             }, 1000);
@@ -2972,7 +2498,9 @@
             });
         }
 
-        var customersnames_array = <?php echo json_encode($snameArray); ?>;    var customersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;    $("#customercodesearch").on('focus', function() {
+        var customersnames_array = <?php echo json_encode($snameArray); ?>;
+        var customersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;
+        $("#customercodesearch").on('focus', function() {
             // $("#customercodesearch" ).autocomplete({
             $(this).autocomplete({
                 source: customersnamescodes_array,
@@ -3070,7 +2598,7 @@
         // onfocus="PosEnd(idText);"
         $(document).on('focus', '#sale_products_pieces_i', function(e) {
             // /* Creating a function called PosEnd
-            //  in JavaScript to place the cursor 
+            //  in JavaScript to place the cursor
             //  at the end */
             //  function PosEnd('sale_products_pieces_i') {
             //     var len = end.value.length;
@@ -3356,7 +2884,7 @@
         //     setTimeout(function(){newWin.close();},10);
         // });
 
-        // function auto_print() {     
+        // function auto_print() {
         //     window.print()
         // }
         // setTimeout(auto_print, 1000);
@@ -3506,7 +3034,6 @@
             $('#product_name_i').focus();
 
         });
-
     </script>
 
 @endsection

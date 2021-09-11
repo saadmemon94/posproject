@@ -55,7 +55,7 @@
                                                             <div class="form-col-12 input-group ">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text barcode">
-                                                                        <a class="" data-toggle="modal"
+                                                                        <a class="" data-toggle=" modal"
                                                                             data-target="#customer-list"
                                                                             id="product-list-btn"><i
                                                                                 class="fa fa-search"></i></a>
@@ -126,7 +126,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="customer_amount_paid"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Customer Paid') }}</label>
@@ -142,7 +142,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-last-col-3">
                                                         <div class="form-group">
                                                             <label for="customer_amount_dues"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __('Customer Dues') }}</label>
@@ -158,7 +158,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-2">
+                                                    {{-- <div class="form-last-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_status"
                                                                 class="form-col-12 control-label">{{ __(' Return Status') }}</label>
@@ -169,12 +169,11 @@
                                                                     title="Sale Status">
                                                                     <option value="pending">Pending</option>
                                                                     <option value="completed">Completed</option>
-                                                                    //completed/pending
                                                                 </select>
                                                                 @include('alerts.feedback', ['field' => 'sale_status'])
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-first-col-2">
@@ -196,7 +195,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="sale_invoice_id"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __('Sale Invoice ID') }}</label>
@@ -211,7 +210,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="sale_invoice_date"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Return Date') }}</label>
@@ -228,7 +227,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    {{-- <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_document"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Upload Doc') }}</label>
@@ -243,7 +242,7 @@
                                                                     value="{{ old('sale_document', '') }}">
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="payterm_duratype"
@@ -286,7 +285,8 @@
                                                                         <th class="col-1 mycol" scope="col">Packets</th>
                                                                         <th class="col-1 mycol" scope="col">Cartons</th>
                                                                         <th class="col-1 mycol" scope="col">Price</th>
-                                                                        <th class="col-1 mycol" scope="col">Discount</th>
+                                                                        <th class="col-1 mycol" scope="col">Discount
+                                                                        </th>
                                                                         <th class="col-1 mycol" scope="col">Total</th>
                                                                         <th class="col-1 lastcol" scope="col">Action</th>
                                                                     </tr>
@@ -307,7 +307,7 @@
                                                                             <div class="col-12 mytblcol input-group">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text barcode">
-                                                                                        <a class="" data-toggle="modal"
+                                                                                        <a class="" data-toggle=" modal"
                                                                                             data-target="#product-list"
                                                                                             id="product-list-btn"><i
                                                                                                 class="fa fa-barcode"></i></a>
@@ -324,6 +324,13 @@
                                                                                 <input type="hidden" name="product_id_i"
                                                                                     id="product_id_i"
                                                                                     value="{{ old('product_id_i', '') }}">
+                                                                                <input type="hidden"
+                                                                                    name="product_company_i"
+                                                                                    id="product_company_i"
+                                                                                    value="{{ old('product_company_i', '') }}">
+                                                                                <input type="hidden" name="product_brand_i"
+                                                                                    id="product_brand_i"
+                                                                                    value="{{ old('product_brand_i', '') }}">
                                                                                 {{-- <select placeholder="Scan/Search product by name/code" name="product_code_name" id="product_code_name" class="form-control select2-single col-10">
                                         select2-single
                                         c-multi-select
@@ -375,8 +382,13 @@
                                                                             <input readonly type="text"
                                                                                 name="sale_products_unit_price_i"
                                                                                 id="sale_products_unit_price_i"
-                                                                                class="form-control col-12"
-                                                                                value="{{ old('sale_products_unit_price_i', '0') }}">
+                                                                                class="form-control col-12" value="0">
+                                                                            <input readonly type="hidden"
+                                                                                name="sale_products_packet_price_i"
+                                                                                id="sale_products_packet_price_i" value="0">
+                                                                            <input readonly type="hidden"
+                                                                                name="sale_products_carton_price_i"
+                                                                                id="sale_products_carton_price_i" value="0">
                                                                         </td>
                                                                         <td class="col-1 mycol" scope="col">
                                                                             <input type="text"
@@ -416,7 +428,8 @@
                                                                         {{-- <th class="col-3 mycol" scope="col" style="text-align: center">Invoice Date</th> --}}
                                                                         {{-- <th class="col-2 mycol" scope="col">Document</th> --}}
                                                                         <th class="col-8 firstcol" scope="col">Remarks</th>
-                                                                        <th class="col-2 mycol" scope="col">Payment Status
+                                                                        <th class="col-2 mycol" scope="col">Payment
+                                                                            Status
                                                                         </th>
                                                                         <th class="col-2 lastcol" scope="col">Recieved
                                                                             Change</th>
@@ -436,12 +449,12 @@
                                                                         {{-- <td class="col-2 mycol" scope="col">
                                     <input type="file" name="sale_document" id="sale_document" class="form-control col-12" value="{{ old('sale_document', '') }}">
                                   </td> --}}
-                                                                        <td class="col-8 firstcol" scope="col">
+                                                                        <td class="col-10 firstcol" scope="col">
                                                                             <input type="text" name="sale_note"
                                                                                 id="sale_note" class="form-control col-12"
                                                                                 value="{{ old('sale_note'), '' }}">
                                                                         </td>
-                                                                        <td class="col-2 mycol" scope="col">
+                                                                        {{-- <td class="col-2 mycol" scope="col">
                                                                             <select name="sale_payment_status"
                                                                                 class="selectpicker form-control col-12"
                                                                                 data-live-search="true"
@@ -451,9 +464,8 @@
                                                                                 <option value="paid">Paid</option>
                                                                                 <option value="partial">Partial</option>
                                                                                 <option value="overdue">Overdue</option>
-                                                                                //due,paid,partial,overdue,
                                                                             </select>
-                                                                        </td>
+                                                                        </td> --}}
                                                                         <td class="col-2 lastcol" scope="col">
                                                                             <input readonly type="number" min="0"
                                                                                 name="sale_return_change"
@@ -468,12 +480,14 @@
                                                                             Items</th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Total Qty</th>
-                                                                        <th colspan="2" class="col-2 mycol" scope="col">Free
+                                                                        <th colspan="2" class="col-2 mycol" scope="col">
+                                                                            Free
                                                                             Pcs / Free Amount</th>
                                                                         {{-- <th class="col-1 mycol" scope="col">Free Amount</th> --}}
                                                                         <th colspan="1" class="col-2 mycol" scope="col">
                                                                             Total</th>
-                                                                        <th colspan="1" class="col-1 mycol" scope="col">Add
+                                                                        <th colspan="1" class="col-1 mycol" scope="col">
+                                                                            Add
                                                                         </th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Discount</th>
@@ -601,7 +615,8 @@
                                                 <div class="modal-header">
                                                     <h5 id="exampleModalLabel" class="modal-title">Products List</h5>
                                                     <button type="button" id="productclose" data-dismiss="modal"
-                                                        aria-label="Close" class="close"><span aria-hidden="true"><i
+                                                        aria-label="Close" class="close"><span
+                                                            aria-hidden="true"><i
                                                                 class="fa fa-times"></i></span></button>
                                                 </div>
                                                 <div class="modal-body">
@@ -771,7 +786,7 @@
                                                                         <div class=" col-12 input-group ">
                                                                             <div class="input-group-prepend">
                                                                                 <span class="input-group-text barcode">
-                                                                                    <a class="" data-toggle="modal"
+                                                                                    <a class="" data-toggle=" modal"
                                                                                         data-target="#product-list"
                                                                                         id="product-list-btn"><i
                                                                                             class="fa fa-user"></i></a>
@@ -800,7 +815,8 @@
                                                                         <div class=" col-12 input-group ">
                                                                             <div class="input-group-prepend">
                                                                                 <span class="input-group-text barcode">
-                                                                                    <a class="" id="product-list-btn"><i
+                                                                                    <a class="" id="
+                                                                                        product-list-btn"><i
                                                                                             class="fa fa-barcode"></i></a>
                                                                                 </span>
                                                                             </div>
@@ -921,7 +937,8 @@
         var row_product_price;
         var pos;
 
-        var rownum = <?php echo $i; ?>;    $(document).ready(function(e) {
+        var rownum = <?php echo $i; ?>;
+        $(document).ready(function(e) {
             $('#customercodesearch').focus();
         });
         $(document).on('click', '#add_button', function(e) {
@@ -930,6 +947,8 @@
             var product_name = $('#product_name_i').val();
             var product_ref = $('#product_code_i').val();
             var product_id = $('#product_id_i').val();
+            var product_company = $('#product_company_i').val();
+            var product_brand = $('#product_brand_i').val();
             // var product_namecode = product_name+product_ref;
             product_ref = product_name.split(',')[1];
             product_name = product_name.split(',')[0];
@@ -937,6 +956,8 @@
             var product_packets = $('#sale_products_packets_i').val();
             var product_cartons = $('#sale_products_cartons_i').val();
             var product_unit_price = $('#sale_products_unit_price_i').val();
+            var product_packet_price = $('#sale_products_packet_price_i').val();
+            var product_carton_price = $('#sale_products_carton_price_i').val();
             var product_discount = $('#sale_products_discount_i').val();
             var pieces_per_carton = $('#pieces_per_carton').val();
             var pieces_per_packet = $('#pieces_per_packet').val();
@@ -952,6 +973,9 @@
 
             product_quantity = Number(product_pieces) + (product_packets * pieces_per_packet) + (product_cartons *
                 pieces_per_carton);
+
+            product_sub_total = ((Number(product_pieces) * product_unit_price) + (product_packets *
+                product_packet_price) + (product_cartons * product_carton_price)) - Number(product_discount);
 
             var allRows = [];
             var repeated;
@@ -971,7 +995,9 @@
             $('#sale_products_barcode_i').val('');
             $('#product_name_i').val('');
             $('#product_code_i').val('');
-            $('#product_id_i').val('');
+            $('#product_id_i').val(0);
+            $('#product_company_i').val('');
+            $('#product_brand_i').val('');
             $('#sale_products_pieces_i').val(0);
             $('#sale_products_packets_i').val(0);
             $('#sale_products_cartons_i').val(0);
@@ -979,16 +1005,21 @@
             $('#sale_packets_per_carton_i').val(0);
             $('#sale_pieces_per_carton_i').val(0);
             $('#sale_products_unit_price_i').val(0);
+            $('#sale_products_packet_price_i').val(0);
+            $('#sale_products_carton_price_i').val(0);
             $('#sale_products_discount_i').val(0);
             $('#sale_products_sub_total_i').val(0);
 
-            if (product_name !== "" && product_quantity !== 0 && product_unit_price !== 0 && repeated !== 1) {
+            if (product_name !== "" && product_quantity !== 0 && (product_unit_price !== 0 ||
+                    product_packet_price !== 0 || product_carton_price !== 0) && repeated !== 1) {
 
                 // product_quantity = Number(product_pieces)+(product_packets*pieces_per_packet)+(product_cartons*pieces_per_carton);
 
                 if (product_quantity == 0 || product_unit_price == 0) {
                     product_discount = 0;
                     product_unit_price = 0;
+                    product_packet_price = 0;
+                    product_carton_price = 0;
                 }
 
                 total_items = Number(total_items) + 1;
@@ -996,14 +1027,18 @@
                 total_discount = Number(total_discount) + Number(product_discount);
                 // var product_sub_total = $('#sale_products_sub_total').val();
 
-                product_sub_total = product_unit_price * (Number(product_quantity)) - Number(product_discount);
+                // product_sub_total = product_unit_price * (Number(product_quantity)) - Number(product_discount);
+                product_sub_total = ((Number(product_pieces) * product_unit_price) + (Number(product_packets) *
+                    product_packet_price) + (Number(product_cartons) * product_carton_price)) - Number(
+                    product_discount);
+
                 if (product_quantity == 0) {
                     product_sub_total = 0;
                 }
                 subtotal_amount = Number(subtotal_amount) + Number(product_sub_total);
                 grandtotal_amount = Number(subtotal_amount) + Number(sale_free_amount) + Number(sale_add_amount);
 
-                $('.sale-product').append(
+                $('.sale-product').prepend(
                     '<tr class="row prtr"><td class="col-2 firstcol" scope="col"><input readonly type="text" name="sale_products_barcode[]" id="sale_products_barcode' +
                     rownum + '" class="form-control col-12" placeholder="Scan/Search barcode" value=' +
                     product_barcode +
@@ -1013,6 +1048,10 @@
                     rownum + '" class="form-control col-12" value=' + product_ref +
                     '><input readonly type="hidden" name="product_id[]" id="product_id' + rownum +
                     '" class="form-control col-12" value=' + product_id +
+                    '><input readonly type="hidden" name="product_company[]" id="product_company' +
+                    rownum + '" class="form-control col-12 p-row-' + rownum + '" value=' + product_company +
+                    '><input readonly type="hidden" name="product_brand[]" id="product_brand' +
+                    rownum + '" class="form-control col-12 p-row-' + rownum + '" value=' + product_brand +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_pieces[]" id="sale_products_pieces' +
                     rownum + '" class="form-control col-12" value=' + product_pieces +
                     '><input readonly type="hidden" name="sale_pieces_per_packet[]" id="sale_pieces_per_packet' +
@@ -1027,6 +1066,10 @@
                     rownum + '" class="form-control col-12" value=' + pieces_per_carton +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_unit_price[]" id="sale_products_unit_price' +
                     rownum + '" class="form-control col-12"  value=' + product_unit_price +
+                    '><input readonly type="hidden" name="sale_products_packet_price[]" id="sale_products_packet_price' +
+                    rownum + '" class="form-control col-12"  value=' + product_packet_price +
+                    '><input readonly type="hidden" name="sale_products_carton_price[]" id="sale_products_carton_price' +
+                    rownum + '" class="form-control col-12"  value=' + product_carton_price +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_discount[]" id="sale_products_discount' +
                     rownum + '" class="form-control col-12"  value=' + product_discount +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_sub_total[]" id="sale_products_sub_total' +
@@ -1146,7 +1189,10 @@
         //   productSearch4(data);
         // });
 
-        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;    var productsnames_array = <?php echo json_encode($nameArray); ?>;    var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;    $("#product_name_i").on('focus', function() {
+        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;
+        var productsnames_array = <?php echo json_encode($nameArray); ?>;
+        var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;
+        $("#product_name_i").on('focus', function() {
             // $( "product_name" ).autocomplete({
             $(this).autocomplete({
                 source: productsnamescodes_array,
@@ -1203,6 +1249,8 @@
                     var catchproduct_code = data[0]['product_ref_no'];
                     catchproduct_name = catchproduct_name + ", " + catchproduct_code;
                     var catchproduct_id = data[0]['product_id'];
+                    var catchproduct_company = data[0]['product_company'];
+                    var catchproduct_brand = data[0]['product_brand'];
                     var catchproduct_pieces = data[0]['product_pieces_available'];
                     var catchproduct_packets = data[0]['product_packets_available'];
                     var catchproduct_cartons = data[0]['product_cartons_available'];
@@ -1211,6 +1259,15 @@
                     var packets_per_carton = data[0]['product_packet_per_carton'];
                     var product_cash_price_piece = data[0]['product_cash_price_piece'];
                     var product_credit_price_piece = data[0]['product_credit_price_piece'];
+                    var product_nonbulk_price_piece = data[0]['product_nonbulk_price_piece'];
+
+                    var product_cash_price_packet = data[0]['product_cash_price_packet'];
+                    var product_credit_price_packet = data[0]['product_credit_price_packet'];
+                    var product_nonbulk_price_packet = data[0]['product_nonbulk_price_packet'];
+
+                    var product_cash_price_carton = data[0]['product_cash_price_carton'];
+                    var product_credit_price_carton = data[0]['product_credit_price_carton'];
+                    var product_nonbulk_price_carton = data[0]['product_nonbulk_price_carton'];
                     var maxproduct_pieces =
                         catchproduct_pieces; //+(catchproduct_cartons*pieces_per_carton)+(catchproduct_packets*pieces_per_packet);
                     var maxproduct_packets = catchproduct_packets; //+(catchproduct_cartons*packets_per_carton);
@@ -1225,6 +1282,10 @@
                     $('#product_code_i').val(catchproduct_code);
                     $('#product_id_i').val('');
                     $('#product_id_i').val(catchproduct_id);
+                    $('#product_company_i').val('');
+                    $('#product_company_i').val(catchproduct_company);
+                    $('#product_brand_i').val('');
+                    $('#product_brand_i').val(catchproduct_brand);
                     // $('#sale_products_pieces_i').attr('max', maxproduct_pieces);
                     // $('#sale_products_packets_i').attr('max', maxproduct_packets);
                     // $('#sale_products_cartons_i').attr('max', maxproduct_cartons);
@@ -1240,12 +1301,24 @@
                     if (sale_rate == 'credit') {
                         $('#sale_products_unit_price_i').val(0);
                         $('#sale_products_unit_price_i').val(product_credit_price_piece);
+                        $('#sale_products_packet_price_i').val(0);
+                        $('#sale_products_packet_price_i').val(product_credit_price_packet);
+                        $('#sale_products_carton_price_i').val(0);
+                        $('#sale_products_carton_price_i').val(product_credit_price_carton);
                     } else if (sale_rate == 'cash') {
                         $('#sale_products_unit_price_i').val(0);
                         $('#sale_products_unit_price_i').val(product_cash_price_piece);
+                        $('#sale_products_packet_price_i').val(0);
+                        $('#sale_products_packet_price_i').val(product_cash_price_packet);
+                        $('#sale_products_carton_price_i').val(0);
+                        $('#sale_products_carton_price_i').val(product_cash_price_carton);
                     } else if (sale_rate == 'nonbulk') {
                         $('#sale_products_unit_price_i').val(0);
                         $('#sale_products_unit_price_i').val(product_nonbulk_price_piece);
+                        $('#sale_products_packet_price_i').val(0);
+                        $('#sale_products_packet_price_i').val(product_nonbulk_price_packet);
+                        $('#sale_products_carton_price_i').val(0);
+                        $('#sale_products_carton_price_i').val(product_nonbulk_price_carton);
                     }
 
                     barcodeSearch2(catchproduct_id);
@@ -1504,7 +1577,9 @@
             });
         }
 
-        var customersnames_array = <?php echo json_encode($snameArray); ?>;    var customersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;    $("#customercodesearch").on('focus', function() {
+        var customersnames_array = <?php echo json_encode($snameArray); ?>;
+        var customersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;
+        $("#customercodesearch").on('focus', function() {
             // $("#customercodesearch" ).autocomplete({
             $(this).autocomplete({
                 source: customersnamescodes_array,
@@ -1896,7 +1971,6 @@
             $('#product_name_i').focus();
 
         });
-
     </script>
 
 @endsection

@@ -12,12 +12,12 @@
             <div class="col-12">
               @if (Session::has('message'))
                 <div class="alert alert-success alert-block alert-dismissible fade show w-100 ml-auto" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>    
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
                     <strong>{{Session::get('message') }}</strong>
                 </div>
               @elseif(Session::has('error'))
                 <div class="alert alert-danger alert-block alert-dismissible fade show w-100 ml-auto" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>    
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
                   <strong>{{Session::get('error') }}</strong>
                 </div>
               @endif
@@ -59,24 +59,38 @@
                   {{-- <th class="disabled-sorting text-center">Edit</th> --}}
                 </tr>
               </thead>
-              {{-- <tfoot>
+              <tfoot>
                 <tr>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center">Total:</th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
+                    <th style="text-align:center"></th>
                 </tr>
-              </tfoot> --}}
+               </tfoot>
               {{-- <tbody>
                 @foreach ($salereturns as $key => $value)
                 <tr>
                   <td>{{ $value->sale_return_return_id }}</td>
                   <td>{{ $value->sale_return_return_ref_no }}</td>
-                  <td>{{ $value->customer_name }}</td> 
+                  <td>{{ $value->customer_name }}</td>
                   <td>{{ $value->sale_return_return_status }}</td>
                   <td>{{ $value->sale_return_return_invoice_date }}</td>
                   <td>{{ $value->sale_return_return_grandtotal_price }}</td>
                   <td>{{ $value->sale_return_return_amount_return }}</td>
                   <td>{{ $value->sale_return_return_amount_dues }}</td>
-                  <td>{{ $value->sale_return_return_payment_method }}</td> 
+                  <td>{{ $value->sale_return_return_payment_method }}</td>
                   <td>{{ $value->sale_return_return_payment_status }}</td>
-                  <td>{{ $value->sale_return_return_invoice_id }}</td> 
+                  <td>{{ $value->sale_return_return_invoice_id }}</td>
                   <td>{{ $value->sale_return_return_invoice_date }}</td>
                   <-- <td>{{ $value->customer_credit_duration." ".$value->customer_credit_type }}</td>
                   <td class="text-right">
@@ -116,7 +130,7 @@
         ajax: '{{ route('api.salereturn_row_details') }}',
         columns: [
           { className: 'dt-body-center', data: 'DT_RowIndex', name: 'DT_RowIndex'},
-          { width:'25%', className: 'dt-body-center', data: 'customer_name', name: 'customer_name' },
+          { {{-- width:'25%', --}} className: 'dt-body-center', data: 'customer_name', name: 'customer_name' },
           { className: 'dt-body-center', data: 'sale_return_ref_no', name: 'sale_return_ref_no' },
           { className: 'dt-body-center', data: 'sale_return_status', name: 'sale_return_status' },
           { className: 'dt-body-center', data: 'sale_return_total_items', name: 'sale_return_total_items' },
@@ -126,9 +140,9 @@
           { className: 'dt-body-center', data: 'sale_return_amount_dues', name: 'sale_return_amount_dues' },
           { className: 'dt-body-center', data: 'sale_return_payment_method', name: 'sale_return_payment_method' },
           { className: 'dt-body-center', data: 'sale_return_payment_status', name: 'sale_return_payment_status' },
-          { width:'25%', className: 'dt-body-center', data: 'sale_return_invoice_id', name: 'sale_return_invoice_id' },
-          { width:'25%', className: 'dt-body-center', data: 'sale_return_invoice_date', name: 'sale_return_invoice_date' },
-          { width:'25%', className: 'dt-body-center', data: 'name', name: 'name' },
+          { {{-- width:'25%', --}} className: 'dt-body-center', data: 'sale_return_invoice_id', name: 'sale_return_invoice_id' },
+          { {{-- width:'25%', --}} className: 'dt-body-center', data: 'sale_return_invoice_date', name: 'sale_return_invoice_date' },
+          { {{-- width:'25%', --}} className: 'dt-body-center', data: 'name', name: 'name' },
           // { className: 'dt-body-center', data: 'action', name: 'action'},
           // { data: 'warehouse_name', name: 'warehouse_name' },
           // { data: 'action', name: 'action', orderable: false, searchable: false }
@@ -177,9 +191,65 @@
                 columns: ':gt(0)'
             }
         ],
-        drawCallback: function () {
-            var api = this.api();
+        // drawCallback: function () {
+        //     var api = this.api();
+        // },
+        footerCallback: function(row, data, start, end, display) {
+            var api = this.api(),
+                data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function(i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+
+            // Total over all pages
+            total_1 = api
+                .column(4)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_2 = api
+                .column(5)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_3 = api
+                .column(6)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_4 = api
+                .column(7)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_5 = api
+                .column(8)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(4).footer()).html(total_1);
+            $(api.column(5).footer()).html(total_2);
+            $(api.column(6).footer()).html(total_3.toFixed(2));
+            $(api.column(7).footer()).html(total_4.toFixed(2));
+            $(api.column(8).footer()).html(total_5.toFixed(2));
+
         },
+
       });
       //  create index for table at columns zero
       // dt.on('order.dt search.dt', function () {
@@ -188,7 +258,7 @@
       //         // dt.cell(cell).invalidate('dom');
       //     });
       // }).draw();
-  
+
 </script>
 
 @endsection

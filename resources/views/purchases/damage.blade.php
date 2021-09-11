@@ -34,20 +34,12 @@
                                                             @endforeach
                                                         </select>
                                                         @include('alerts.feedback', ['field' => 'product_company'])
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-last-col-3">
-                                                <div class="form-group">
-                                                    <label for="save-btn"
-                                                        class=" col-12 control-label">&nbsp;&nbsp;{{ __('') }}</label>
-                                                    <div class=" col-12">
                                                         <button type="submit" id="save-btn"
                                                             class="btn btn-info btn-round pull-right">{{ __('Print Company Now') }}</button>
                                                     </div>
                                                 </div>
-
                                             </div>
+                                            <div class="form-last-col-3"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +54,7 @@
                                         <th class="text-center">Product Name</th>
                                         <th class="text-center">Company</th>
                                         <th class="text-center">Brand</th>
-                                        <th class="text-center">Product Quantity</th>
+                                        <th class="text-center">Product Quantity(Pcs)</th>
                                         <th class="text-center">Product Damage</th>
                                     </tr>
                                 </thead>
@@ -78,10 +70,17 @@
                 </tr>
                 @endforeach
               </tbody> --}}
-                                {{-- <tfoot>
-                <tr>
-                </tr>
-              </tfoot> --}}
+                                <tfoot>
+                                    <tr>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center">Total:</th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                         <!-- end content-->
@@ -209,8 +208,39 @@
                     columns: ':gt(0)'
                 }
             ],
-            drawCallback: function() {
-                var api = this.api();
+            // drawCallback: function() {
+            //     var api = this.api();
+            // },
+            footerCallback: function(row, data, start, end, display) {
+                var api = this.api(),
+                    data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total_1 = api
+                    .column(5)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                total_2 = api
+                    .column(6)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                $(api.column(5).footer()).html(total_1+' pcs');
+                $(api.column(6).footer()).html(total_2+' pcs');
+
             },
         });
         // //  create index for table at columns zero

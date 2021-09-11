@@ -12,12 +12,12 @@
             <div class="col-12">
               @if (Session::has('message'))
                 <div class="alert alert-success alert-block alert-dismissible fade show w-100 ml-auto" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>    
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
                     <strong>{{Session::get('message') }}</strong>
                 </div>
               @elseif(Session::has('error'))
                 <div class="alert alert-danger alert-block alert-dismissible fade show w-100 ml-auto" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>    
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
                   <strong>{{Session::get('error') }}</strong>
                 </div>
               @endif
@@ -28,51 +28,65 @@
               <!--        Here you can write extra buttons/actions for the toolbar              -->
             </div>
             <table id="purchaseTable" class="table table-sm table-striped table-bordered dataTable display compact hover order-column" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th colspan="1" class="text-center">Supplier</th>
-                  <th colspan="2" class="text-center">Purchase Info</th>
-                  <th colspan="2" class="text-center">Total Items/Qty</th>
-                  <th colspan="3" class="text-center">Purchase Amount</th>
-                  <th colspan="2" class="text-center">Payment Info</th>
-                  <th colspan="2" class="text-center">Invoice Info</th>
-                  <th colspan="1" class="disabled-sorting text-center">Actions</th>
-                </tr>
-                <tr>
-                  <th class="text-center">S.No</th>
-                  <th class="text-center">Name</th>
-                  <th class="text-center">Ref_No</th>
-                  <th class="text-center">Status</th>
-                  <th class="text-center">Items</th>
-                  <th class="text-center">Quantity</th>
-                  <th class="text-center">Total</th>
-                  <th class="text-center">Paid</th>
-                  <th class="text-center">Dues</th>
-                  <th class="text-center">Method</th>
-                  <th class="text-center">Status</th>
-                  <th class="text-center">Inv.No</th>
-                  <th class="text-center">Inv Date</th>
-                  {{-- <th>Warehouse</th> --}}
-                  <th class="disabled-sorting text-center">Edit</th>
-                </tr>
-              </thead>
-              {{-- <tfoot>
-                <tr>
-                </tr>
-              </tfoot> --}}
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th colspan="1" class="text-center">Supplier</th>
+                        <th colspan="2" class="text-center">Purchase Info</th>
+                        <th colspan="2" class="text-center">Total Items/Qty</th>
+                        <th colspan="3" class="text-center">Purchase Amount</th>
+                        <th colspan="2" class="text-center">Payment Info</th>
+                        <th colspan="2" class="text-center">Invoice Info</th>
+                        <th colspan="1" class="disabled-sorting text-center">Actions</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">S.No</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Ref_No</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Items</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center">Paid</th>
+                        <th class="text-center">Dues</th>
+                        <th class="text-center">Method</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Inv.No</th>
+                        <th class="text-center">Inv Date</th>
+                        {{-- <th>Warehouse</th> --}}
+                        <th class="disabled-sorting text-center">Edit</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center">Total:</th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                        <th style="text-align:center"></th>
+                    </tr>
+                </tfoot>
               {{-- <tbody>
                 @foreach ($purchases as $key => $value)
                 <tr>
                   <td>{{ $value->purchase_id }}</td>
                   <td>{{ $value->purchase_ref_no }}</td>
-                  <td>{{ $value->supplier_name}}</td> 
+                  <td>{{ $value->supplier_name}}</td>
                   <td>{{ $value->purchase_status }}</td>
                   <-- <td>{{ $value->purchase_date }}</td> -->
                   <td>{{ $value->purchase_grandtotal_price }}</td>
                   <td>{{ $value->purchase_amount_paid }}</td>
                   <td>{{ $value->purchase_amount_dues }}</td>
-                  <td>{{ $value->purchase_payment_method }}</td> 
+                  <td>{{ $value->purchase_payment_method }}</td>
                   <td>{{ $value->purchase_payment_status }}</td>
                   <td>{{ $value->purchase_invoice_id }}</td>
                   <td>{{ $value->purchase_invoice_date }}</td>
@@ -186,8 +200,63 @@
                 columns: ':gt(0)'
             }
         ],
-        drawCallback: function () {
-            var api = this.api();
+        // drawCallback: function () {
+        //     var api = this.api();
+        // },
+        footerCallback: function(row, data, start, end, display) {
+            var api = this.api(),
+                data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function(i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+
+            // Total over all pages
+            total_1 = api
+                .column(4)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_2 = api
+                .column(5)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_3 = api
+                .column(6)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_4 = api
+                .column(7)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            total_5 = api
+                .column(8)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(4).footer()).html(total_1);
+            $(api.column(5).footer()).html(total_2);
+            $(api.column(6).footer()).html(total_3.toFixed(2));
+            $(api.column(7).footer()).html(total_4.toFixed(2));
+            $(api.column(8).footer()).html(total_5.toFixed(2));
+
         },
       });
 

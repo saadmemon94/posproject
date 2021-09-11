@@ -72,7 +72,7 @@
                                                             <div class="form-col-12 input-group ">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text barcode">
-                                                                        <a class="" data-toggle="modal"
+                                                                        <a class="" data-toggle=" modal"
                                                                             data-target="#customer-list"
                                                                             id="product-list-btn"><i
                                                                                 class="fa fa-user"></i></a>
@@ -118,13 +118,12 @@
                                                             <div class="form-col-12">
                                                                 <input readonly type="text" name="customer_status"
                                                                     id="customer_status" class="form-control col-12"
-                                                                    value="@if ($customer->status_id
-                                                            == 1) Active @else Inactive @endif">
+                                                                    value="@if ($customer->status_id == 1) Active @else Inactive @endif">
                                                                 @include('alerts.feedback', ['field' => 'customer_status'])
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="sale_amount_paid"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Sale Amount Paid') }}</label>
@@ -142,7 +141,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-last-col-3">
                                                         <div class="form-group">
                                                             <label for="sale_amount_dues"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Sale Dues') }}</label>
@@ -160,7 +159,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-2">
+                                                    {{-- <div class="form-last-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_status"
                                                                 class="form-col-12 control-label">{{ __(' Sale Status') }}</label>
@@ -169,19 +168,17 @@
                                                                     class="selectpicker form-control col-12"
                                                                     data-live-search="true" data-live-search-style="begins"
                                                                     title="Sale Status">
-                                                                    <option @if ($sale->sale_status == 'pending') selected @endif
-                                                                        value="pending">Pending</option>
-                                                                    <option @if ($sale->sale_status == 'created') selected @endif
-                                                                        value="created">Created</option>
-                                                                    <option @if ($sale->sale_status == 'completed') selected @endif
-                                                                        value="completed">Completed</option>
-                                                                    {{-- <option value="completed">Completed</option> --}}
-                                                                    //completed/pending/created
+                                                                    <option @if ($sale->sale_status == 'pending') selected @endif value="pending">Pending
+                                                                    </option>
+                                                                    <option @if ($sale->sale_status == 'created') selected @endif value="created">Created
+                                                                    </option>
+                                                                    <option @if ($sale->sale_status == 'completed') selected @endif value="completed">
+                                                                        Completed</option>
                                                                 </select>
                                                                 @include('alerts.feedback', ['field' => 'sale_status'])
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-first-col-2">
@@ -197,10 +194,10 @@
                                                                     title="Select Payment Method...">
                                                                     <option @if ($sale->sale_payment_method == 'cash') selected @endif value="cash">
                                                                         Cash</option>
-                                                                    <option @if ($sale->sale_payment_method == 'credit') selected @endif
-                                                                        value="credit">Credit</option>
-                                                                    <option @if ($sale->sale_payment_method == 'nonbulk') selected @endif
-                                                                        value="nonbulk">Non Bulk</option>
+                                                                    <option @if ($sale->sale_payment_method == 'credit') selected @endif value="credit">Credit
+                                                                    </option>
+                                                                    <option @if ($sale->sale_payment_method == 'nonbulk') selected @endif value="nonbulk">Non
+                                                                        Bulk</option>
                                                                 </select>
                                                                 @include('alerts.feedback', ['field' =>
                                                                 'sale_payment_method'])
@@ -208,19 +205,19 @@
                                                         </div>
                                                     </div>
                                                     {{-- <div class="form-col-2">
-                          <div class="form-group">
-                            <label for="sale_invoice_id" class="form-col-12 control-label">&nbsp;&nbsp;{{__(" Invoice ID")}}</label>
-                              <div class="form-col-12">
-                                <div class="myrow">
-                                  <input readonly type="text" name="sale_invoice_id" class="form-control form-col-10" value="{{ $sale->sale_invoice_id }}">
-                                  <button type="button" href="{{ route('sale.edit', ['sale' => 1,]) }}" class="btn btn-sm btn-warning btn-icon form-col-2" title="Re-Open">
-                                    <i class="fa fa-file-text-o"></i>
-                                  </button>
-                                </div>
-                                @include('alerts.feedback', ['field' => 'sale_invoice_id'])
-                              </div>
-                          </div>
-                        </div> --}}
+                                                    <div class="form-group">
+                                                        <label for="sale_invoice_id" class="form-col-12 control-label">&nbsp;&nbsp;{{__(" Invoice ID")}}</label>
+                                                        <div class="form-col-12">
+                                                            <div class="myrow">
+                                                            <input readonly type="text" name="sale_invoice_id" class="form-control form-col-10" value="{{ $sale->sale_invoice_id }}">
+                                                            <button type="button" href="{{ route('sale.edit', ['sale' => 1,]) }}" class="btn btn-sm btn-warning btn-icon form-col-2" title="Re-Open">
+                                                                <i class="fa fa-file-text-o"></i>
+                                                            </button>
+                                                            </div>
+                                                            @include('alerts.feedback', ['field' => 'sale_invoice_id'])
+                                                        </div>
+                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-col-3">
                                                         <div class="form-group">
                                                             {{-- <label for="available_stock" class=" form-col-12 control-label">{{__(" Available Pcs/Pkts/Crtns")}}</label> --}}
@@ -249,14 +246,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="sale_invoice_date"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Sale/Invoice Date') }}</label>
                                                             <div class="form-col-12 input-group ">
                                                                 {{-- <div class="input-group-prepend">
-                                <span class="input-group-text barcode"><i class="fa fa-file-text-o"></i></span>
-                              </div> --}}
+                                                                    <span class="input-group-text barcode"><i class="fa fa-file-text-o"></i></span>
+                                                                </div> --}}
                                                                 <input readonly type="date" name="sale_invoice_date"
                                                                     class="form-control"
                                                                     value="{{ $sale->sale_invoice_date }}">
@@ -265,7 +262,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-3">
+                                                    <div class="form-last-col-4">
                                                         <div class="row">
                                                             <div class="form-col-6">
                                                                 <label for="payterm_duratype"
@@ -276,7 +273,7 @@
                                                                         value="0 Days">
                                                                 </div>
                                                             </div>
-                                                            <div class="form-col-6">
+                                                            <div class="form-last-col-6">
                                                                 <label for="customer_credit_limit"
                                                                     class=" form-col-12 control-label">{{ __(' Credit Limit') }}</label>
                                                                 <div class=" form-col-12">
@@ -288,7 +285,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-2">
+                                                    {{-- <div class="form-last-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_document"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Upload Document') }}</label>
@@ -303,7 +300,7 @@
                                                                     value="{{ $sale->sale_document }}">
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -326,7 +323,8 @@
                                                                         <th class="col-1 mycol" scope="col">Pkts</th>
                                                                         <th class="col-1 mycol" scope="col">Crtns</th>
                                                                         <th class="col-1 mycol" scope="col">Price</th>
-                                                                        <th class="col-1 mycol" scope="col">Discount</th>
+                                                                        <th class="col-1 mycol" scope="col">Discount
+                                                                        </th>
                                                                         <th class="col-1 mycol" scope="col">Total</th>
                                                                         <th class="col-1 lastcol" scope="col">Action</th>
                                                                     </tr>
@@ -343,25 +341,17 @@
                                                                     ?>
                                                                     @foreach ($saleproducts as $singlesaleproduct)
                                                                         <?php
-                                                                        $myproduct_quantity =
-                                                                        $singlesaleproduct->sale_quantity_total;
-                                                                        $myproduct_discount =
-                                                                        $singlesaleproduct->sale_trade_discount;
-                                                                        $myproduct_unit_price =
-                                                                        $singlesaleproduct->sale_trade_price_piece;
-
+                                                                        $myproduct_quantity = $singlesaleproduct->sale_quantity_total;
+                                                                        $myproduct_discount = $singlesaleproduct->sale_trade_discount;
+                                                                        $myproduct_unit_price = $singlesaleproduct->sale_trade_price_piece;
+                                                                        
                                                                         $mytotal_items = $j;
-                                                                        $mytotal_quantity = $mytotal_quantity +
-                                                                        $myproduct_quantity;
-                                                                        $mytotal_discount = $mytotal_discount +
-                                                                        $myproduct_discount;
-
-                                                                        $myproduct_sub_total =
-                                                                        $singlesaleproduct->sale_product_sub_total;
-                                                                        $mysubtotal_amount = $mysubtotal_amount +
-                                                                        $myproduct_sub_total;
-                                                                        $mygrandtotal_amount = $mysubtotal_amount +
-                                                                        $sale->sale_free_amount + $sale->sale_add_amount;
+                                                                        $mytotal_quantity = $mytotal_quantity + $myproduct_quantity;
+                                                                        $mytotal_discount = $mytotal_discount + $myproduct_discount;
+                                                                        
+                                                                        $myproduct_sub_total = $singlesaleproduct->sale_product_sub_total;
+                                                                        $mysubtotal_amount = $mysubtotal_amount + $myproduct_sub_total;
+                                                                        $mygrandtotal_amount = $mysubtotal_amount + $sale->sale_free_amount + $sale->sale_add_amount;
                                                                         $j++;
                                                                         ?>
                                                                     @endforeach
@@ -492,7 +482,8 @@
                                                                             <div class="col-12 mytblcol input-group">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text barcode">
-                                                                                        <a class="" data-toggle="modal"
+                                                                                        <a class="___class_+?150___"
+                                                                                            data-toggle="modal"
                                                                                             data-target="#product-list"
                                                                                             id="product-list-btn"><i
                                                                                                 class="fa fa-barcode"></i></a>
@@ -614,12 +605,14 @@
                                                                             Items</th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Total Qty</th>
-                                                                        <th colspan="2" class="col-2 mycol" scope="col">Free
+                                                                        <th colspan="2" class="col-2 mycol" scope="col">
+                                                                            Free
                                                                             Pcs / Free Amount</th>
                                                                         {{-- <th class="col-1 mycol" scope="col">Free Amount</th> --}}
                                                                         <th colspan="1" class="col-2 mycol" scope="col">
                                                                             Total</th>
-                                                                        <th colspan="1" class="col-1 mycol" scope="col">Add
+                                                                        <th colspan="1" class="col-1 mycol" scope="col">
+                                                                            Add
                                                                         </th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Discount</th>
@@ -690,15 +683,15 @@
                                                                     </tr>
                                                         </div>
                                                         </thead>
-                                                        <tbody class="">
+                                                        <tbody class="___class_+?206___">
                                                         </tbody>
                                                         <tfoot class="thead-dark">
                                                             <tr class="row tfoot-dark-custom">
                                                                 {{-- <th class="col-1 mycol" scope="col">Invoice Id</th> --}}
                                                                 {{-- <th class="col-3 mycol" scope="col" style="text-align: center">Invoice Date</th> --}}
                                                                 {{-- <th class="col-2 mycol" scope="col">Document</th> --}}
-                                                                <th class="col-8 firstcol" scope="col">Remarks</th>
-                                                                <th class="col-2 mycol" scope="col">Payment Status</th>
+                                                                <th class="col-10 firstcol" scope="col">Remarks</th>
+                                                                {{-- <th class="col-2 mycol" scope="col">Payment Status</th> --}}
                                                                 <th class="col-2 lastcol" scope="col">Invoice ID</th>
                                                             </tr>
                                                             <tr class="row table-info">
@@ -716,12 +709,12 @@
                                                                 {{-- <td class="col-2 mycol" scope="col">
                                     <input type="file" name="sale_document" id="sale_document" class="form-control col-12" value="{{ old('sale_document', '') }}">
                                   </td> --}}
-                                                                <td class="col-8 firstcol" scope="col">
+                                                                <td class="col-10 firstcol" scope="col">
                                                                     <input type="text" name="sale_note" id="sale_note"
                                                                         class="form-control col-12"
                                                                         value="{{ $sale->sale_note }}">
                                                                 </td>
-                                                                <td class="col-2 mycol" scope="col">
+                                                                {{-- <td class="col-2 mycol" scope="col">
                                                                     <select readonly name="sale_payment_status"
                                                                         class="selectpicker form-control col-12"
                                                                         data-live-search="true"
@@ -731,9 +724,8 @@
                                                                         <option value="paid">Paid</option>
                                                                         <option value="partial">Partial</option>
                                                                         <option value="overdue">Overdue</option>
-                                                                        //due,paid,partial,overdue,
                                                                     </select>
-                                                                </td>
+                                                                </td> --}}
                                                                 <td class="col-2 lastcol" scope="col">
                                                                     <input readonly type="text" name="sale_invoice_id"
                                                                         class="form-control form-col-12"
@@ -791,8 +783,8 @@
                                         </div>
                                     </div>
                                 </div>
-                <!-- payment modal -->
-                {{-- <div id="add-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                                <!-- payment modal -->
+                                {{-- <div id="add-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                   <div role="document" class="modal-dialog">
                       <div class="modal-content">
                           <div class="modal-header">
@@ -864,289 +856,291 @@
                       </div>
                   </div>
                 </div> --}}
-                <!-- product list modal -->
-                <div id="product-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true" class="modal fade text-left">
-                    <div role="document" class="modal-dialog">
-                        <div class="modal-content-pos">
-                            <div class="modal-header">
-                                <h5 id="exampleModalLabel" class="modal-title">Products List</h5>
-                                <button type="button" id="productclose" data-dismiss="modal"
-                                    aria-label="Close" class="close"><span aria-hidden="true"><i
-                                            class="fa fa-times"></i></span></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        {{-- <div class="row">
-                                        <div class=" col-12 ">
-                                            <div class="search-box form-group">
-                                            <label for="product_code_name" class=" col-10 control-label">&nbsp;&nbsp;{{__(" Search Product")}}</label>
-                                                <div class="col-12">
-                                                <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Scan/Search product by name/code" class="form-control"  />
-                                                </div>
-                                                @include('alerts.feedback', ['field' => 'product_code_name'])
+                                <!-- product list modal -->
+                                <div id="product-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true" class="modal fade text-left">
+                                    <div role="document" class="modal-dialog">
+                                        <div class="modal-content-pos">
+                                            <div class="modal-header">
+                                                <h5 id="exampleModalLabel" class="modal-title">Products List</h5>
+                                                <button type="button" id="productclose" data-dismiss="modal"
+                                                    aria-label="Close" class="close"><span aria-hidden="true"><i
+                                                            class="fa fa-times"></i></span></button>
                                             </div>
-                                        </div>
-                                        </div> --}}
-                                        <div class="row">
-                                            <div class=" col-12 ">
-                                                <div class="form-group">
-                                                    <div class=" col-12">
-                                                        <div class="table-responsive-sm"
-                                                            style="height:500px; overflow-x:auto">
-                                                            <table id="productTable"
-                                                                class="table table-sm table-hover table-striped table-fixed table-bordered dataTable display compact hover order-column">
-                                                                <thead class="thead pos">
-                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
-                                                                    {{-- <tr>
-                                <th>RefID</th>
-                                <th>Barcode</th>
-                                <th>Product</th>
-                                <th>T.P</th>
-                                <th>Cash(Pc)</th>
-                                <th>Cash(Pk)</th>
-                                <th>Credit</th>
-                                <th>Non Bulk</th>
-                                <th>Available</th>
-                                <th>Action</th>
-                                $table->integer('product_total_quantity');
-                            </tr> --}}
-                                                                    <tr>
-                                                                        {{-- <th>Ref.Id</th> --}}
-                                                                        <th></th>
-                                                                        <th colspan="2">Product Info</th>
-                                                                        {{-- <th>Barcode</th> --}}
-                                                                        {{-- <th colspan="2">Company/Brand</th> --}}
-                                                                        {{-- <th>Brand</th> --}}
-                                                                        {{-- <th colspan="3">Total Quantity</th> --}}
-                                                                        {{-- <th>Totl.Pkt</th>
-                            <th>Totl.Crt</th> --}}
-                                                                        <th colspan="3">Aval Quantity</th>
-                                                                        {{-- <th>Aval.Pkt</th>
-                            <th>Aval.Crt</th> --}}
-                                                                        {{-- <th>Damage Qty</th> --}}
-                                                                        {{-- <th>Piece Carton</th> --}}
-                                                                        <th colspan="3">Trade Price</th>
-                                                                        {{-- <th>T.P.Pkt</th>
-                            <th>T.P.Crt</th> --}}
-                                                                        <th colspan="3">Cash Price</th>
-                                                                        {{-- <th>Cash.P.Pkt</th>
-                            <th>Cash.P.Crt</th> --}}
-                                                                        <th colspan="3">Credit Price</th>
-                                                                        {{-- <th>Credit.P.Pkt</th>
-                            <th>Credit.P.Crt</th> --}}
-                                                                        {{-- <th>Expiry</th> --}}
-                                                                        {{-- <th>Status</th> --}}
-                                                                        <th
-                                                                            class="disabled-sorting text-left">
-                                                                            Add</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        {{-- <th>Ref.Id</th> --}}
-                                                                        <th></th>
-                                                                        <th>Name</th>
-                                                                        <th>Barcode</th>
-                                                                        {{-- <th>Company</th>
-                            <th>Brand</th> --}}
-                                                                        {{-- <th>Pc</th>
-                            <th>Pkt</th>
-                            <th>Crt</th> --}}
-                                                                        <th>Pc</th>
-                                                                        <th>Pkt</th>
-                                                                        <th>Crt</th>
-                                                                        {{-- <th>Damage Qty</th> --}}
-                                                                        {{-- <th>Piece Carton</th> --}}
-                                                                        <th>Pc</th>
-                                                                        <th>Pkt</th>
-                                                                        <th>Crt</th>
-                                                                        <th>Pc</th>
-                                                                        <th>Pkt</th>
-                                                                        <th>Crt</th>
-                                                                        <th>Pc</th>
-                                                                        <th>Pkt</th>
-                                                                        <th>Crt</th>
-                                                                        {{-- <th>Expiry</th> --}}
-                                                                        {{-- <th>Status</th> --}}
-                                                                        <th
-                                                                            class="disabled-sorting text-left">
-                                                                            Add</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {{-- @foreach ($products as $key => $value)
-                            <tr>
-                            <td></td>
-                            <td>{{ $value->product_name }}</td>
-                            <!-- <td>{ $value->product_ref_no }}</td> -->
-                            <td>{{ $value->product_barcode }}</td>
-                            <td>{{ $value->product_pieces_available }}</td>
-                            <td>{{ $value->product_packets_available }}</td>
-                            <td>{{ $value->product_cartons_available }}</td>
-                            <td>{{ $value->product_trade_price_piece }}</td>
-                            <td>{{ $value->product_trade_price_packet }}</td>
-                            <td>{{ $value->product_trade_price_carton }}</td>
-                            <td>{{ $value->product_cash_price_piece }}</td>
-                            <td>{{ $value->product_cash_price_packet }}</td>
-                            <td>{{ $value->product_cash_price_carton }}</td>
-                            <td>{{ $value->product_credit_price_piece }}</td>
-                            <td>{{ $value->product_credit_price_packet }}</td>
-                            <td>{{ $value->product_credit_price_carton }}</td>
-                            <!-- <td>{ $value->product_nonbulk_price_piece }}</td> -->
-                            <td class="text-right">
-                                <a type="button" href="{{ route('product.edit', ['product' => $value->product_id,]) }}" rel="tooltip" class="btn btn-info btn-icon btn-sm " data-original-title="+" title="+">
-                                <i class="fa fa-plus-square"></i>
-                                </a>
-                            </td>
-                            </tr>
-                            @endforeach --}}
-                                                                </tbody>
-                                                            </table>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        {{-- <div class="row">
+                                                        <div class=" col-12 ">
+                                                            <div class="search-box form-group">
+                                                            <label for="product_code_name" class=" col-10 control-label">&nbsp;&nbsp;{{__(" Search Product")}}</label>
+                                                                <div class="col-12">
+                                                                <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Scan/Search product by name/code" class="form-control"  />
+                                                                </div>
+                                                                @include('alerts.feedback', ['field' => 'product_code_name'])
+                                                            </div>
+                                                        </div>
+                                                        </div> --}}
+                                                        <div class="row">
+                                                            <div class=" col-12 ">
+                                                                <div class="form-group">
+                                                                    <div class=" col-12">
+                                                                        <div class="table-responsive-sm"
+                                                                            style="height:500px; overflow-x:auto">
+                                                                            <table id="productTable"
+                                                                                class="table table-sm table-hover table-striped table-fixed table-bordered dataTable display compact hover order-column">
+                                                                                <thead class="thead pos">
+                                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
+                                                                                    {{-- <tr>
+                                                                                    <th>RefID</th>
+                                                                                    <th>Barcode</th>
+                                                                                    <th>Product</th>
+                                                                                    <th>T.P</th>
+                                                                                    <th>Cash(Pc)</th>
+                                                                                    <th>Cash(Pk)</th>
+                                                                                    <th>Credit</th>
+                                                                                    <th>Non Bulk</th>
+                                                                                    <th>Available</th>
+                                                                                    <th>Action</th>
+                                                                                    $table->integer('product_total_quantity');
+                                                                                </tr> --}}
+                                                                                    <tr>
+                                                                                        {{-- <th>Ref.Id</th> --}}
+                                                                                        <th></th>
+                                                                                        <th colspan="2">Product Info</th>
+                                                                                        {{-- <th>Barcode</th> --}}
+                                                                                        {{-- <th colspan="2">Company/Brand</th> --}}
+                                                                                        {{-- <th>Brand</th> --}}
+                                                                                        {{-- <th colspan="3">Total Quantity</th> --}}
+                                                                                        {{-- <th>Totl.Pkt</th>
+                                                                                        <th>Totl.Crt</th> --}}
+                                                                                        <th colspan="3">Aval Quantity</th>
+                                                                                        {{-- <th>Aval.Pkt</th>
+                                                                                        <th>Aval.Crt</th> --}}
+                                                                                        {{-- <th>Damage Qty</th> --}}
+                                                                                        {{-- <th>Piece Carton</th> --}}
+                                                                                        <th colspan="3">Trade Price</th>
+                                                                                        {{-- <th>T.P.Pkt</th>
+                                                                                        <th>T.P.Crt</th> --}}
+                                                                                        <th colspan="3">Cash Price</th>
+                                                                                        {{-- <th>Cash.P.Pkt</th>
+                                                                                        <th>Cash.P.Crt</th> --}}
+                                                                                        <th colspan="3">Credit Price</th>
+                                                                                        {{-- <th>Credit.P.Pkt</th>
+                                                                                        <th>Credit.P.Crt</th> --}}
+                                                                                        {{-- <th>Expiry</th> --}}
+                                                                                        {{-- <th>Status</th> --}}
+                                                                                        <th
+                                                                                            class="disabled-sorting text-left">
+                                                                                            Add</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        {{-- <th>Ref.Id</th> --}}
+                                                                                        <th></th>
+                                                                                        <th>Name</th>
+                                                                                        <th>Barcode</th>
+                                                                                        {{-- <th>Company</th>
+                                                                                        <th>Brand</th> --}}
+                                                                                        {{-- <th>Pc</th>
+                                                                                        <th>Pkt</th>
+                                                                                        <th>Crt</th> --}}
+                                                                                        <th>Pc</th>
+                                                                                        <th>Pkt</th>
+                                                                                        <th>Crt</th>
+                                                                                        {{-- <th>Damage Qty</th> --}}
+                                                                                        {{-- <th>Piece Carton</th> --}}
+                                                                                        <th>Pc</th>
+                                                                                        <th>Pkt</th>
+                                                                                        <th>Crt</th>
+                                                                                        <th>Pc</th>
+                                                                                        <th>Pkt</th>
+                                                                                        <th>Crt</th>
+                                                                                        <th>Pc</th>
+                                                                                        <th>Pkt</th>
+                                                                                        <th>Crt</th>
+                                                                                        {{-- <th>Expiry</th> --}}
+                                                                                        {{-- <th>Status</th> --}}
+                                                                                        <th
+                                                                                            class="disabled-sorting text-left">
+                                                                                            Add</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {{-- @foreach ($products as $key => $value)
+                                                                                    <tr>
+                                                                                    <td></td>
+                                                                                    <td>{{ $value->product_name }}</td>
+                                                                                    <!-- <td>{ $value->product_ref_no }}</td> -->
+                                                                                    <td>{{ $value->product_barcode }}</td>
+                                                                                    <td>{{ $value->product_pieces_available }}</td>
+                                                                                    <td>{{ $value->product_packets_available }}</td>
+                                                                                    <td>{{ $value->product_cartons_available }}</td>
+                                                                                    <td>{{ $value->product_trade_price_piece }}</td>
+                                                                                    <td>{{ $value->product_trade_price_packet }}</td>
+                                                                                    <td>{{ $value->product_trade_price_carton }}</td>
+                                                                                    <td>{{ $value->product_cash_price_piece }}</td>
+                                                                                    <td>{{ $value->product_cash_price_packet }}</td>
+                                                                                    <td>{{ $value->product_cash_price_carton }}</td>
+                                                                                    <td>{{ $value->product_credit_price_piece }}</td>
+                                                                                    <td>{{ $value->product_credit_price_packet }}</td>
+                                                                                    <td>{{ $value->product_credit_price_carton }}</td>
+                                                                                    <!-- <td>{ $value->product_nonbulk_price_piece }}</td> -->
+                                                                                    <td class="text-right">
+                                                                                        <a type="button" href="{{ route('product.edit', ['product' => $value->product_id,]) }}" rel="tooltip" class="btn btn-info btn-icon btn-sm " data-original-title="+" title="+">
+                                                                                        <i class="fa fa-plus-square"></i>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    </tr>
+                                                                                    @endforeach --}}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <button id="submit-btn" type="button"
+                                                                class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="mt-3">
-                                            <button id="submit-btn" type="button"
-                                                class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- customer list modal -->
-                <div id="customer-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true" class="modal fade text-left">
-                    <div role="document" class="modal-dialog">
-                        <div class="modal-content-pos">
-                            <div class="modal-header">
-                                <h5 id="exampleModalLabel" class="modal-title">Customers List</h5>
-                                <button type="button" data-dismiss="modal" aria-label="Close"
-                                    class="close"><span aria-hidden="true"><i
-                                            class="fa fa-times"></i></span></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class=" col-6 ">
-                                                <div class="form-group">
-                                                    <label for="customer_name"
-                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __('Customer Name') }}</label>
-                                                    <div class=" col-12 input-group ">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text barcode">
-                                                                <a class="" data-toggle="modal"
-                                                                    data-target="#product-list"
-                                                                    id="product-list-btn"><i
-                                                                        class="fa fa-user"></i></a>
-                                                            </span>
+                                <!-- customer list modal -->
+                                <div id="customer-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true" class="modal fade text-left">
+                                    <div role="document" class="modal-dialog">
+                                        <div class="modal-content-pos">
+                                            <div class="modal-header">
+                                                <h5 id="exampleModalLabel" class="modal-title">Customers List</h5>
+                                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                                    class="close"><span aria-hidden="true"><i
+                                                            class="fa fa-times"></i></span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class=" col-6 ">
+                                                                <div class="form-group">
+                                                                    <label for="customer_name"
+                                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __('Customer Name') }}</label>
+                                                                    <div class=" col-12 input-group ">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text barcode">
+                                                                                <a class="___class_+?265___"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#product-list"
+                                                                                    id="product-list-btn"><i
+                                                                                        class="fa fa-user"></i></a>
+                                                                            </span>
+                                                                        </div>
+                                                                        {{-- <div class="input-group pos"> --}}
+                                                                        <input type="text" name="customer_name"
+                                                                            id="customercodesearch"
+                                                                            placeholder="Customer Name"
+                                                                            class="form-control customercodesearch" />
+                                                                        {{-- <select required name="customer_name" id="customer_name" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
+                                                                        @foreach ($customers as $customer)
+                                                                            <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                                                        @endforeach
+                                                                        </select> --}}
+                                                                        {{-- </div> --}}
+                                                                        @include('alerts.feedback', ['field' =>
+                                                                        'customer_name'])
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" col-6 ">
+                                                                <div class="form-group">
+                                                                    <label for="customer_code"
+                                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __(' Customer Code') }}</label>
+                                                                    <div class=" col-12 input-group ">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text barcode">
+                                                                                <a class="___class_+?274___"
+                                                                                    id="product-list-btn"><i
+                                                                                        class="fa fa-barcode"></i></a>
+                                                                            </span>
+                                                                        </div>
+                                                                        <input type="hidden" name="customer_code_hidden"
+                                                                            value="customer_code">
+                                                                        {{-- <div class="input-group pos"> --}}
+                                                                        <input type="text" name="customer_code"
+                                                                            id="customercodeSearch"
+                                                                            placeholder="Customer Code"
+                                                                            class="form-control" />
+                                                                        {{-- <select required name="customer_code" id="customer_code" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
+                                                                        @foreach ($customers as $customer)
+                                                                            <option value="{{$customer->customer_id}}">{{$customer->customer_name}}</option>
+                                                                        @endforeach
+                                                                        </select> --}}
+                                                                        {{-- </div> --}}
+                                                                        @include('alerts.feedback', ['field' =>
+                                                                        'customer_code'])
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        {{-- <div class="input-group pos"> --}}
-                                                        <input type="text" name="customer_name"
-                                                            id="customercodesearch"
-                                                            placeholder="Customer Name"
-                                                            class="form-control customercodesearch" />
-                                                        {{-- <select required name="customer_name" id="customer_name" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
-                        @foreach ($customers as $customer)
-                            <option value="{{$customer->id}}">{{$customer->name}}</option>
-                        @endforeach
-                        </select> --}}
-                                                        {{-- </div> --}}
-                                                        @include('alerts.feedback', ['field' =>
-                                                        'customer_name'])
+                                                        <div class="row">
+                                                            <div class=" col-12 ">
+                                                                <div class="form-group">
+                                                                    <div class=" col-12">
+                                                                        <div class="table-responsive-sm"
+                                                                            style="height:300px; overflow-x:hidden">
+                                                                            <table id="myTable"
+                                                                                class="table table-sm table-hover table-striped table-fixed table-bordered display compact order-column">
+                                                                                <thead class="thead pos">
+                                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
+                                                                                    <tr>
+                                                                                        <th>RefID</th>
+                                                                                        <th>Name</th>
+                                                                                        <th>Status</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @foreach ($customers as $key => $value)
+                                                                                        <tr>
+                                                                                            <td>{{ $value->customer_ref_no }}
+                                                                                            </td>
+                                                                                            <td>{{ $value->customer_name }}
+                                                                                            </td>
+                                                                                            <td>{{ $value->status_id }}
+                                                                                            </td>
+                                                                                            <td class="text-right">
+                                                                                                <a type="button"
+                                                                                                    href="{{ route('customer.edit', ['customer' => $value->customer_id]) }}"
+                                                                                                    rel="tooltip"
+                                                                                                    class="btn btn-info btn-icon btn-sm "
+                                                                                                    data-original-title="+"
+                                                                                                    title="+">
+                                                                                                    <i
+                                                                                                        class="fa fa-plus-square"></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endforeach
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <button id="submit-btn" type="button"
+                                                                class="btn btn-primary">submit</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class=" col-6 ">
-                                                <div class="form-group">
-                                                    <label for="customer_code"
-                                                        class=" col-10 control-label">&nbsp;&nbsp;{{ __(' Customer Code') }}</label>
-                                                    <div class=" col-12 input-group ">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text barcode">
-                                                                <a class="" id="product-list-btn"><i
-                                                                        class="fa fa-barcode"></i></a>
-                                                            </span>
-                                                        </div>
-                                                        <input type="hidden" name="customer_code_hidden"
-                                                            value="customer_code">
-                                                        {{-- <div class="input-group pos"> --}}
-                                                        <input type="text" name="customer_code"
-                                                            id="customercodeSearch"
-                                                            placeholder="Customer Code"
-                                                            class="form-control" />
-                                                        {{-- <select required name="customer_code" id="customer_code" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Customer..." style="width: 100px">
-                        @foreach ($customers as $customer)
-                            <option value="{{$customer->customer_id}}">{{$customer->customer_name}}</option>
-                        @endforeach
-                        </select> --}}
-                                                        {{-- </div> --}}
-                                                        @include('alerts.feedback', ['field' =>
-                                                        'customer_code'])
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class=" col-12 ">
-                                                <div class="form-group">
-                                                    <div class=" col-12">
-                                                        <div class="table-responsive-sm"
-                                                            style="height:300px; overflow-x:hidden">
-                                                            <table id="myTable"
-                                                                class="table table-sm table-hover table-striped table-fixed table-bordered display compact order-column">
-                                                                <thead class="thead pos">
-                                                                    {{-- style="position: sticky; top: 0; z-index: 1" --}}
-                                                                    <tr>
-                                                                        <th>RefID</th>
-                                                                        <th>Name</th>
-                                                                        <th>Status</th>
-                                                                        <th>Action</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($customers as $key => $value)
-                                                                        <tr>
-                                                                            <td>{{ $value->customer_ref_no }}
-                                                                            </td>
-                                                                            <td>{{ $value->customer_name }}
-                                                                            </td>
-                                                                            <td>{{ $value->status_id }}
-                                                                            </td>
-                                                                            <td class="text-right">
-                                                                                <a type="button"
-                                                                                    href="{{ route('customer.edit', ['customer' => $value->customer_id]) }}"
-                                                                                    rel="tooltip"
-                                                                                    class="btn btn-info btn-icon btn-sm "
-                                                                                    data-original-title="+"
-                                                                                    title="+">
-                                                                                    <i
-                                                                                        class="fa fa-plus-square"></i>
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3">
-                                            <button id="submit-btn" type="button"
-                                                class="btn btn-primary">submit</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                         </div>
                         <div class="card-footer row">
                             <div class="col-6">
@@ -1158,7 +1152,7 @@
                             </div>
                             </form>
                             <div class="col-6">
-                                <a type="button" href="{{ URL::previous() }}"
+                                <a type="button" href="{{ route('sale.index') }}" {{-- URL::previous() --}}
                                     class="btn btn-secondary btn-round pull-right">{{ __('Back') }}</a>
                                 <form action="{{ route('sale.destroy', $sale->sale_id) }}" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
@@ -1229,7 +1223,6 @@
                 }
             });
         });
-
     </script>
 
     <script type="text/javascript">
@@ -1252,7 +1245,8 @@
         var row_product_price;
         var pos;
 
-        var rownum = <?php echo $i; ?>;    $(document).ready(function(e) {
+        var rownum = <?php echo $i; ?>;
+        $(document).ready(function(e) {
             $('#sale_products_barcode_i').focus();
         });
 
@@ -1279,7 +1273,8 @@
             var amPm = " ";
             hours >= 12 ? amPm = "PM" : amPm = "AM";
             hours > 12 && (hours = hours - 12);
-            var time2 = `${hours}:${minutes}${amPm}`;
+            var time2 = `${hours}:${minutes}:${seconds}${amPm}`;
+
             var punch_time = " <" + time1 + ">";
             var punch_time2 = time2;
             var product_pieces = $('#sale_products_pieces_i').val();
@@ -1593,7 +1588,10 @@
         //   productSearch4(data);
         // });
 
-        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;    var productsnames_array = <?php echo json_encode($nameArray); ?>;    var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;    $("#product_name_i").on('focus', function() {
+        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;
+        var productsnames_array = <?php echo json_encode($nameArray); ?>;
+        var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;
+        $("#product_name_i").on('focus', function() {
             // $( "product_name" ).autocomplete({
             $(this).autocomplete({
                 source: productsnamescodes_array,
@@ -1999,7 +1997,9 @@
             });
         }
 
-        var customersnames_array = <?php echo json_encode($snameArray); ?>;    var customersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;    $("#customercodesearch").on('focus', function() {
+        var customersnames_array = <?php echo json_encode($snameArray); ?>;
+        var customersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;
+        $("#customercodesearch").on('focus', function() {
             // $("#customercodesearch" ).autocomplete({
             $(this).autocomplete({
                 source: customersnamescodes_array,
@@ -2379,7 +2379,6 @@
             $('#product_name_i').focus();
 
         });
-
     </script>
 
 @endsection

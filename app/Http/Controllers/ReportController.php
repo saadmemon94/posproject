@@ -45,7 +45,7 @@ class ReportController extends Controller
     public function getBalanceCustomerData()
     {
         $customers = Customer::where('status_id', 1)->get();
-        
+
         return Datatables::of($customers)
         // ->editColumn('customer_id', '{{$customer_id}}')
         ->make(true);
@@ -124,7 +124,7 @@ class ReportController extends Controller
                 // 'sale_invoice_date' => $sale_invoice_date,
             );
         }
-        
+
         return Datatables::of($saleledgers)
         // ->editColumn('customer_id', '{{$customer_id}}')
         ->make(true);
@@ -205,7 +205,7 @@ class ReportController extends Controller
                 // 'purchase_invoice_date' => $purchase_invoice_date,
             );
         }
-        
+
         return Datatables::of($purchaseledgers)
         // ->editColumn('customer_id', '{{$customer_id}}')
         ->make(true);
@@ -223,7 +223,7 @@ class ReportController extends Controller
     public function getBalanceCreditDurationData()
     {
         $customers = Customer::where('status_id', 1)->get();
-        
+
         return Datatables::of($customers)
         // ->editColumn('customer_id', '{{$customer_id}}')
         ->make(true);
@@ -304,7 +304,7 @@ class ReportController extends Controller
             $start_date = '';
             $end_date = '';
         }
-        
+
         $sale_data = Sale::where('sale_payment_method', $cashcredit)
         ->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)
         ->orderBy('created_at', 'desc')
@@ -453,7 +453,7 @@ class ReportController extends Controller
                 ->get();
             }
         }
-        
+
         $product_sale_data = [];
         $product_return_data = [];
 
@@ -533,7 +533,7 @@ class ReportController extends Controller
                 ->get();
             }
         }
-        
+
         $product_sale_data = [];
         $product_return_data = [];
 

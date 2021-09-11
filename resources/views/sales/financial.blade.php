@@ -27,7 +27,7 @@
                                                             <div class="form-col-12 input-group ">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text barcode">
-                                                                        <a class="" data-toggle="modal"
+                                                                        <a class="___class_+?19___" data-toggle="modal"
                                                                             data-target="#customer-list"
                                                                             id="product-list-btn"><i
                                                                                 class="fa fa-search"></i></a>
@@ -62,20 +62,20 @@
                                                         </div>
                                                     </div>
                                                     {{-- <div class="form-col-3">
-                          <div class="form-group">
-                            <label readonly for="sale_customer_name" class="form-col-10 control-label">&nbsp;&nbsp;{{__(" Customer Name")}}</label>
-                            <div class="form-col-12 input-group ">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text barcode">
-                                  <a class="" data-toggle="modal" data-target="#customer-list" id="product-list-btn"><i class="fa fa-user"></i></a>
-                                </span>
-                              </div>
-                                <input readonly type="text" name="sale_customer_name" id="customer_name" placeholder="Customer Name" class="form-control col-12" value="" />
-                                <input readonly type="hidden" name="sale_customer_id" id="customer_id" class="form-control col-12" value="0" />
-                              @include('alerts.feedback', ['field' => 'sale_customer_name'])
-                            </div>
-                          </div>
-                        </div> --}}
+                                                        <div class="form-group">
+                                                            <label readonly for="sale_customer_name" class="form-col-10 control-label">&nbsp;&nbsp;{{__(" Customer Name")}}</label>
+                                                            <div class="form-col-12 input-group ">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text barcode">
+                                                                <a class="" data-toggle="modal" data-target="#customer-list" id="product-list-btn"><i class="fa fa-user"></i></a>
+                                                                </span>
+                                                            </div>
+                                                                <input readonly type="text" name="sale_customer_name" id="customer_name" placeholder="Customer Name" class="form-control col-12" value="" />
+                                                                <input readonly type="hidden" name="sale_customer_id" id="customer_id" class="form-control col-12" value="0" />
+                                                            @include('alerts.feedback', ['field' => 'sale_customer_name'])
+                                                            </div>
+                                                        </div>
+                                                    </div> --}}
                                                     <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="customer_status"
@@ -134,7 +134,7 @@
                                                                         <th class="text-center"></th>
                                                                         <th class="text-center">Invoice #</th>
                                                                         <th class="text-center">Invoice Date</th>
-                                                                        <th class="text-center">Sale ID</th>
+                                                                        <th class="text-center">Total Price</th>
                                                                         <th class="text-center">Amount Paid</th>
                                                                         <th class="text-center">Amount Dues</th>
                                                                         <th class="text-center">Payment Method</th>
@@ -143,21 +143,35 @@
                                                                         <th class="text-center">Balance Amount</th>
                                                                     </tr>
                                                                 </thead>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center">Total:</th>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center"></th>
+                                                                        <th style="text-align:center"></th>
+                                                                    </tr>
+                                                                </tfoot>
                                                                 {{-- <tbody class="customer-payments">
-                                @foreach ($payments as $key => $value)
-                                  <tr class="row table-info">
-                                    <td class="col-1 firstcol text-center">{{ $value->payment_invoice_id }}</td>
-                                    <td class="col-1 mycol text-center"   >{{ $value->payment_invoice_date }}</td>
-                                    <td class="col-2 mycol text-center"   >{{ "abc" }}</td>
-                                    <td class="col-2 mycol text-center"   >{{ $value->payment_amount_paid }}</td>
-                                    <td class="col-2 mycol text-center"   >{{ "abc" }}</td>
-                                    <td class="col-1 mycol text-center"   >{{ $value->payment_method }}</td>
-                                    <td class="col-1 mycol text-center"   >{{ $value->payment_type }}</td>
-                                    <td class="col-1 mycol text-center"   >{{ "abc" }}</td> 
-                                    <td class="col-1 lastcol text-center" >{{ $value->customer_amount_dues }}</td>
-                                  </tr>
-                                @endforeach
-                              </tbody> --}}
+                                                                    @foreach ($payments as $key => $value)
+                                                                    <tr class="row table-info">
+                                                                        <td class="col-1 firstcol text-center">{{ $value->payment_invoice_id }}</td>
+                                                                        <td class="col-1 mycol text-center"   >{{ $value->payment_invoice_date }}</td>
+                                                                        <td class="col-2 mycol text-center"   >{{ "abc" }}</td>
+                                                                        <td class="col-2 mycol text-center"   >{{ $value->payment_amount_paid }}</td>
+                                                                        <td class="col-2 mycol text-center"   >{{ "abc" }}</td>
+                                                                        <td class="col-1 mycol text-center"   >{{ $value->payment_method }}</td>
+                                                                        <td class="col-1 mycol text-center"   >{{ $value->payment_type }}</td>
+                                                                        <td class="col-1 mycol text-center"   >{{ "abc" }}</td>
+                                                                        <td class="col-1 lastcol text-center" >{{ $value->customer_amount_dues }}</td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                </tbody> --}}
                                                             </table>
                                                         </div>
                                                     </div>
@@ -188,7 +202,8 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" data-toggle="modal"
+                                                                                <a class="___class_+?79___"
+                                                                                    data-toggle="modal"
                                                                                     data-target="#product-list"
                                                                                     id="product-list-btn"><i
                                                                                         class="fa fa-user"></i></a>
@@ -217,7 +232,8 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" id="product-list-btn"><i
+                                                                                <a class="___class_+?88___"
+                                                                                    id="product-list-btn"><i
                                                                                         class="fa fa-barcode"></i></a>
                                                                             </span>
                                                                         </div>
@@ -455,17 +471,22 @@
                     data: 'payment_invoice_id',
                     name: 'payment_invoice_id'
                 },
-                // width:'25%', 
+                // width:'25%',
                 {
                     className: 'dt-body-center',
                     data: 'payment_invoice_date',
                     name: 'payment_invoice_date'
                 },
-                // width:'25%', 
+                // width:'25%',
+                // {
+                //     className: 'dt-body-center',
+                //     data: 'sale_id',
+                //     name: 'sale_id',
+                // },
                 {
                     className: 'dt-body-center',
-                    data: 'sale_id',
-                    name: 'sale_id',
+                    data: 'sale_purch_invoice_id',
+                    name: 'sale_purch_invoice_id',
                 },
                 {
                     className: 'dt-body-center',
@@ -554,8 +575,45 @@
                     columns: ':gt(0)'
                 }
             ],
-            drawCallback: function() {
-                var api = this.api();
+            // drawCallback: function() {
+            //     var api = this.api();
+            // },
+            footerCallback: function(row, data, start, end, display) {
+                var api = this.api(),
+                    data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total_1 = api
+                    .column(4)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+                total_2 = api
+                    .column(5)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+                total_3 = api
+                    .column(9)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                $(api.column(4).footer()).html(total_1.toFixed(3));
+                $(api.column(5).footer()).html(total_2.toFixed(3));
+                $(api.column(9).footer()).html(total_3.toFixed(3));
+
             },
         });
         // //  create index for table at columns zero
@@ -564,7 +622,6 @@
         //         cell.innerHTML = i + 1;
         //     });
         // }).draw();
-
     </script>
 
 @endsection

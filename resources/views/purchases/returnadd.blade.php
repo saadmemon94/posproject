@@ -55,7 +55,7 @@
                                                             <div class="form-col-12 input-group ">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text barcode">
-                                                                        <a class="" data-toggle="modal"
+                                                                        <a class="" data-toggle=" modal"
                                                                             data-target="#supplier-list"
                                                                             id="product-list-btn"><i
                                                                                 class="fa fa-search"></i></a>
@@ -92,28 +92,28 @@
                                                         </div>
                                                     </div>
                                                     {{-- <div class="form-col-3">
-                          <div class="form-group">
-                            <label readonly for="purchase_supplier_name" class="form-col-10 control-label">&nbsp;&nbsp;{{__(" Supplier Name")}}</label>
-                            <div class="form-col-12 input-group ">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text barcode">
-                                  <a class="" data-toggle="modal" data-target="#supplier-list" id="product-list-btn"><i class="fa fa-user"></i></a>
-                                </span>
-                              </div>
-                              <-- <div class="input-group pos"> -->
-                                <input readonly type="text" name="purchase_supplier_name" id="supplier_name" placeholder="Supplier Name" class="form-control col-12" value="" />
-                                <input readonly type="hidden" name="purchase_supplier_id" id="supplier_id" class="form-control col-12" value="" />
-                                <-- <select readonly required name="purchase_supplier_name" id="supplier_name" class="selectpicker form-control col-12" data-live-search="true" data-live-search-style="begins" title="Select Supplier..." style="width: 150px">
-                                  @foreach ($suppliers as $single_supplier)
-                                    <option status_id="{{$single_supplier->status_id}}" value="{{$single_supplier->supplier_id}}">{{$single_supplier->supplier_name}}</option>
-                                  @endforeach
-                                </select> -->
-                              <-- </div> -->
-                              @include('alerts.feedback', ['field' => 'purchase_supplier_name'])
-                            </div>
-                          </div>
-                        </div> --}}
-                                                    <div class="form-col-2">
+                                                    <div class="form-group">
+                                                        <label readonly for="purchase_supplier_name" class="form-col-10 control-label">&nbsp;&nbsp;{{__(" Supplier Name")}}</label>
+                                                        <div class="form-col-12 input-group ">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text barcode">
+                                                            <a class="" data-toggle="modal" data-target="#supplier-list" id="product-list-btn"><i class="fa fa-user"></i></a>
+                                                            </span>
+                                                        </div>
+                                                        <-- <div class="input-group pos"> -->
+                                                            <input readonly type="text" name="purchase_supplier_name" id="supplier_name" placeholder="Supplier Name" class="form-control col-12" value="" />
+                                                            <input readonly type="hidden" name="purchase_supplier_id" id="supplier_id" class="form-control col-12" value="" />
+                                                            <-- <select readonly required name="purchase_supplier_name" id="supplier_name" class="selectpicker form-control col-12" data-live-search="true" data-live-search-style="begins" title="Select Supplier..." style="width: 150px">
+                                                            @foreach ($suppliers as $single_supplier)
+                                                                <option status_id="{{$single_supplier->status_id}}" value="{{$single_supplier->supplier_id}}">{{$single_supplier->supplier_name}}</option>
+                                                            @endforeach
+                                                            </select> -->
+                                                        <-- </div> -->
+                                                        @include('alerts.feedback', ['field' => 'purchase_supplier_name'])
+                                                        </div>
+                                                    </div>
+                                                    </div> --}}
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="supplier_status"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Status') }}</label>
@@ -125,7 +125,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="purchase_amount_paid"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Supplier Paid') }}</label>
@@ -141,7 +141,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-last-col-3">
                                                         <div class="form-group">
                                                             <label for="purchase_amount_dues"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Supplier Dues') }}</label>
@@ -157,22 +157,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-3">
-                                                        <div class="form-group">
-                                                            <label for="purchase_invoice_date"
-                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Date') }}</label>
-                                                            <div class="form-col-12 input-group ">
-                                                                {{-- <div class="input-group-prepend">
-                                <span class="input-group-text barcode"><i class="fa fa-file-text-o"></i></span>
-                              </div> --}}
-                                                                <input type="date" name="purchase_invoice_date"
-                                                                    class="form-control"
-                                                                    value="{{ \Carbon\Carbon::today()->toDateString() }}">
-                                                                @include('alerts.feedback', ['field' =>
-                                                                'purchase_invoice_date'])
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-first-col-3">
@@ -194,7 +179,23 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
+                                                        <div class="form-group">
+                                                            <label for="purchase_invoice_date"
+                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Return Date') }}</label>
+                                                            <div class="form-col-12 input-group ">
+                                                                {{-- <div class="input-group-prepend">
+                                                                    <span class="input-group-text barcode"><i class="fa fa-file-text-o"></i></span>
+                                                                </div> --}}
+                                                                <input type="date" name="purchase_invoice_date"
+                                                                    class="form-control"
+                                                                    value="{{ \Carbon\Carbon::today()->toDateString() }}">
+                                                                @include('alerts.feedback', ['field' =>
+                                                                'purchase_invoice_date'])
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="purchase_status"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Return Status') }}</label>
@@ -206,11 +207,10 @@
                                                                 <option value="ordered">Ordered</option>
                                                                 <option value="partial">Partial</option>
                                                                 <option value="received">Received</option>
-                                                                //received,partial,pending,ordered
                                                             </select>
                                                             @include('alerts.feedback', ['field' => 'purchase_amount_dues'])
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="purchase_invoice_id"
@@ -220,14 +220,14 @@
                                                                     {{-- <div class="col-1"></div> --}}
                                                                     <input type="text" name="purchase_invoice_id"
                                                                         class="form-control form-col-12"
-                                                                        value="{{ old('purchase_invoice_', '') }}">
+                                                                        value="{{ old('purchase_invoice_id', '') }}">
                                                                 </div>
                                                                 @include('alerts.feedback', ['field' =>
                                                                 'purchase_invoice_id'])
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-4">
+                                                    {{-- <div class="form-last-col-4">
                                                         <div class="form-group">
                                                             <label for="purchse_document"
                                                                 class="form-col-10 control-label">&nbsp;&nbsp;{{ __(' Upload Document') }}</label>
@@ -242,7 +242,7 @@
                                                                     value="{{ old('purchase_document', '') }}">
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -281,7 +281,7 @@
                                                                             <div class="col-12 mytblcol input-group">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text barcode">
-                                                                                        <a class="" data-toggle="modal"
+                                                                                        <a class="" data-toggle=" modal"
                                                                                             data-target="#product-list"
                                                                                             id="product-list-btn"><i
                                                                                                 class="fa fa-barcode"></i></a>
@@ -299,14 +299,14 @@
                                                                                     id="product_id_i"
                                                                                     value="{{ old('product_id_i', '') }}">
                                                                                 {{-- <select placeholder="Scan/Search product by name/code" name="product_code_name" id="product_code_name" class="form-control select2-single col-10">
-                                        select2-single
-                                        c-multi-select
-                                        js-example-basic-single my-class
-                                        <option class="" value="">Scan/Search product by name/code</option>
-                                        @foreach ($products as $one_product)
-                                          <option class="" value="{{ $one_product->product_id }}">{{ $one_product->product_name }}</option>
-                                        @endforeach
-                                      </select> --}}
+                                                                                    select2-single
+                                                                                    c-multi-select
+                                                                                    js-example-basic-single my-class
+                                                                                    <option class="" value="">Scan/Search product by name/code</option>
+                                                                                    @foreach ($products as $one_product)
+                                                                                    <option class="" value="{{ $one_product->product_id }}">{{ $one_product->product_name }}</option>
+                                                                                    @endforeach
+                                                                                </select> --}}
                                                                             </div>
                                                                         </td>
                                                                         <td class="col-1 mycol" scope="col">
@@ -349,8 +349,15 @@
                                                                             <input type="number"
                                                                                 name="purchase_products_unit_price_i"
                                                                                 id="purchase_products_unit_price_i"
-                                                                                class="form-control col-12"
-                                                                                value="{{ old('purchase_products_unit_price_i', '0') }}">
+                                                                                class="form-control col-12" value="0">
+                                                                            <input type="hidden"
+                                                                                name="purchase_products_packet_price_i"
+                                                                                id="purchase_products_packet_price_i"
+                                                                                class="form-control col-12" value="0">
+                                                                            <input type="hidden"
+                                                                                name="purchase_products_carton_price_i"
+                                                                                id="purchase_products_carton_price_i"
+                                                                                class="form-control col-12" value="0">
                                                                         </td>
                                                                         <td class="col-1 mycol" scope="col">
                                                                             <input type="number"
@@ -403,12 +410,14 @@
                                                                             Items</th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Total Qty</th>
-                                                                        <th colspan="2" class="col-2 mycol" scope="col">Free
+                                                                        <th colspan="2" class="col-2 mycol" scope="col">
+                                                                            Free
                                                                             Pcs / Free Amount</th>
                                                                         {{-- <th class="col-1 mycol" scope="col">Free Amount</th> --}}
                                                                         <th colspan="1" class="col-2 mycol" scope="col">
                                                                             Total</th>
-                                                                        <th colspan="1" class="col-1 mycol" scope="col">Add
+                                                                        <th colspan="1" class="col-1 mycol" scope="col">
+                                                                            Add
                                                                         </th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Discount</th>
@@ -472,15 +481,17 @@
                                                                     </tr>
                                                         </div>
                                                         </thead>
-                                                        <tbody class="">
+                                                        <tbody
+                                                            class="">
                                                         </tbody>
-                                                        <tfoot class="thead-dark">
+                                                        <tfoot class="
+                                                            thead-dark">
                                                             <tr class="row tfoot-dark-custom">
                                                                 {{-- <th class="col-1 mycol" scope="col">Invoice Id</th> --}}
                                                                 {{-- <th class="col-3 mycol" scope="col" style="text-align: center">Invoice Date</th> --}}
                                                                 {{-- <th class="col-2 mycol" scope="col">Document</th> --}}
-                                                                <th class="col-8 firstcol" scope="col">Remarks</th>
-                                                                <th class="col-2 mycol" scope="col">Payment Status</th>
+                                                                <th class="col-10 firstcol" scope="col">Remarks</th>
+                                                                {{-- <th class="col-2 mycol" scope="col">Payment Status</th> --}}
                                                                 <th class="col-2 firstcol" scope="col">Return Change</th>
                                                             </tr>
                                                             <tr class="row table-info">
@@ -498,12 +509,12 @@
                                                                 {{-- <td class="col-2 mycol" scope="col">
                                     <input type="file" name="purchase_document" id="purchase_document" class="form-control col-12" value="{{ old('purchase_document', '') }}">
                                   </td> --}}
-                                                                <td class="col-8 firstcol" scope="col">
+                                                                <td class="col-10 firstcol" scope="col">
                                                                     <input type="text" name="purchase_note"
                                                                         id="purchase_note" class="form-control col-12"
                                                                         value="">
                                                                 </td>
-                                                                <td class="col-2 mycol" scope="col">
+                                                                {{-- <td class="col-2 mycol" scope="col">
                                                                     <select name="purchase_payment_status"
                                                                         class="selectpicker form-control col-12"
                                                                         data-live-search="true"
@@ -513,17 +524,16 @@
                                                                         <option value="due">Due</option>
                                                                         <option value="partial">Partial</option>
                                                                         <option value="overdue">Overdue</option>
-                                                                        //paid,due,partial,overdue,
                                                                     </select>
-                                                                </td>
+                                                                </td> --}}
                                                                 <td class="col-2 lastcol" scope="col">
                                                                     <input type="number" min="0"
                                                                         name="purchase_return_change"
                                                                         class="form-control col-12" value="">
                                                                 </td>
                                                             </tr>
-                                                        </tfoot>
-                                                        </table>
+                                                            </tfoot>
+                                                            </table>
                                                     </div>
                                                 </div>
                                             </div>
@@ -561,13 +571,13 @@
                                                     <input type="hidden" name="pieces_per_carton" id="pieces_per_carton"
                                                         value="{{ $one_product->product_piece_per_carton }}" />
                                                     {{-- <input type="hidden" name="items" id="items"/>
-                          <input type="hidden" name="total_qty" id="total_qty"/>
-                          <input type="hidden" name="total_price" />
-                          <input type="hidden" name="grand_total" />
-                          <input type="hidden" name="total_discount" value="0.00"/>
-                          <input type="hidden" name="purchase_status" value="1" />
-                          <input type="hidden" name="pos" value="1" />
-                          <input type="hidden" name="draft" value="0" /> --}}
+                                                    <input type="hidden" name="total_qty" id="total_qty"/>
+                                                    <input type="hidden" name="total_price" />
+                                                    <input type="hidden" name="grand_total" />
+                                                    <input type="hidden" name="total_discount" value="0.00"/>
+                                                    <input type="hidden" name="purchase_status" value="1" />
+                                                    <input type="hidden" name="pos" value="1" />
+                                                    <input type="hidden" name="draft" value="0" /> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -595,7 +605,7 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" data-toggle="modal"
+                                                                                <a class="" data-toggle=" modal"
                                                                                     data-target="#product-list"
                                                                                     id="product-list-btn"><i
                                                                                         class="fa fa-user"></i></a>
@@ -624,7 +634,8 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" id="product-list-btn"><i
+                                                                                <a class="" id="
+                                                                                    product-list-btn"><i
                                                                                         class="fa fa-barcode"></i></a>
                                                                             </span>
                                                                         </div>
@@ -653,7 +664,7 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" data-toggle="modal"
+                                                                                <a class="" data-toggle=" modal"
                                                                                     data-target="#product-list"
                                                                                     id="product-list-btn"><i
                                                                                         class="fa fa-barcode"></i></a>
@@ -877,7 +888,7 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" data-toggle="modal"
+                                                                                <a class="" data-toggle=" modal"
                                                                                     data-target="#product-list"
                                                                                     id="product-list-btn"><i
                                                                                         class="fa fa-user"></i></a>
@@ -906,7 +917,8 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" id="product-list-btn"><i
+                                                                                <a class="" id="
+                                                                                    product-list-btn"><i
                                                                                         class="fa fa-barcode"></i></a>
                                                                             </span>
                                                                         </div>
@@ -1019,8 +1031,8 @@
                     // product_code: 'required',
                     // purchase_grandtotal_price: 'required',
                     purchase_amount_recieved: 'required',
-                    purchase_invoice_id: 'required',
-                    purchase_invoice_date: 'required',
+                    // purchase_invoice_id: 'required',
+                    // purchase_invoice_date: 'required',
                 },
                 messages: {
                     supplier_code: 'Please Enter Supplier Name',
@@ -1029,8 +1041,8 @@
                     // product_code:  'Please Enter Product Code',
                     // purchase_grandtotal_price:  'Please Enter Product',
                     purchase_amount_recieved: 'Please Enter Amount Paid',
-                    purchase_invoice_id: 'Please Enter Invoice ID',
-                    purchase_invoice_date: 'Please Enter Invoice Date',
+                    // purchase_invoice_id: 'Please Enter Invoice ID',
+                    // purchase_invoice_date: 'Please Enter Invoice Date',
                 },
                 errorElement: 'em',
                 errorPlacement: function(error, element) {
@@ -1067,7 +1079,6 @@
             });
 
         });
-
     </script>
 
 
@@ -1089,7 +1100,8 @@
         var supplier_purchase_rate;
         var row_product_price;
 
-        var rownum = <?php echo $i; ?>;    $(document).ready(function(e) {
+        var rownum = <?php echo $i; ?>;
+        $(document).ready(function(e) {
             $('#suppliercodesearch').focus();
         });
         $(document).on('click', '#add_button', function(e) {
@@ -1105,7 +1117,12 @@
             var product_packets = $('#purchase_products_packets_i').val();
             var product_cartons = $('#purchase_products_cartons_i').val();
             var product_unit_price = $('#purchase_products_unit_price_i').val();
+            var product_packet_price = $('#purchase_products_packet_price_i').val();
+            var product_carton_price = $('#purchase_products_carton_price_i').val();
             var product_discount = $('#purchase_products_discount_i').val();
+            // var pieces_per_packet = $('#purchase_pieces_per_packet_i').val();
+            // var packets_per_carton = $('#purchase_packets_per_carton_i').val();
+            // var pieces_per_carton = $('#purchase_pieces_per_carton_i').val();
             var pieces_per_carton = $('#pieces_per_carton').val();
             var pieces_per_packet = $('#pieces_per_packet').val();
             var packets_per_carton = $('#packets_per_carton').val();
@@ -1120,6 +1137,10 @@
 
             product_quantity = Number(product_pieces) + Number(product_packets * pieces_per_packet) + Number(
                 product_cartons * pieces_per_carton);
+
+            product_sub_total = ((Number(product_pieces) * product_unit_price) + (Number(product_packets) *
+                product_packet_price) + (Number(product_cartons) * product_carton_price)) - Number(
+                product_discount);
 
             var allRows = [];
             var repeated;
@@ -1145,14 +1166,19 @@
             $('#purchase_packets_per_carton_i').val(0);
             $('#purchase_pieces_per_carton_i').val(0);
             $('#purchase_products_unit_price_i').val(0);
+            $('#purchase_products_packet_price_i').val(0);
+            $('#purchase_products_carton_price_i').val(0);
             $('#purchase_products_discount_i').val(0);
             $('#purchase_products_sub_total_i').val(0);
 
-            if (product_name !== "" && product_quantity !== 0 && product_unit_price !== 0 && repeated !== 1) {
+            if (product_name !== "" && product_quantity !== 0 && (product_unit_price !== 0 ||
+                    product_packet_price !== 0 || product_carton_price !== 0) && repeated !== 1) {
 
                 if (product_quantity == 0 || product_unit_price == 0) {
                     product_discount = 0;
                     product_unit_price = 0;
+                    product_packet_price = 0;
+                    product_carton_price = 0;
                 }
 
                 total_items = Number(total_items) + 1;
@@ -1160,7 +1186,11 @@
                 total_discount = Number(total_discount) + Number(product_discount);
                 // product_sub_total = $('#purchase_products_sub_total').val();
 
-                product_sub_total = product_unit_price * (Number(product_quantity)) - Number(product_discount);
+                // product_sub_total = product_unit_price * (Number(product_quantity)) - Number(product_discount);
+                product_sub_total = ((Number(product_pieces) * product_unit_price) + (Number(product_packets) *
+                    product_packet_price) + (Number(product_cartons) * product_carton_price)) - Number(
+                    product_discount);
+
                 if (product_quantity == 0) {
                     product_sub_total = 0;
                 }
@@ -1192,6 +1222,10 @@
                     rownum + '" class="form-control col-12" value=' + pieces_per_carton +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="purchase_products_unit_price[]" id="purchase_products_unit_price' +
                     rownum + '" class="form-control col-12"  value=' + product_unit_price +
+                    '><input readonly type="hidden" name="purchase_products_packet_price[]" id="purchase_products_packet_price' +
+                    rownum + '" class="form-control col-12"  value=' + product_packet_price +
+                    '><input readonly type="hidden" name="purchase_products_carton_price[]" id="purchase_products_carton_price' +
+                    rownum + '" class="form-control col-12"  value=' + product_carton_price +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="purchase_products_discount[]" id="purchase_products_discount' +
                     rownum + '" class="form-control col-12"  value=' + product_discount +
                     '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="purchase_products_sub_total[]" id="purchase_products_sub_total' +
@@ -1200,17 +1234,17 @@
                     rownum + '" row-id="' + rownum +
                     '" data-original-title="X" title="X"><i class="fa fa-times"></i></button></td></tr>');
                 rownum++;
-                $('#purchase_total_qty').val('');
+                $('#purchase_total_qty').val(0);
                 $('#purchase_total_qty').val(total_quantity);
-                $('#purchase_total_items').val('');
+                $('#purchase_total_items').val(0);
                 $('#purchase_total_items').val(total_items);
                 // $('#purchase_free_price').val('');
                 // $('#purchase_free_price').val();
-                $('#purchase_total_price_i').val('');
+                $('#purchase_total_price_i').val(0);
                 $('#purchase_total_price_i').val(subtotal_amount);
-                $('#purchase_discount').val('');
+                $('#purchase_discount').val(0);
                 $('#purchase_discount').val(total_discount);
-                $('#purchase_grandtotal_price').val('');
+                $('#purchase_grandtotal_price').val(0);
                 $('#purchase_grandtotal_price').val(grandtotal_amount);
                 if (purchase_amount_recieved >= grandtotal_amount) {
                     purchase_return_change = Number(purchase_amount_recieved) - Number(grandtotal_amount);
@@ -1282,7 +1316,10 @@
             }
         });
 
-        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;    var productsnames_array = <?php echo json_encode($nameArray); ?>;    var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;    $("#product_name_i").on('focus', function() {
+        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;
+        var productsnames_array = <?php echo json_encode($nameArray); ?>;
+        var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;
+        $("#product_name_i").on('focus', function() {
             // $( "product_name" ).autocomplete({
             $(this).autocomplete({
                 source: productsnamescodes_array,
@@ -1341,8 +1378,9 @@
                     var pieces_per_carton = data[0]['product_piece_per_carton'];
                     var pieces_per_packet = data[0]['product_piece_per_packet'];
                     var packets_per_carton = data[0]['product_packet_per_carton'];
-                    var product_cash_price_piece = data[0]['product_cash_price_piece'];
-                    var product_credit_price_piece = data[0]['product_credit_price_piece'];
+                    var product_trade_price_piece = data[0]['product_trade_price_piece'];
+                    var product_trade_price_packet = data[0]['product_trade_price_packet'];
+                    var product_trade_price_carton = data[0]['product_trade_price_carton'];
                     $('#product_name_i').val('');
                     $('#product_name_i').val(catchproduct_name);
                     $('#product_code_i').val('');
@@ -1353,12 +1391,22 @@
                     // $('#purchase_products_barcode_i').val(catchbarcode);
                     $('#pieces_per_carton').val('');
                     $('#pieces_per_carton').val(pieces_per_carton);
+                    $('#purchase_pieces_per_carton_i').val('');
+                    $('#purchase_pieces_per_carton_i').val(pieces_per_carton);
                     $('#pieces_per_packet').val('');
                     $('#pieces_per_packet').val(pieces_per_packet);
+                    $('#purchase_pieces_per_packet_i').val('');
+                    $('#purchase_pieces_per_packet_i').val(pieces_per_packet);
                     $('#packets_per_carton').val('');
                     $('#packets_per_carton').val(packets_per_carton);
+                    $('#purchase_packets_per_carton_i').val('');
+                    $('#purchase_packets_per_carton_i').val(packets_per_carton);
                     $('#purchase_products_unit_price_i').val('');
                     $('#purchase_products_unit_price_i').val(product_trade_price_piece)
+                    $('#purchase_products_packet_price_i').val('');
+                    $('#purchase_products_packet_price_i').val(product_trade_price_packet)
+                    $('#purchase_products_carton_price_i').val('');
+                    $('#purchase_products_carton_price_i').val(product_trade_price_carton)
 
                     // $('#product_barcode2').val(data[0]['product_barcode']);
                     barcodeSearch2(catchproduct_id);
@@ -1501,7 +1549,9 @@
             });
         }
 
-        var suppliersnames_array = <?php echo json_encode($snameArray); ?>;    var suppliersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;    $("#suppliercodesearch").on('focus', function() {
+        var suppliersnames_array = <?php echo json_encode($snameArray); ?>;
+        var suppliersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;
+        $("#suppliercodesearch").on('focus', function() {
             // $("#suppliercodesearch" ).autocomplete({
             $(this).autocomplete({
                 source: suppliersnamescodes_array,
@@ -1892,7 +1942,6 @@
             $('#product_name_i').focus();
 
         });
-
     </script>
 
 @endsection

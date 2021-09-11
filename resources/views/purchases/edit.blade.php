@@ -86,7 +86,7 @@
                                                             <div class="form-col-12 input-group ">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text barcode">
-                                                                        <a class="" data-toggle="modal"
+                                                                        <a class="" data-toggle=" modal"
                                                                             data-target="#supplier-list"
                                                                             id="product-list-btn"><i
                                                                                 class="fa fa-user"></i></a>
@@ -130,20 +130,19 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="supplier_status"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Supplier Status') }}</label>
                                                             <div class="form-col-12">
                                                                 <input readonly type="text" name="supplier_status"
                                                                     id="supplier_status" class="form-control col-12"
-                                                                    value="@if ($supplier->status_id
-                                                            == 1) Active @else Inactive @endif">
+                                                                    value="@if ($supplier->status_id == 1) Active @else Inactive @endif">
                                                                 @include('alerts.feedback', ['field' => 'supplier_status'])
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="purchase_amount_paid"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Paid') }}</label>
@@ -162,7 +161,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-last-col-3">
                                                         <div class="form-group">
                                                             <label for="purchase_amount_dues"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Dues') }}</label>
@@ -181,7 +180,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-2">
+                                                    {{-- <div class="form-last-col-2">
                                                         <div class="form-group">
                                                             <label for="purchase_status"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Status') }}</label>
@@ -197,11 +196,10 @@
                                                                     Partial</option>
                                                                 <option @if ($purchase->purchase_status == 'received') selected @endif value="received">
                                                                     Received</option>
-                                                                //received,partial,pending,ordered
                                                             </select>
                                                             @include('alerts.feedback', ['field' => 'purchase_amount_dues'])
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-first-col-2">
@@ -217,37 +215,37 @@
                                                                     title="Select Payment Method...">
                                                                     <option @if ($purchase->purchase_payment_method == 'cash') selected @endif value="cash">
                                                                         Cash</option>
-                                                                    <option @if ($purchase->purchase_payment_method == 'credit') selected @endif
-                                                                        value="credit">Credit</option>
+                                                                    <option @if ($purchase->purchase_payment_method == 'credit') selected @endif value="credit">Credit
+                                                                    </option>
                                                                 </select>
                                                                 @include('alerts.feedback', ['field' =>
                                                                 'purchase_payment_method'])
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="purchase_invoice_id"
-                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Invoice ID') }}</label>
+                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Invoice ID') }}</label>
                                                             <div class="form-col-12">
-                                                                <div class="myrow">
-                                                                    {{-- <div class="col-1"></div> --}}
-                                                                    <input readonly type="text" name="purchase_invoice_id"
-                                                                        class="form-control form-col-10"
-                                                                        value="{{ $purchase->purchase_invoice_id }}">
-                                                                    <button type="button"
+                                                                {{-- <div class="myrow"> --}}
+                                                                {{-- <div class="col-1"></div> --}}
+                                                                <input readonly type="text" name="purchase_invoice_id"
+                                                                    class="form-control"
+                                                                    value="{{ $purchase->purchase_invoice_id }}">
+                                                                {{-- <button type="button"
                                                                         href="{{ route('purchase.edit', ['purchase' => 1]) }}"
                                                                         class="btn btn-sm btn-warning btn-icon form-col-2"
                                                                         title="Re-Open">
                                                                         <i class="fa fa-file-text-o"></i>
-                                                                    </button>
-                                                                </div>
+                                                                    </button> --}}
+                                                                {{-- </div> --}}
                                                                 @include('alerts.feedback', ['field' =>
                                                                 'purchase_invoice_id'])
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    <div class="form-col-3">
                                                         <div class="form-group">
                                                             <label for="purchase_invoice_date"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Date') }}</label>
@@ -263,7 +261,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-4">
+                                                    {{-- <div class="form-last-col-4">
                                                         <div class="form-group">
                                                             <label for="purchse_document"
                                                                 class="form-col-10 control-label">&nbsp;&nbsp;{{ __(' Upload Document') }}</label>
@@ -278,7 +276,7 @@
                                                                     value="{{ $purchase->purchase_document }}">
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -318,26 +316,17 @@
                                                                     ?>
                                                                     @foreach ($purchaseproducts as $singlepurchaseproduct)
                                                                         <?php
-                                                                        $myproduct_quantity =
-                                                                        $singlepurchaseproduct->purchase_quantity_total;
-                                                                        $myproduct_discount =
-                                                                        $singlepurchaseproduct->purchase_trade_discount;
-                                                                        $myproduct_unit_price =
-                                                                        $singlepurchaseproduct->purchase_trade_price_piece;
-
+                                                                        $myproduct_quantity = $singlepurchaseproduct->purchase_quantity_total;
+                                                                        $myproduct_discount = $singlepurchaseproduct->purchase_trade_discount;
+                                                                        $myproduct_unit_price = $singlepurchaseproduct->purchase_trade_price_piece;
+                                                                        
                                                                         $mytotal_items = $j;
-                                                                        $mytotal_quantity = $mytotal_quantity +
-                                                                        $myproduct_quantity;
-                                                                        $mytotal_discount = $mytotal_discount +
-                                                                        $myproduct_discount;
-
-                                                                        $myproduct_sub_total =
-                                                                        $singlepurchaseproduct->purchase_product_sub_total;
-                                                                        $mysubtotal_amount = $mysubtotal_amount +
-                                                                        $myproduct_sub_total;
-                                                                        $mygrandtotal_amount = $mysubtotal_amount +
-                                                                        $purchase->purchase_free_amount +
-                                                                        $purchase->purchase_add_amount;
+                                                                        $mytotal_quantity = $mytotal_quantity + $myproduct_quantity;
+                                                                        $mytotal_discount = $mytotal_discount + $myproduct_discount;
+                                                                        
+                                                                        $myproduct_sub_total = $singlepurchaseproduct->purchase_product_sub_total;
+                                                                        $mysubtotal_amount = $mysubtotal_amount + $myproduct_sub_total;
+                                                                        $mygrandtotal_amount = $mysubtotal_amount + $purchase->purchase_free_amount + $purchase->purchase_add_amount;
                                                                         $j++;
                                                                         ?>
                                                                     @endforeach
@@ -442,8 +431,8 @@
                                                                             <input type="text"
                                                                                 name="purchase_products_barcode_i"
                                                                                 id="purchase_products_barcode_i"
-                                                                                class="form-control class=" form-control
-                                                                                form-col-12"col-12"
+                                                                                class=" form-control
+                                                                                form-col-12 "
                                                                                 placeholder="Barcode Search/Scan"
                                                                                 value="{{ old('purchase_products_barcode_i', '') }}">
                                                                         </td>
@@ -451,7 +440,7 @@
                                                                             <div class="col-12 mytblcol input-group">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text barcode">
-                                                                                        <a class="" data-toggle="modal"
+                                                                                        <a class="" data-toggle=" modal"
                                                                                             data-target="#product-list"
                                                                                             id="product-list-btn"><i
                                                                                                 class="fa fa-barcode"></i></a>
@@ -567,12 +556,14 @@
                                                                             Items</th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Total Qty</th>
-                                                                        <th colspan="2" class="col-2 mycol" scope="col">Free
+                                                                        <th colspan="2" class="col-2 mycol" scope="col">
+                                                                            Free
                                                                             Pcs / Free Amount</th>
                                                                         {{-- <th class="col-1 mycol" scope="col">Free Amount</th> --}}
                                                                         <th colspan="1" class="col-2 mycol" scope="col">
                                                                             Total</th>
-                                                                        <th colspan="1" class="col-1 mycol" scope="col">Add
+                                                                        <th colspan="1" class="col-1 mycol" scope="col">
+                                                                            Add
                                                                         </th>
                                                                         <th colspan="1" class="col-1 mycol" scope="col">
                                                                             Discount</th>
@@ -646,15 +637,17 @@
                                                                     </tr>
                                                         </div>
                                                         </thead>
-                                                        <tbody class="">
+                                                        <tbody
+                                                            class="">
                                                         </tbody>
-                                                        <tfoot class="thead-dark">
+                                                        <tfoot class="
+                                                            thead-dark">
                                                             <tr class="row tfoot-dark-custom">
                                                                 {{-- <th class="col-1 mycol" scope="col">Invoice Id</th> --}}
                                                                 {{-- <th class="col-3 mycol" scope="col" style="text-align: center">Invoice Date</th> --}}
                                                                 {{-- <th class="col-2 mycol" scope="col">Document</th> --}}
-                                                                <th class="col-8 firstcol" scope="col">Remarks</th>
-                                                                <th class="col-2 mycol" scope="col">Payment Status</th>
+                                                                <th class="col-10 firstcol" scope="col">Remarks</th>
+                                                                {{-- <th class="col-2 mycol" scope="col">Payment Status</th> --}}
                                                                 <th class="col-2 lastcol" scope="col">Invoice ID</th>
                                                             </tr>
                                                             <tr class="row table-info">
@@ -672,12 +665,12 @@
                                                                 {{-- <td class="col-2 mycol" scope="col">
                                     <input type="file" name="purchase_document" id="purchase_document" class="form-control col-12" value="{{ old('purchase_document', '') }}">
                                   </td> --}}
-                                                                <td class="col-8 firstcol" scope="col">
+                                                                <td class="col-10 firstcol" scope="col">
                                                                     <input type="text" name="purchase_note"
                                                                         id="purchase_note" class="form-control col-12"
                                                                         value="{{ $purchase->purchase_note }}">
                                                                 </td>
-                                                                <td class="col-2 mycol" scope="col">
+                                                                {{-- <td class="col-2 mycol" scope="col">
                                                                     <select readonly name="purchase_payment_status"
                                                                         id="purchase_payment_status"
                                                                         class="selectpicker form-control col-12"
@@ -688,9 +681,8 @@
                                                                         <option value="paid">Paid</option>
                                                                         <option value="partial">Partial</option>
                                                                         <option value="overdue">Overdue</option>
-                                                                        //due,paid,partial,overdue,
                                                                     </select>
-                                                                </td>
+                                                                </td> --}}
                                                                 <td class="col-2 lastcol" scope="col">
                                                                     <input readonly type="text" name="purchase_invoice_id"
                                                                         class="form-control form-col-12"
@@ -700,8 +692,8 @@
                                     </button> --}}
                                                                 </td>
                                                             </tr>
-                                                        </tfoot>
-                                                        </table>
+                                                            </tfoot>
+                                                            </table>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1042,7 +1034,7 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" data-toggle="modal"
+                                                                                <a class="" data-toggle=" modal"
                                                                                     data-target="#product-list"
                                                                                     id="product-list-btn"><i
                                                                                         class="fa fa-user"></i></a>
@@ -1071,7 +1063,8 @@
                                                                     <div class=" col-12 input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text barcode">
-                                                                                <a class="" id="product-list-btn"><i
+                                                                                <a class="" id="
+                                                                                    product-list-btn"><i
                                                                                         class="fa fa-barcode"></i></a>
                                                                             </span>
                                                                         </div>
@@ -1238,7 +1231,6 @@
             });
 
         });
-
     </script>
 
     <script type="text/javascript">
@@ -1253,7 +1245,8 @@
         var product_sub_total;
         var my_total_qty;
         var i = 1;
-        var rownum = <?php echo $i; ?>;    $(document).ready(function(e) {
+        var rownum = <?php echo $i; ?>;
+        $(document).ready(function(e) {
             $('#purchase_products_barcode_i').focus();
         });
         $(document).on('click', '#add_button', function(e) {
@@ -1525,7 +1518,10 @@
             // calculateTotal();
         });
 
-        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;    var productsnames_array = <?php echo json_encode($nameArray); ?>;    var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;    $("#product_name_i").on('focus', function() {
+        var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;
+        var productsnames_array = <?php echo json_encode($nameArray); ?>;
+        var productsnamescodes_array = <?php echo json_encode($namecodeArray); ?>;
+        $("#product_name_i").on('focus', function() {
             // $( "product_name" ).autocomplete({
             $(this).autocomplete({
                 source: productsnamescodes_array,
@@ -1744,7 +1740,9 @@
             });
         }
 
-        var suppliersnames_array = <?php echo json_encode($snameArray); ?>;    var suppliersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;    $("#suppliercodesearch").on('focus', function() {
+        var suppliersnames_array = <?php echo json_encode($snameArray); ?>;
+        var suppliersnamescodes_array = <?php echo json_encode($snamecodeArray); ?>;
+        $("#suppliercodesearch").on('focus', function() {
             // $("#suppliercodesearch" ).autocomplete({
             $(this).autocomplete({
                 source: suppliersnamescodes_array,
@@ -2109,7 +2107,6 @@
             $('#product_name_i').focus();
 
         });
-
     </script>
 
 @endsection

@@ -66,24 +66,39 @@
                                         <th class="disabled-sorting text-center">Edit</th>
                                     </tr>
                                 </thead>
-                                {{-- <tfoot>
-                <tr>
-                </tr>
-              </tfoot> --}}
+                                <tfoot>
+                                    <tr>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center">Total:</th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                        <th style="text-align:center"></th>
+                                    </tr>
+                                </tfoot>
                                 {{-- <tbody>
                 @foreach ($sales as $key => $value)
                 <tr>
                   <td>{{ $value->sale_id }}</td>
                   <td>{{ $value->sale_ref_no }}</td>
-                  <td>{{ $value->customer_name }}</td> 
+                  <td>{{ $value->customer_name }}</td>
                   <td>{{ $value->sale_status }}</td>
                   <-- <td>{{ $value->sale_date }}</td> -->
                   <td>{{ $value->sale_grandtotal_price }}</td>
                   <td>{{ $value->sale_amount_paid }}</td>
                   <td>{{ $value->sale_amount_dues }}</td>
-                  <td>{{ $value->sale_payment_method }}</td> 
+                  <td>{{ $value->sale_payment_method }}</td>
                   <td>{{ $value->sale_payment_status }}</td>
-                  <td>{{ $value->sale_invoice_id }}</td> 
+                  <td>{{ $value->sale_invoice_id }}</td>
                   <td>{{ $value->sale_invoice_date }}</td>
                   <td>{{ $value->customer_credit_duration." ".$value->customer_credit_type }}</td>
                   <td class="text-right">
@@ -311,8 +326,63 @@
                     columns: ':gt(0)'
                 }
             ],
-            drawCallback: function() {
-                var api = this.api();
+            // drawCallback: function() {
+            //     var api = this.api();
+            // },
+            footerCallback: function(row, data, start, end, display) {
+                var api = this.api(),
+                    data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total_1 = api
+                    .column(4)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                total_2 = api
+                    .column(5)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                total_3 = api
+                    .column(6)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                total_4 = api
+                    .column(7)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                total_5 = api
+                    .column(8)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                $(api.column(4).footer()).html(total_1);
+                $(api.column(5).footer()).html(total_2);
+                $(api.column(6).footer()).html(total_3.toFixed(2));
+                $(api.column(7).footer()).html(total_4.toFixed(2));
+                $(api.column(8).footer()).html(total_5.toFixed(2));
+
             },
         });
 

@@ -119,7 +119,7 @@
             padding-right: 5px;
             padding-left: 5px;
         }
-        
+
         table .form-col-1 {
             -ms-flex: 0 0 8.33333333%;
                 flex: 0 0 8.33333333%;
@@ -129,7 +129,7 @@
             padding-right: 5px;
             padding-left: 5px;
         }
-        
+
         table .form-col-2 {
             -ms-flex: 0 0 16.66666667%;
                 flex: 0 0 16.66666667%;
@@ -139,7 +139,7 @@
             padding-right: 5px;
             padding-left: 5px;
         }
-        
+
         table .form-col-3 {
             -ms-flex: 0 0 25%;
                 flex: 0 0 25%;
@@ -160,7 +160,7 @@
             .hidden-print {
                 display: none !important;
             }
-            @page { margin: 0; } body { margin: 0.5cm; margin-bottom:1.6cm; } 
+            @page { margin: 0; } body { margin: 0.5cm; margin-bottom:1.6cm; }
         }
     </style>
     {{-- <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> --}}
@@ -238,7 +238,7 @@
                         {{-- {{number_format((float)($payment_product->payment_product_sub_total / $payment_product->payment_quantity_total), 2, '.', '')}} --}}
                         <td colspan="2" class="mycol form-col-2" style="text-align:left;">{{$payment_data->payment_cheque_no}}</td>
                         <td colspan="1" class="mycol form-col-1" style="text-align:left;"></td>
-                        <td colspan="2" class="mycol form-col-2" style="text-align:left;">|{{$payment_data->payment_amount_paid}}</td>
+                        <td colspan="2" class="mycol form-col-2" style="text-align:left;">{{$payment_data->payment_amount_paid}}</td>
                         <td colspan="1" class="mycol form-col-1" style="text-align:left;"></td>
                     </tr>
                 </tbody>
@@ -276,7 +276,7 @@
                         <th colspan="1" class="mycol form-col-1" style="text-align:left;"></th>
                     </tr>
                     <tr>
-                        <th colspan="9" class="mycol form-col-1" style="text-align:left;">{{__('Payment Dues')}}</th>
+                        <th colspan="9" class="mycol form-col-1" style="text-align:left;">{{__('Supplier Dues')}}</th>
                         <th colspan="2" class="mycol form-col-3" style="text-align:left">{{number_format((float)($supplier_data->supplier_balance_dues))}}</th>
                         {{-- <th colspan="2" class="mycol form-col-3" style="text-align:left">{{number_format((float)($supplier_data->supplier_balance_dues)/*+($payment_data->payment_amount_dues)*/-(float)$payment_data->payment_amount_paid, 2, '.', '')*/}}</th> --}}
 
@@ -291,7 +291,7 @@
                         <td style="padding: 5px;width:30%">{{__('Paid By')}}: {{$payment_data->payment_method}}</td>
                         <td style="padding: 5px;width:40%">{{__('Amount')}}: {{number_format((float)$payment_data->payment_amount_paid, 2, '.', '')}}</td>
                         <td style="padding: 5px;width:30%">{{__('Change')}}: {{number_format((float)$payment_data->payment_amount_dues, 2, '.', '')}}</td>
-                    </tr>                
+                    </tr>
                     @endforeach --}}
                     {{-- <tr>
                         <td class="centered" colspan="3">{{__('Thank you for shopping with us. Please come again')}}</td>
@@ -305,7 +305,7 @@
             </table>
             <div class="centered" style="margin:0px 0 50px">
                 <p class="text-lowercase">
-                    {{__('Thanks for shopping! No return No exchange after 15 days or without receipt. (T & C apply).')}}                    
+                    {{__('Thanks for shopping! No return No exchange after 15 days or without receipt. (T & C apply).')}}
                     <br>
                     {{__('To order online visit our website www.alsyedstore.com.')}}
                     <br>
@@ -318,8 +318,8 @@
                 <small>{{__("Powered By: Phoenix Technologies")}}</small>
                 <br>
                 <small>{{__("+923152776517")}}</small>
-                @php 
-                // $website = strtolower(lcfirst("www.phoenixtechnologies.co")); 
+                @php
+                // $website = strtolower(lcfirst("www.phoenixtechnologies.co"));
                 @endphp
                 <small>{{__("www.phoenixtechnologies.co")}}</small>
             </div>
@@ -343,7 +343,7 @@
   </body>
 
   <script type="text/javascript">
-    function auto_print() {     
+    function auto_print() {
         window.print()
     }
     setTimeout(auto_print, 1000);

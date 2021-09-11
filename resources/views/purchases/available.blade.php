@@ -34,20 +34,12 @@
                                                             @endforeach
                                                         </select>
                                                         @include('alerts.feedback', ['field' => 'product_company'])
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-last-col-3">
-                                                <div class="form-group">
-                                                    <label for="save-btn"
-                                                        class=" col-12 control-label">&nbsp;&nbsp;{{ __('') }}</label>
-                                                    <div class=" col-12">
                                                         <button type="submit" id="save-btn"
                                                             class="btn btn-info btn-round pull-right">{{ __('Print Company Now') }}</button>
                                                     </div>
                                                 </div>
-
                                             </div>
+                                            <div class="form-last-col-3"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +57,7 @@
                                         {{-- <th class="text-center">Product Pieces</th>
                   <th class="text-center">Product Packets</th>
                   <th class="text-center">Product Cartons</th> --}}
-                                        <th class="text-center">Product Quantity</th>
+                                        <th class="text-center">Product Quantity(Pcs)</th>
                                     </tr>
                                 </thead>
                                 {{-- <tbody>
@@ -251,7 +243,7 @@
                             return intVal(a) + intVal(b);
                         }, 0);
 
-                    $(api.column(5).footer()).html(total.toFixed(3));
+                    $(api.column(5).footer()).html(total+' pcs');
 
                 },
             });

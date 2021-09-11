@@ -78,7 +78,7 @@
                                                             <td>
                                                                 {{-- {{ dd($product_sale_data) }} --}}
                                                                 @foreach($product_sale_data[$key] as $product_saledata)
-                                                                <?php 
+                                                                <?php
                                                                     $product = App\Models\Product::where('product_id', $product_saledata->product_id)->select('product_name')->get()->toArray();
                                                                 ?>
                                                                 {{$product[0]['product_name'].' ('.$product_saledata->sale_quantity_total.')'}}
@@ -177,7 +177,7 @@
                                                             <td>{{$return->cashier->name}}</td>
                                                             <td>
                                                                 @foreach($product_return_data[$key] as $productreturn_data)
-                                                                <?php 
+                                                                <?php
                                                                     $product = App\Models\Product::where('product_id',$productreturn_data->product_id)->select('product_name')->get()->toArray();
                                                                     // dd($product);
                                                                 ?>

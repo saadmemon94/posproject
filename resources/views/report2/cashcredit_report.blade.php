@@ -34,6 +34,7 @@
                                                     <select id="cashcredit" name="cashcredit" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins">
                                                         <option value="cash">{{'Cash'}}</option>
                                                         <option value="credit">{{'Credit'}}</option>
+                                                        <option value="nonbulk">{{'Non Bulk'}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -90,7 +91,7 @@
                                                             <td>{{$sale->warehouse->warehouse_name}}</td>
                                                             <td>
                                                                 @foreach($product_sale_data[$key] as $productsale_data)
-                                                                <?php 
+                                                                <?php
                                                                     $product = App\Models\Product::where('product_id', $productsale_data->product_id)->select('product_name')->get()->toArray();
                                                                 ?>
                                                                 {{$product[0]['product_name'].' ('.$productsale_data->sale_quantity_total.')'}}
@@ -189,7 +190,7 @@
                                                             <td>{{$return->cashier->name}}</td>
                                                             <td>
                                                                 @foreach($product_return_data[$key] as $productreturn_data)
-                                                                <?php 
+                                                                <?php
                                                                     $product = App\Models\Product::where('product_id',$productreturn_data->product_id)->select('product_name')->get()->toArray();
                                                                     // dd($product);
                                                                 ?>

@@ -69,7 +69,7 @@ class PurchaseController extends Controller
     public function getRowDetailsData2()
     {
         // $purchases = Purchase::all();
-        $purchasereturns = PurchaseReturn::join('suppliers', 'purchase_returns.purchase_return_supplier_id', '=', 'suppliers.supplier_id')->get();
+        $purchasereturns = PurchaseReturn::join('suppliers', 'purchase_returns.purchase_return_supplier_id', '=', 'suppliers.supplier_id')->join('users', 'purchase_returns.purchase_return_returned_by', '=', 'users.id')->select('purchase_returns.*', 'suppliers.supplier_name', 'users.name')->get();
         $suppliers = Supplier::where('status_id', 1)->get();
         // dd($purchases);
         return Datatables::of($purchasereturns)
@@ -122,26 +122,26 @@ class PurchaseController extends Controller
         // $payments = Payment::all();
         $supplier_id = $request->supplier_id;
         // $supplier_id = $request->purchase_supplier_id;
-        
+
         // $payments = Payment::where('payment_supplier_id', $supplier_id)
         // ->join('purchases', 'payments.payment_supplier_id', '=', 'purchases.purchase_supplier_id')
         // // ->join('purchase_returns', 'payments.payment_supplier_id', '=', 'purchase_returns.purchase_return_supplier_id')
         // ->join('suppliers', 'payments.payment_supplier_id', '=', 'suppliers.supplier_id')
         // ->orderBy('payments.created_at', 'desc')
         // ->select('payments.*', 'suppliers.supplier_name', 'purchases.*')
-        // ->get();     
-        
+        // ->get();
+
         $suppliers = Supplier::where('supplier_id', $supplier_id)
         ->join('purchases', 'suppliers.supplier_id', '=', 'purchases.purchase_supplier_id')
-        ->select('suppliers.supplier_name', 'purchase_invoice_id', 'purchase_invoice_date', 'purchase_id', 'purchase_amount_paid', 'purchase_amount_dues', 'purchase_payment_method', 'purchase_payment_type', 'purchase_payment_cheque', 'purchases.supplier_balance_dues');
+        ->select('suppliers.supplier_name', 'purchase_invoice_id', 'purchase_invoice_date', 'purchase_id', 'purchase_total_price', 'purchase_amount_paid', 'purchase_amount_dues', 'purchase_payment_method', 'purchase_payment_type', 'purchase_payment_cheque', 'purchases.supplier_balance_dues');
 
         $suppliers2 = Supplier::where('supplier_id', $supplier_id)
         ->join('payments', 'suppliers.supplier_id', '=', 'payments.payment_supplier_id',)
-        ->select('suppliers.supplier_name', 'payment_invoice_id', 'payment_invoice_date', 'purchase_id', 'payment_amount_paid', 'payment_amount_balance', 'payment_method', 'payment_type', 'payment_cheque_no', 'supplier_amount_dues');
+        ->select('suppliers.supplier_name', 'payment_invoice_id', 'payment_invoice_date', 'purchase_id', 'sale_purch_invoice_id', 'payment_amount_paid', 'payment_amount_balance', 'payment_method', 'payment_type', 'payment_cheque_no', 'supplier_amount_dues');
 
         $suppliers3 = Supplier::where('supplier_id', $supplier_id)
         ->join('purchase_returns', 'suppliers.supplier_id', '=', 'purchase_returns.purchase_return_supplier_id')
-        ->select('suppliers.supplier_name', 'purchase_return_invoice_id', 'purchase_return_invoice_date', 'purchase_id', 'purchase_return_amount_paid', 'purchase_return_amount_dues', 'purchase_return_payment_method', 'purchase_return_payment_type', 'purchase_return_payment_cheque', 'purchase_returns.supplier_balance_dues');
+        ->select('suppliers.supplier_name', 'purchase_return_invoice_id', 'purchase_return_invoice_date', 'purchase_id', 'purchase_return_total_price', 'purchase_return_amount_paid', 'purchase_return_amount_dues', 'purchase_return_payment_method', 'purchase_return_payment_type', 'purchase_return_payment_cheque', 'purchase_returns.supplier_balance_dues');
 
         $merged = $suppliers2->union($suppliers)->union($suppliers3)->get();
 
@@ -164,7 +164,7 @@ class PurchaseController extends Controller
             // $start_date = '';
             // $end_date = '';
         }
-  
+
         $payments = Payment::where('payment_supplier_id', 9999)->get();
 
         $suppliers = Supplier::where('status_id', 1)->get();
@@ -191,7 +191,7 @@ class PurchaseController extends Controller
         ->addIndexColumn()
         ->with('total_quantity_available', $products->sum('product_quantity_available'))
         ->make(true);
-        
+
     }
 
     public function availableprint(Request $request)
@@ -296,7 +296,7 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $validate = Validator::make($request->all(), [ 
+        $validate = Validator::make($request->all(), [
             'purchase_supplier_id'         => '',
             'purchase_supplier_name'       => '',
             'purchase_total_items'         => '',//'purchase_product_items'
@@ -321,7 +321,7 @@ class PurchaseController extends Controller
             // 'purchase_payment_id'          => '',
             'warehouse_id'                 => '',
         ]);
-        if ($validate->fails()) {    
+        if ($validate->fails()) {
         //    return response()->json("Fields Required", 400);
            return redirect('purchase/create')->withErrors($validate);
         //    return response()->withErrors($validate);
@@ -349,10 +349,14 @@ class PurchaseController extends Controller
             $supplier_amount_paid = $supplier_amount_paid + $purchase_amount_received;
             $supplier_amount_dues = $supplier_amount_dues - ($purchase_amount_received - $purchase_grandtotal_price);
             $purchase_amount_dues = $purchase_grandtotal_price - $purchase_amount_received;
+            $purchase_status = 'received';
+            $purchase_payment_status = 'paid';
         }else{
             $supplier_amount_paid = $supplier_amount_paid + $purchase_amount_received;
             $supplier_amount_dues = $supplier_amount_dues + ($purchase_grandtotal_price - $purchase_amount_received);
             $purchase_amount_dues = $purchase_grandtotal_price - $purchase_amount_received;
+            $purchase_status = 'pending';
+            $purchase_payment_status = 'partial';
         }
 
         if($request->product_name !== NULL){
@@ -364,11 +368,11 @@ class PurchaseController extends Controller
                 'supplier_balance_dues' 	=> $supplier_amount_dues,
                 // 'supplier_total_balance'    => $request->supplier_total_balance,
             );
-    
+
             $update = DB::table('suppliers')->where('supplier_id','=', $supplier_id)->update($supplier_edits);
 
             $userwarehouse = DB::table('user_warehouses')->where('user_id', Auth::user()->id)->get()->toArray();
-    
+
             $purchase_adds = array(
                 'purchase_ref_no'           => $purchase_ref_no,
                 'purchase_supplier_id'      => $request->purchase_supplier_id,
@@ -376,7 +380,7 @@ class PurchaseController extends Controller
                 'purchase_total_quantity'   => $request->purchase_total_qty,//'purchase_product_quantity'
                 'purchase_free_piece'       => $request->purchase_free_piece,
                 'purchase_free_amount'      => $request->purchase_free_amount,
-                'purchase_status'           => $request->purchase_status,
+                'purchase_status'           => $purchase_status,
                 'purchase_note'             => $request->purchase_note,
                 // 'purchase_date'             => $request->purchase_date,
                 'purchase_total_price'      => $request->purchase_total_price,
@@ -387,7 +391,7 @@ class PurchaseController extends Controller
                 'purchase_amount_dues'      => $purchase_amount_dues,
                 'supplier_balance_dues'     => $supplier_amount_dues,
                 'purchase_payment_method'   => $request->purchase_payment_method,
-                'purchase_payment_status'   => $request->purchase_payment_status,
+                'purchase_payment_status'   => $purchase_payment_status,
                 'purchase_document'         => $request->purchase_document,
                 'purchase_invoice_id'       => $purchase_invoice_id,
                 'purchase_invoice_date'     => $request->purchase_invoice_date,
@@ -414,7 +418,7 @@ class PurchaseController extends Controller
                 // Storage::putFile('documents', $document, $documentName);
                 $purchase_adds['purchase_document'] = $documentName;
             }
-    
+
             $product_barcodes = $request->purchase_products_barcode;
             // $product_warehouses = $request->purchase_products_warehouse;
             $product_names = $request->product_name;
@@ -429,18 +433,18 @@ class PurchaseController extends Controller
             $products_unit_prices = $request->purchase_products_unit_price;
             $products_discounts = $request->purchase_products_discount;
             $products_sub_totals = $request->purchase_products_sub_total;
-    
+
             $save = DB::table('purchases')->insert($purchase_adds);
             $id = DB::getPdo()->lastInsertId();
             // $add_id = DB::table('purchases')->insertGetId($purchase_adds)
-            
+
             foreach($product_ids as $key => $single_id){
-    
+
                 $products_quantity_pieces[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
                 $products_quantity_packets[$key] = ($products_pieces[$key]/$pieces_per_packet[$key])+$products_packets[$key]+($products_cartons[$key]*($packets_per_carton[$key]));
                 $products_quantity_cartons[$key] = ($products_pieces[$key]/$pieces_per_carton[$key])+($products_packets[$key]/$packets_per_carton[$key])+$products_cartons[$key];
                 $products_quantity_total[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
-    
+
                 $product[$key] = DB::table('products')->where('product_id','=', $single_id)->first();
                 if(!empty($product[$key])){
                     $warehouse_id = $product[$key]->warehouse_id;
@@ -448,7 +452,7 @@ class PurchaseController extends Controller
                 else{
                     $warehouse_id = NULL;
                 }
-    
+
                 $purchase_product_adds[$key] = array(
                     'purchase_id'                    => $id,
                     'product_id'                     => $single_id,
@@ -474,16 +478,16 @@ class PurchaseController extends Controller
                 );
                 $purchase_products_save = DB::table('purchase_products')->insert($purchase_product_adds[$key]);
             }
-    
+
             foreach($product_ids as $key => $single_id){
-    
+
                 $products_quantity_pieces[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
                 $products_quantity_packets[$key] = ($products_pieces[$key]/$pieces_per_packet[$key])+$products_packets[$key]+($products_cartons[$key]*($packets_per_carton[$key]));
                 $products_quantity_cartons[$key] = ($products_pieces[$key]/$pieces_per_carton[$key])+($products_packets[$key]/$packets_per_carton[$key])+$products_cartons[$key];
                 $products_quantity_total[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
-    
+
                 $product[$key] = DB::table('products')->where('product_id','=', $single_id)->first();
-    
+
                 $product_edits = array(
                     // 'product_id'                 => $single_id,
                     // 'product_ref_no'                => $product_codes[$key],
@@ -507,15 +511,15 @@ class PurchaseController extends Controller
                 );
                 $update = DB::table('products')->where('product_id','=', $single_id)->update($product_edits);
             }
-    
+
             $purchase_data = Purchase::where('purchase_id', $id)->first();
             $purchase_products_data = PurchaseProducts::where('purchase_id', $id)->orderBy('purchase_cartons_number', 'desc')->get();
             $user_data = User::where('id', $purchase_data->purchase_created_by)->first();
             $warehouse_data = Warehouse::where('warehouse_id', $purchase_data->warehouse_id)->first();
             $supplier_data = Supplier::where('supplier_id', $purchase_data->purchase_supplier_id)->first();
             $payment_data = Payment::where('purchase_id', $id)->get();
-    
-            return view('purchases.invoice', compact('purchase_data', 'purchase_products_data', 'user_data', 'warehouse_data', 'supplier_data', 'payment_data',));    
+
+            return view('purchases.invoice', compact('purchase_data', 'purchase_products_data', 'user_data', 'warehouse_data', 'supplier_data', 'payment_data',));
             // return redirect('purchase/gen_invoice/'.$id);
             // return redirect('/purchase')->with(['message' => 'Purchase Created Successfully'], 200);
             // if($save){
@@ -535,7 +539,7 @@ class PurchaseController extends Controller
     public function storereturn(Request $request)
     {
         // dd($request->all());
-        $validate = Validator::make($request->all(), [ 
+        $validate = Validator::make($request->all(), [
             'purchase_id'                       => '',
             'purchase_ref_no'            => '',
             'purchase_supplier_id'       => '',
@@ -552,13 +556,13 @@ class PurchaseController extends Controller
             'purchase_amount_dues'       => '',
             'purchase_payment_method'    => '',
             'purchase_payment_status'    => '',
-            'purchase_invoice_id'        => 'required',
-            'purchase_invoice_date'      => 'required',
+            'purchase_invoice_id'        => '',
+            'purchase_invoice_date'      => '',
             'purchase_document'          => '',
             'purchase_note'              => '',
             // 'purchase_return_returned_by'       => '',
         ]);
-        if ($validate->fails()) {    
+        if ($validate->fails()) {
         //    return response()->json("Fields Required", 400);
            return redirect('purchase/returnadd')->withErrors($validate);
         }
@@ -575,7 +579,7 @@ class PurchaseController extends Controller
         $purchase_return_invoice_id = 'p.return-'.$year.'-'.$lastid;
         //$purchase_adds = $request->except('document');
         $purchase_return_grandtotal_price = $request->purchase_grandtotal_price;
-        $purchase_return_amount_received = $request->purchase_amount_received;
+        $purchase_return_amount_received = $request->purchase_amount_recieved;
         $supplier_return_amount_paid = $request->purchase_amount_paid;
         $supplier_return_amount_dues = $request->purchase_amount_dues;
         $purchase_return_amount_dues = $purchase_return_grandtotal_price;
@@ -600,7 +604,7 @@ class PurchaseController extends Controller
                 'supplier_balance_dues' 	=> $supplier_return_amount_dues,
                 // 'supplier_total_balance'    => $request->supplier_total_balance,
             );
-    
+
             $update = DB::table('suppliers')->where('supplier_id','=', $supplier_id)->update($supplier_edits);
 
             $purchase = DB::table('purchases')->where('purchase_invoice_id','=', $request->purchase_invoice_id)->first();
@@ -610,7 +614,12 @@ class PurchaseController extends Controller
             else{
                 $purchase_id = NULL;
             }
-    
+
+            // $purchase_status = $request->purchase_status;
+            $purchase_status = 'received';
+            // $purchase_payment_status = $request->purchase_payment_status;
+            $purchase_payment_status = 'paid';
+
             $purchasereturn_adds = array(
                 'purchase_return_ref_no'           => $purchase_return_ref_no,
                 'purchase_id'                      => $purchase_id,
@@ -619,7 +628,7 @@ class PurchaseController extends Controller
                 'purchase_return_total_quantity'   => $request->purchase_total_qty,//'purchase_product_quantity'
                 'purchase_return_free_piece'       => $request->purchase_free_piece,
                 'purchase_return_free_amount'      => $request->purchase_free_amount,
-                'purchase_return_status'           => $request->purchase_status,
+                'purchase_return_status'           => $purchase_status,
                 'purchase_return_date'             => $request->purchase_invoice_date,
                 'purchase_return_total_price'      => $request->purchase_total_price,
                 'purchase_return_add_amount'       => $request->purchase_add_amount,
@@ -629,14 +638,15 @@ class PurchaseController extends Controller
                 'purchase_return_amount_dues'      => $purchase_return_amount_dues,
                 'supplier_balance_dues'            => $supplier_return_amount_dues,
                 'purchase_return_payment_method'   => $request->purchase_payment_method,
-                'purchase_return_payment_status'   => $request->purchase_payment_status,
-                'purchase_return_invoice_id'       => $request->purchase_invoice_id,
+                'purchase_return_payment_status'   => $purchase_payment_status,
+                'purchase_return_invoice_id'       => $purchase_return_invoice_id,//$request->purchase_invoice_id,
                 'purchase_return_invoice_date'     => $request->purchase_invoice_date,
                 'purchase_return_document'         => $request->purchase_document,
                 'purchase_return_note'             => $request->purchase_note,
                 'purchase_return_returned_by' 	   => Auth::user()->id,
                 'created_at'	 			       => date('Y-m-d h:i:s'),
             );
+
             $document = $request->purchase_document;
             if($document){
                 $v = Validator::make([
@@ -655,7 +665,7 @@ class PurchaseController extends Controller
                 // Storage::putFile('documents', $document, $documentName);
                 $purchase_adds['purchase_document'] = $documentName;
             }
-    
+
             $product_barcodes = $request->purchase_products_barcode;
             // $product_warehouses = $request->purchase_products_warehouse;
             $product_names = $request->product_name;
@@ -670,18 +680,18 @@ class PurchaseController extends Controller
             $products_unit_prices = $request->purchase_products_unit_price;
             $products_discounts = $request->purchase_products_discount;
             $products_sub_totals = $request->purchase_products_sub_total;
-    
+
             $save = DB::table('purchase_returns')->insert($purchasereturn_adds);
             $id = DB::getPdo()->lastInsertId();
             // $add_id = DB::table('purchases')->insertGetId($purchase_adds)
-            
+
             foreach($product_ids as $key => $single_id){
-    
+
                 $products_quantity_total[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
                 $products_quantity_available[$key] = $products_quantity_total[$key];
-    
+
                 $product[$key] = DB::table('products')->where('product_id','=', $single_id)->first();
-    
+
                 $purchasereturn_product_adds[$key] = array(
                     'purchase_return_id'                   => $id,
                     'product_id'                           => $single_id,
@@ -704,14 +714,14 @@ class PurchaseController extends Controller
                 );
                 $purchasereturn_products_save = DB::table('purchasereturn_products')->insert($purchasereturn_product_adds[$key]);
             }
-    
+
             foreach($product_ids as $key => $single_id){
-    
+
                 $products_quantity_total[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
                 $products_quantity_available[$key] = $products_quantity_total[$key];
-    
+
                 $product[$key] = DB::table('products')->where('product_id','=', $single_id)->first();
-    
+
                 // dd($products_quantity_available[$key]);
                 $product_edits = array(
                     // 'product_id'                 => $single_id,
@@ -736,12 +746,12 @@ class PurchaseController extends Controller
                 );
                 $update = DB::table('products')->where('product_id','=', $single_id)->update($product_edits);
             }
-    
+
             // return redirect()->back();
             Session::flash('message' , 'Purchase Returned Successfully');
-            return redirect('/purchase');
+            return redirect('/purchase/return');
             // ->with(['message' => 'Purchase Returned Successfully'], 200);
-    
+
             // if($save){
             // 	return response()->json(['data' => $purchasereturn_adds, 'purchasereturn_products' => $purchasereturn_products_save, 'message' => 'Purchase Returned Successfully'], 200);
             // }else{
@@ -792,7 +802,7 @@ class PurchaseController extends Controller
         $products = Product::where('status_id', 1)->get();
         $attachedbarcodes = ProductBarcodes::get();
 
-        $purchaseproducts = PurchaseProducts::where('purchase_id', $id)->orderBy('purchase_products_id', 'desc')->get(); 
+        $purchaseproducts = PurchaseProducts::where('purchase_id', $id)->orderBy('purchase_products_id', 'desc')->get();
 
         return view('purchases.edit', compact('purchase', 'suppliers', 'products', 'purchaseproducts', 'supplier', 'attachedbarcodes') );//'selectedproducts'
         // return view('purchases.edit', ['purchases' => $model->paginate(15)->items()[$id-1], 'suppliers' => $model2->paginate(15)->items(), 'products' => $model3->paginate(15)->items()]);
@@ -811,7 +821,7 @@ class PurchaseController extends Controller
         $get_purchase = DB::table('purchases')->where('purchase_id', $purchase_id)->first();
         $get_supplier = DB::table('suppliers')->where('supplier_id', $request->purchase_supplier_id)->first();
 
-        $validate = Validator::make($request->all(), [ 
+        $validate = Validator::make($request->all(), [
             'purchase_supplier_id'         => 'required',
             'purchase_supplier_name'       => '',
             'purchase_total_items'         => '',//'purchase_product_items'
@@ -835,7 +845,7 @@ class PurchaseController extends Controller
             // 'purchase_payment_id'          => '',
             'warehouse_id'                 => '',
         ]);
-        if ($validate->fails()) {    
+        if ($validate->fails()) {
         //    return response()->json("Fields Required", 400);
            return redirect()->back()->withErrors($validate);
         }
@@ -858,7 +868,7 @@ class PurchaseController extends Controller
         $purchase_amount_dues_new = $purchase_amount_dues - $purchase_amount_received;
         $supplier_amount_paid_new = $supplier_amount_paid + $purchase_amount_received;
         // $supplier_amount_dues_new = $supplier_amount_dues - $purchase_amount_received;
-        
+
         if($purchase_amount_received >= $get_purchase->purchase_amount_dues){
             $supplier_amount_dues_new = $get_supplier->supplier_balance_dues - $purchase_amount_received/*($purchase_amount_received - $get_purchase->purchase_amount_dues)*/;
             $purchase_status = 'received';
@@ -879,27 +889,27 @@ class PurchaseController extends Controller
         if($my_purchase_status == 'completed'){
             $purchase_status = 'completed';
         }
-        
+
         if($request->product_name !== NULL){
 
             $supplier_id = $request->purchase_supplier_id;
             $supplier_name = $request->purchase_supplier_name;
-    
+
             $supplier_edits = array(
                 'supplier_balance_paid' 	=> $supplier_amount_paid_new,
                 'supplier_balance_dues' 	=> $supplier_amount_dues_new,
                 // 'supplier_total_balance'    => $request->supplier_total_balance,
             );
-    
+
             $update1 = DB::table('suppliers')->where('supplier_id','=', $supplier_id)->update($supplier_edits);
-    
+
             $purchase_edits = array(
                 'purchase_supplier_id'      => $request->purchase_supplier_id,
                 'purchase_total_items'      => $request->purchase_total_items,//'purchase_product_items'
                 'purchase_total_quantity'   => $request->purchase_total_qty,//'purchase_product_quantity'
                 'purchase_free_piece'       => $request->purchase_free_piece,
                 'purchase_free_amount'      => $request->purchase_free_amount,
-                'purchase_status'           => $request->purchase_status,
+                'purchase_status'           => $purchase_status,
                 'purchase_note'             => $request->purchase_note,
                 // 'purchase_date'          => $request->purchase_date,
                 'purchase_total_price'      => $request->purchase_total_price,
@@ -910,15 +920,15 @@ class PurchaseController extends Controller
                 'purchase_amount_dues'      => $purchase_amount_dues_new,
                 'supplier_balance_dues'     => $supplier_amount_dues_new,
                 'purchase_payment_method'   => $request->purchase_payment_method,
-                'purchase_payment_status'   => $request->purchase_payment_status,
+                'purchase_payment_status'   => $purchase_payment_status,
                 // 'purchase_document'      => $request->purchase_document,
                 // 'purchase_invoice_id'       => $request->purchase_invoice_id,
                 // 'purchase_invoice_date'     => $request->purchase_invoice_date,
                 // 'purchase_payment_id'       => $request->purchase_payment_id,
                 // 'warehouse_id'              => $request->warehouse_id,
-    
+
             );
-    
+
             $document = $request->purchase_document;
             if($document){
                 $v = Validator::make([
@@ -937,7 +947,7 @@ class PurchaseController extends Controller
                 // Storage::putFile('documents', $document, $documentName);
                 $purchase_edits['purchase_document'] = $documentName;
             }
-    
+
             $product_barcodes = $request->purchase_products_barcode;
             // $product_warehouses = $request->purchase_products_warehouse;
             $product_names = $request->product_name;
@@ -952,10 +962,10 @@ class PurchaseController extends Controller
             $products_unit_prices = $request->purchase_products_unit_price;
             $products_discounts = $request->purchase_products_discount;
             $products_sub_totals = $request->purchase_products_sub_total;
-    
+
             $purchase_products_delete = array();
             $purchase_products_delete = DB::table('purchase_products')->where('purchase_id', $purchase_id)->whereNotIn('product_id', $product_ids)->get();
-    
+
             foreach($purchase_products_delete as $purchase_product_delete){
                 if($purchase_product_delete !== NULL){
                     DB::table('purchase_products')->where('purchase_id', $purchase_id)->where('product_id','=', $purchase_product_delete->product_id)->delete();
@@ -963,18 +973,18 @@ class PurchaseController extends Controller
             }
 
             foreach($product_ids as $key => $single_id){
-    
+
                 $products_quantity_pieces[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
                 $products_quantity_packets[$key] = ($products_pieces[$key]/$pieces_per_packet[$key])+$products_packets[$key]+($products_cartons[$key]*($packets_per_carton[$key]));
                 $products_quantity_cartons[$key] = ($products_pieces[$key]/$pieces_per_carton[$key])+($products_packets[$key]/$packets_per_carton[$key])+$products_cartons[$key];
                 $products_quantity_total[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
-    
+
                 $product[$key] = DB::table('products')->where('product_id','=', $single_id)->first();
 
                 $purchase_products_get[$key] = DB::table('purchase_products')->where('purchase_id', $purchase_id)->where('product_id','=', $single_id)->first();
-    
+
                 // $purchase_products_delete = DB::table('purchase_products')->where('purchase_id','=', $purchase_id)->delete();
-    
+
                 if($purchase_products_get[$key] == NULL){
 
                     $purchase_product_adds[$key] = array(
@@ -1000,7 +1010,7 @@ class PurchaseController extends Controller
                         'purchase_trade_price_carton'    => $products_unit_prices[$key]*$pieces_per_carton[$key],
                         'purchase_product_sub_total'     => $products_sub_totals[$key]
                     );
-        
+
                     $purchase_edits['purchase_amount_dues'] = $purchase_edits['purchase_amount_dues'] + $products_sub_totals[$key];
                     $supplier_edits['supplier_balance_dues'] = $supplier_edits['supplier_balance_dues'] + $products_sub_totals[$key];
 
@@ -1027,7 +1037,7 @@ class PurchaseController extends Controller
                         'purchase_trade_price_carton'    => $products_unit_prices[$key]*$pieces_per_carton[$key],
                         'purchase_product_sub_total'     => $products_sub_totals[$key]
                     );
-        
+
                     $difference = $products_sub_totals[$key]-$purchase_products_get[$key]->purchase_product_sub_total;
                     $purchase_edits['purchase_amount_dues'] = $purchase_edits['purchase_amount_dues'] + $difference;
                     $supplier_edits['supplier_balance_dues'] = $supplier_edits['supplier_balance_dues'] + $difference;
@@ -1035,18 +1045,18 @@ class PurchaseController extends Controller
                     $purchase_products_update = DB::table('purchase_products')->where('purchase_id', $purchase_id)->where('product_id','=', $single_id)->update($purchase_product_edits[$key]);
 
                 }
-    
+
             }
 
             foreach($product_ids as $key => $single_id){
-    
+
                 $products_quantity_pieces[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
                 $products_quantity_packets[$key] = ($products_pieces[$key]/$pieces_per_packet[$key])+$products_packets[$key]+($products_cartons[$key]*($packets_per_carton[$key]));
                 $products_quantity_cartons[$key] = ($products_pieces[$key]/$pieces_per_carton[$key])+($products_packets[$key]/$packets_per_carton[$key])+$products_cartons[$key];
                 $products_quantity_total[$key] = $products_pieces[$key]+($products_packets[$key]*($pieces_per_packet[$key]))+($products_cartons[$key]*($pieces_per_carton[$key]));
-    
+
                 $product[$key] = DB::table('products')->where('product_id','=', $single_id)->first();
-    
+
                 $purchase_products_get[$key] = DB::table('purchase_products')->where('purchase_id', $purchase_id)->where('product_id','=', $single_id)->first();
 
                 if($purchase_products_get[$key] !== NULL){
@@ -1094,10 +1104,10 @@ class PurchaseController extends Controller
 
                 $update = DB::table('products')->where('product_id','=', $single_id)->update($product_edits);
             }
-    
+
             $update1 = DB::table('suppliers')->where('supplier_id','=', $supplier_id)->update($supplier_edits);
             $update2 = DB::table('purchases')->where('purchase_id','=', $purchase_id)->update($purchase_edits);
-    
+
             $purchase_data = Purchase::where('purchase_id', $purchase_id)->first();
             $purchase_products_data = PurchaseProducts::where('purchase_id', $purchase_id)->get();
             $user_data = User::where('id', $purchase_data->purchase_created_by)->first();
@@ -1106,9 +1116,9 @@ class PurchaseController extends Controller
             $payment_data = Payment::where('purchase_id', $purchase_id)->get();
             $supplier_data->previous = $previous_balance;
             $purchase_data->purchase_amount_received = $purchase_amount_received;
-    
+
             return view('purchases.invoiceupdate', compact('purchase_data', 'purchase_products_data', 'user_data', 'warehouse_data', 'supplier_data', 'payment_data',));
-     
+
             // Session::flash('message' , 'Purchase Edited Successfully');
             // return redirect('/purchase');
             // return redirect('/purchase')->with(['message' => 'Purchase Edited Successfully'], 200);
