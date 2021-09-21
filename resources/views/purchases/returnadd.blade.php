@@ -1280,10 +1280,10 @@
                 purchase_return_change = Number(purchase_amount_recieved) - Number(grandtotal_amount);
                 $('#purchase_return_change').val(purchase_return_change);
             }
-            if (Number(purchase_amount_recieved) < Number(grandtotal_amount)) {
-                alert('Amount recieved should be greater than the Grand Total Amount');
-                $('#purchase_amount_recieved').val(0);
-            }
+            // if (Number(purchase_amount_recieved) < Number(grandtotal_amount)) {
+            //     alert('Amount recieved should be greater than the Grand Total Amount');
+            //     $('#purchase_amount_recieved').val(0);
+            // }
         });
         $(document).on('click', ".delete-productfield", function(event) {
             if (confirm('Do you really want to delete this?')) {

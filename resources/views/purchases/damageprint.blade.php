@@ -261,7 +261,7 @@
                     @foreach ($products as $product)
                         <?php
                         $product_name = $product->product_name;
-
+                        
                         $product_quantity_damage = $product->product_quantity_damage;
                         $product_company = $product->product_company;
                         ?>
@@ -281,7 +281,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="row">
-                        <th colspan="6" class="mycol form-col-6" style="text-align:left;">{{ __('Total Amount') }}
+                        <th colspan="6" class="mycol form-col-6" style="text-align:left;">{{ __('Total Quantity') }}
                         </th>
                         <th colspan="3" class="mycol form-col-2" style="text-align:left;">
                         </th>
@@ -327,7 +327,6 @@
         window.print()
     }
     setTimeout(auto_print, 1000);
-
 </script>
 
 </html>

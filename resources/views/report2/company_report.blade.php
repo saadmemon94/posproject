@@ -75,7 +75,7 @@
                                                             <th>{{'Date'}}</th>
                                                             <th>{{'Invoice No'}}</th>
                                                             <th>{{'Warehouse'}}</th>
-                                                            <th>{{'Product'}} ({{'Qty'}})</th>
+                                                            {{-- <th>{{'Product'}} ({{'Qty'}})</th> --}}
                                                             <th>{{'Grand Total'}}</th>
                                                             <th>{{'Paid'}}</th>
                                                             <th>{{'Due'}}</th>
@@ -89,15 +89,17 @@
                                                             <td>{{date('d/m/Y', strtotime($sale->created_at->toDateString())) . ' '. $sale->created_at->toTimeString()}}</td>
                                                             <td>{{$sale->sale_invoice_id}}</td>
                                                             <td>{{$sale->warehouse->warehouse_name}}</td>
-                                                            <td>
-                                                                @foreach($product_sale_data[$key] as $product_sale_data)
-                                                                <?php 
-                                                                    $product = App\Models\Product::where('product_id', $product_sale_data->product_id)->select('product_name')->get()->toArray();
-                                                                ?>
-                                                                {{$product[0]['product_name'].' ('.$product_sale_data->sale_quantity_total.')'}}
-                                                                <br>
-                                                                @endforeach
-                                                            </td>
+                                                            {{-- <td>
+                                                                @if (!empty($product_sale_data[$key]))
+                                                                    @foreach($product_sale_data[$key] as $one_product_sale_data)
+                                                                    <?php
+                                                                        $product = App\Models\Product::where('product_id', $one_product_sale_data->product_id)->select('product_name')->get()->toArray();
+                                                                    ?>
+                                                                    {{$product[0]['product_name'].' ('.$one_product_sale_data->sale_quantity_total.')'}}
+                                                                    <br>
+                                                                    @endforeach
+                                                                @endif
+                                                            </td> --}}
                                                             <td>{{$sale->sale_grandtotal_price}}</td>
                                                             <td>{{$sale->sale_amount_paid}}</td>
                                                             <td>{{$sale->sale_amount_dues}}</td>
@@ -116,7 +118,7 @@
                                                             <th>Total:</th>
                                                             <th></th>
                                                             <th></th>
-                                                            <th></th>
+                                                            {{-- <th></th> --}}
                                                             <th>0.00</th>
                                                             <th>0.00</th>
                                                             <th>0.00</th>
@@ -141,15 +143,17 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach($payment_data as $key=>$payment)
-                                                            <tr>
-                                                                <td></td>
-                                                                {{-- <td>{{$key}}</td> --}}
-                                                                <td>{{date('d/m/Y', strtotime($payment->created_at))}}</td>
-                                                                <td>{{$payment->payment_invoice_id}}</td>
-                                                                <td>{{$payment->sale_reference}}</td>
-                                                                <td>{{$payment->payment_amount_paid}}</td>
-                                                                <td>{{$payment->payment_method}}</td>
-                                                            </tr>
+                                                            @if (!empty($payment))
+                                                                <tr>
+                                                                    <td></td>
+                                                                    {{-- <td>{{$key}}</td> --}}
+                                                                    <td>{{date('d/m/Y', strtotime($payment->created_at))}}</td>
+                                                                    <td>{{$payment->payment_invoice_id}}</td>
+                                                                    <td>{{$payment->sale_reference}}</td>
+                                                                    <td>{{$payment->payment_amount_paid}}</td>
+                                                                    <td>{{$payment->payment_method}}</td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
                                                     </tbody>
                                                     <tfoot class="tfoot active">
@@ -175,7 +179,7 @@
                                                             <th>{{'Invoice No'}}</th>
                                                             <th>{{'Warehouse'}}</th>
                                                             <th>{{'Biller'}}</th>
-                                                            <th>{{'Product'}} ({{'qty'}})</th>
+                                                            {{-- <th>{{'Product'}} ({{'qty'}})</th> --}}
                                                             <th>{{'Grand Total'}}</th>
                                                         </tr>
                                                     </thead>
@@ -188,15 +192,15 @@
                                                             <td>{{$return->sale_return_invoice_id}}</td>
                                                             <td>{{$return->warehouse->warehouse_name}}</td>
                                                             <td>{{$return->cashier->name}}</td>
-                                                            <td>
-                                                                @foreach($product_return_data[$key] as $productreturn_data)
-                                                                <?php 
-                                                                    $product = App\Models\Product::where('product_id',$productreturn_data->product_id)->select('product_name')->get()->toArray();
+                                                            {{-- <td>
+                                                                @foreach($product_return_data[$key] as $one_productreturn_data)
+                                                                <?php
+                                                                    $product = App\Models\Product::where('product_id',$one_productreturn_data->product_id)->select('product_name')->get()->toArray();
                                                                     // dd($product);
                                                                 ?>
-                                                                    {{$product[0]['product_name'].' ('.$productreturn_data->salereturn_quantity_total.')'}}
+                                                                    {{$product[0]['product_name'].' ('.$one_productreturn_data->salereturn_quantity_total.')'}}
                                                                 @endforeach
-                                                            </td>
+                                                            </td> --}}
                                                             <td>{{number_format((float)($return->sale_return_grandtotal_price), 2, '.', '')}}</td>
                                                         </tr>
                                                         @endforeach
@@ -206,7 +210,7 @@
                                                             <th></th>
                                                             <th>Total:</th>
                                                             <th></th>
-                                                            <th></th>
+                                                            {{-- <th></th> --}}
                                                             <th></th>
                                                             <th></th>
                                                             <th>0.00</th>
@@ -341,27 +345,66 @@
                     columns: ':gt(0)'
                 }
             ],
-            drawCallback: function () {
-                var api = this.api();
-                datatable_sum_sale(api, false);
-            }
-        } );
-        function datatable_sum_sale(dt_selector, is_calling_first) {
-            // console.log(dt_selector);
-            if (dt_selector.rows( '.selected' ).any() && is_calling_first) {
-                var rows = dt_selector.rows( '.selected' ).indexes();
-                // console.log(rows);
-                $( dt_selector.column( 5 ).footer() ).html(dt_selector.cells( rows, 5, { page: 'current' } ).data().sum().toFixed(2));
-                $( dt_selector.column( 6 ).footer() ).html(dt_selector.cells( rows, 6, { page: 'current' } ).data().sum().toFixed(2));
-                $( dt_selector.column( 7 ).footer() ).html(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
-            }
-            // else {
-            //     console.log(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
-            //     $( dt_selector.column( 5 ).footer() ).html(dt_selector.column( 5, {page:'current'} ).data().sum().toFixed(2));
-            //     $( dt_selector.column( 6 ).footer() ).html(dt_selector.column( 6, {page:'current'} ).data().sum().toFixed(2));
-            //     $( dt_selector.column( 7 ).footer() ).html(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
+            // drawCallback: function () {
+            //     var api = this.api();
+            //     datatable_sum_sale(api, false);
             // }
-        }
+            footerCallback: function(row, data, start, end, display) {
+                var api = this.api(),
+                    data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total_1 = api
+                    .column(4)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                total_2 = api
+                    .column(5)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                total_3 = api
+                    .column(6)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                $(api.column(4).footer()).html(total_1.toFixed(2));
+                $(api.column(5).footer()).html(total_2.toFixed(2));
+                $(api.column(6).footer()).html(total_3.toFixed(2));
+
+            },
+        } );
+        // function datatable_sum_sale(dt_selector, is_calling_first) {
+        //     // console.log(dt_selector);
+        //     if (dt_selector.rows( '.selected' ).any() && is_calling_first) {
+        //         var rows = dt_selector.rows( '.selected' ).indexes();
+        //         // console.log(rows);
+        //         $( dt_selector.column( 5 ).footer() ).html(dt_selector.cells( rows, 5, { page: 'current' } ).data().sum().toFixed(2));
+        //         $( dt_selector.column( 6 ).footer() ).html(dt_selector.cells( rows, 6, { page: 'current' } ).data().sum().toFixed(2));
+        //         $( dt_selector.column( 7 ).footer() ).html(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
+        //     }
+        //     // else {
+        //     //     console.log(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
+        //     //     $( dt_selector.column( 5 ).footer() ).html(dt_selector.column( 5, {page:'current'} ).data().sum().toFixed(2));
+        //     //     $( dt_selector.column( 6 ).footer() ).html(dt_selector.column( 6, {page:'current'} ).data().sum().toFixed(2));
+        //     //     $( dt_selector.column( 7 ).footer() ).html(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
+        //     // }
+        // }
 
         $('#payment-table').DataTable( {
             order: [],
@@ -433,21 +476,43 @@
                     columns: ':gt(0)'
                 }
             ],
-            drawCallback: function () {
-                var api = this.api();
-                datatable_sum_payment(api, false);
-            }
-        } );
-        function datatable_sum_payment(dt_selector, is_calling_first) {
-            if (dt_selector.rows( '.selected' ).any() && is_calling_first) {
-                var rows = dt_selector.rows( '.selected' ).indexes();
-
-                $( dt_selector.column( 4 ).footer() ).html(dt_selector.cells( rows, 4, { page: 'current' } ).data().sum().toFixed(2));
-            }
-            // else {
-            //     $( dt_selector.column( 4 ).footer() ).html(dt_selector.column( 4, {page:'current'} ).data().sum().toFixed(2));
+            // drawCallback: function () {
+            //     var api = this.api();
+            //     datatable_sum_payment(api, false);
             // }
-        }
+            footerCallback: function(row, data, start, end, display) {
+                var api = this.api(),
+                    data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total_1 = api
+                    .column(4)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                $(api.column(4).footer()).html(total_1.toFixed(2));
+            },
+        } );
+        // function datatable_sum_payment(dt_selector, is_calling_first) {
+        //     if (dt_selector.rows( '.selected' ).any() && is_calling_first) {
+        //         var rows = dt_selector.rows( '.selected' ).indexes();
+
+        //         $( dt_selector.column( 4 ).footer() ).html(dt_selector.cells( rows, 4, { page: 'current' } ).data().sum().toFixed(2));
+        //     }
+        //     // else {
+        //     //     $( dt_selector.column( 4 ).footer() ).html(dt_selector.column( 4, {page:'current'} ).data().sum().toFixed(2));
+        //     // }
+        // }
 
         $('#return-table').DataTable( {
             order: [],
@@ -519,21 +584,43 @@
                     columns: ':gt(0)'
                 }
             ],
-            drawCallback: function () {
-                var api = this.api();
-                datatable_sum_return(api, false);
-            }
-        } );
-        function datatable_sum_return(dt_selector, is_calling_first) {
-            if (dt_selector.rows( '.selected' ).any() && is_calling_first) {
-                var rows = dt_selector.rows( '.selected' ).indexes();
-
-                $( dt_selector.column( 6 ).footer() ).html(dt_selector.cells( rows, 6, { page: 'current' } ).data().sum().toFixed(2));
-            }
-            // else {
-            //     $( dt_selector.column( 6 ).footer() ).html(dt_selector.column( 6, {page:'current'} ).data().sum().toFixed(2));
+            // drawCallback: function () {
+            //     var api = this.api();
+            //     datatable_sum_return(api, false);
             // }
-        }
+            footerCallback: function(row, data, start, end, display) {
+                var api = this.api(),
+                    data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function(i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total_1 = api
+                    .column(5)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+                $(api.column(5).footer()).html(total_1.toFixed(2));
+            },
+        } );
+        // function datatable_sum_return(dt_selector, is_calling_first) {
+        //     if (dt_selector.rows( '.selected' ).any() && is_calling_first) {
+        //         var rows = dt_selector.rows( '.selected' ).indexes();
+
+        //         $( dt_selector.column( 6 ).footer() ).html(dt_selector.cells( rows, 6, { page: 'current' } ).data().sum().toFixed(2));
+        //     }
+        //     // else {
+        //     //     $( dt_selector.column( 6 ).footer() ).html(dt_selector.column( 6, {page:'current'} ).data().sum().toFixed(2));
+        //     // }
+        // }
 
         // $(".daterangepicker-field").daterangepicker({
         // callback: function(startDate, endDate, period){

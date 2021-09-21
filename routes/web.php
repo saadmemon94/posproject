@@ -100,10 +100,11 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::resource('company', 'CompanyController', ['except' => ['show']]);
         Route::resource('brand', 'BrandController', ['except' => ['show']]);
         Route::resource('product', 'ProductController', ['except' => ['show']]);
-        Route::resource('sale', 'SaleController', ['except' => ['show']]);
         Route::resource('purchase', 'PurchaseController', ['except' => ['show']]);
         Route::resource('payment', 'PaymentController', ['except' => ['show']]);
     });
+    
+    Route::resource('sale', 'SaleController', ['except' => ['show']]);
 
     Route::get('sale/pos', 'SaleController@pos')->name('sale.pos');
     Route::get('sale/payment', 'PaymentController@index')->name('sale.payment');
@@ -113,6 +114,8 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::get('sale/return', 'SaleController@return')->name('sale.return');
     Route::get('sale/returnadd', 'SaleController@returnadd')->name('sale.returnadd');
     Route::post('sale/storereturn', 'SaleController@storereturn')->name('sale.storereturn');
+    Route::get('sale/sale_return/{id}', 'SaleController@return_view')->name('sale.return.view');
+
     Route::get('purchase/payment', 'PaymentController@indexpurchase')->name('purchase.payment');
     Route::get('purchase/payment/create', 'PaymentController@purchasecreate')->name('purchase.paymentcreate');
     Route::post('purchase/paymentadd', 'PaymentController@purchasestore')->name('purchase.paymentadd');
@@ -120,34 +123,42 @@ Route::group(['middleware' => ['get.menu']], function () {
     Route::get('purchase/return', 'PurchaseController@return')->name('purchase.return');
     Route::get('purchase/returnadd', 'PurchaseController@returnadd')->name('purchase.returnadd');
     Route::post('purchase/storereturn', 'PurchaseController@storereturn')->name('purchase.storereturn');
+    Route::get('purchase/purchase_return/{id}', 'PurchaseController@return_view')->name('purchase.return.view');
+
     Route::get('purchase/available', 'PurchaseController@available')->name('purchase.available');
     Route::post('purchase/availableprint', 'PurchaseController@availableprint')->name('purchase.availableprint');
     Route::get('purchase/minimum', 'PurchaseController@minimum')->name('purchase.minimum');
     Route::post('purchase/minimumprint', 'PurchaseController@minimumprint')->name('purchase.minimumprint');
     Route::get('purchase/damage', 'PurchaseController@damage')->name('purchase.damage');
     Route::post('purchase/damageprint', 'PurchaseController@damageprint')->name('purchase.damageprint');
-
+    
     Route::get('purchase/amountwise', 'PurchaseController@amountwise')->name('purchase.amountwise');
+
     // Route::get('getsupplier/{id}', ['as' => 'getsupplier', 'uses' => 'SupplierController@getSupplier']);
     Route::get('purchase/searchsupplier', 'SupplierController@searchsupplier')->name('searchsupplier');
     Route::get('purchase/searchsupplierpayments', 'SupplierController@searchsupplierpayments')->name('searchsupplierpayments');
     Route::get('purchase/searchproduct', 'ProductController@searchproduct')->name('searchproduct');
     Route::get('purchase/searchbarcode', 'ProductController@searchbarcode')->name('searchbarcode');
+
     Route::get('purchase/gen_invoice/{id}', 'PurchaseController@genInvoice')->name('purchaseinvoice');
     Route::get('purchase/gen_invoice2/{id}', 'PurchaseController@genInvoice2')->name('purchaseinvoice2');
+
     Route::get('sale/searchcustomer', 'CustomerController@searchcustomer')->name('searchcustomer');
     Route::get('sale/searchcustomerpayments', 'CustomerController@searchcustomerpayments')->name('searchcustomerpayments');
     Route::get('sale/searchproduct', 'ProductController@searchproduct')->name('searchproduct2');
     Route::get('sale/searchbarcode', 'ProductController@searchbarcode')->name('searchbarcode2');
     Route::get('sale/searchbarcode3', 'ProductController@searchbarcode3')->name('searchbarcode3');
+
     Route::get('sale/gen_invoice/{id}', 'SaleController@genInvoice')->name('saleinvoice');
     Route::get('sale/gen_invoice2/{id}', 'SaleController@genInvoice2')->name('saleinvoice2');
     // Route::get('product/addmore', ['as' => 'product.addmore', 'uses' => 'ProductController@addMore']);
     // Route::post('product/addmore', ['as' => 'product.addmore', 'uses' => 'ProductController@addMoreBarcode']);
+    
     Route::get('balance/customers', 'ReportController@balancecustomer')->name('balancecustomer');
     Route::get('balance/sales', 'ReportController@balancesale')->name('balancesale');
     Route::get('balance/purchases', 'ReportController@balancepurchase')->name('balancepurchase');
     Route::get('balance/creditduration', 'ReportController@balancecreditduration')->name('balancecreditduration');
+
     // Route::get('report/date', 'ReportController@reportdate')->name('reportdate');
     // Route::get('report/cashcredit', 'ReportController@reportcashcredit')->name('reportcashcredit');
     // Route::get('report/customer', 'ReportController@reportcustomer')->name('reportcustomer');

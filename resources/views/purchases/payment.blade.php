@@ -178,6 +178,13 @@
                     {
                         className: 'dt-body-center',
                         data: 'payment_note',
+                        render: function(data) {
+                            if (data) {
+                                return (data.length > 30) ? data.substring(0, 30) + '...' : data;
+                            } else {
+                                return '';
+                            }
+                        },
                         name: 'payment_note'
                     },
                     //   { className: 'dt-body-center', data: 'purchase_id', name: 'purchase_id' },

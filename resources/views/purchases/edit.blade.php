@@ -79,7 +79,7 @@
                             </div>
                           </div>
                         </div> --}}
-                                                    <div class="form-first-col-3">
+                                                    <div class="form-first-col-4">
                                                         <div class="form-group">
                                                             <label readonly for="purchase_supplier_name"
                                                                 class="form-col-10 control-label">&nbsp;&nbsp;{{ __(' Supplier Name') }}</label>
@@ -130,7 +130,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-3">
+                                                    {{-- <div class="form-col-1">
                                                         <div class="form-group">
                                                             <label for="supplier_status"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Supplier Status') }}</label>
@@ -141,8 +141,8 @@
                                                                 @include('alerts.feedback', ['field' => 'supplier_status'])
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-col-3">
+                                                    </div> --}}
+                                                    <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="purchase_amount_paid"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Paid') }}</label>
@@ -153,15 +153,12 @@
                                                                 <input readonly type="number" name="purchase_amount_paid"
                                                                     id="purchase_balance_paid" class="form-control"
                                                                     value="{{ $purchase->purchase_amount_paid }}">
-                                                                <input readonly type="hidden" name="supplier_balance_paid"
-                                                                    id="supplier_balance_paid" class="form-control"
-                                                                    value="{{ $supplier->supplier_balance_paid }}">
                                                                 @include('alerts.feedback', ['field' =>
                                                                 'purchase_amount_paid'])
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-3">
+                                                    <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="purchase_amount_dues"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Purchase Dues') }}</label>
@@ -172,11 +169,40 @@
                                                                 <input readonly type="number" name="purchase_amount_dues"
                                                                     id="purchase_balance_dues" class="form-control"
                                                                     value="{{ $purchase->purchase_amount_dues }}">
-                                                                <input readonly type="hidden" name="supplier_balance_dues"
+                                                                @include('alerts.feedback', ['field' =>
+                                                                'purchase_amount_dues'])
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-col-2">
+                                                        <div class="form-group">
+                                                            <label for="supplier_balance_paid"
+                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Supplier Paid') }}</label>
+                                                            <div class="form-col-12 input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text rs">Rs: </span>
+                                                                </div>
+                                                                <input readonly type="number" name="supplier_balance_paid"
+                                                                    id="supplier_balance_paid" class="form-control"
+                                                                    value="{{ $supplier->supplier_balance_paid }}">
+                                                                @include('alerts.feedback', ['field' =>
+                                                                'supplier_balance_paid'])
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-last-col-2">
+                                                        <div class="form-group">
+                                                            <label for="supplier_balance_dues"
+                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Supplier Dues') }}</label>
+                                                            <div class="form-col-12 input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text rs">Rs: </span>
+                                                                </div>
+                                                                <input readonly type="number" name="supplier_balance_dues"
                                                                     id="supplier_balance_dues" class="form-control"
                                                                     value="{{ $supplier->supplier_balance_dues }}">
                                                                 @include('alerts.feedback', ['field' =>
-                                                                'purchase_amount_dues'])
+                                                                'supplier_balance_dues'])
                                                             </div>
                                                         </div>
                                                     </div>
@@ -300,7 +326,8 @@
                                                                         <th class="col-1 mycol" scope="col">Pkts</th>
                                                                         <th class="col-1 mycol" scope="col">Crtns</th>
                                                                         <th class="col-1 mycol" scope="col">Price</th>
-                                                                        <th class="col-1 mycol" scope="col">Discount</th>
+                                                                        <th class="col-1 mycol" scope="col">Discount
+                                                                        </th>
                                                                         <th class="col-1 mycol" scope="col">Total</th>
                                                                         <th class="col-1 lastcol" scope="col">Action</th>
                                                                     </tr>
@@ -507,11 +534,21 @@
                                                                                 value="{{ old('purchase_pieces_per_carton_i', '20') }}">
                                                                         </td>
                                                                         <td class="col-1 mycol" scope="col">
-                                                                            <input type="number"
+                                                                            <input readonly type="number"
                                                                                 name="purchase_products_unit_price_i"
                                                                                 min="0" id="purchase_products_unit_price_i"
                                                                                 class="form-control form-col-12"
                                                                                 value="{{ old('purchase_products_unit_price_i', '0') }}">
+                                                                            <input type="hidden"
+                                                                                name="purchase_products_packet_price_i"
+                                                                                id="purchase_products_packet_price_i"
+                                                                                class="form-control col-12" min="0"
+                                                                                value="{{ old('purchase_products_packet_price_i', '0') }}">
+                                                                            <input type="hidden"
+                                                                                name="purchase_products_carton_price_i"
+                                                                                id="purchase_products_carton_price_i"
+                                                                                class="form-control col-12" min="0"
+                                                                                value="{{ old('purchase_products_carton_price_i', '0') }}">
                                                                         </td>
                                                                         <td class="col-1 mycol" scope="col">
                                                                             <input type="number"
@@ -1262,6 +1299,8 @@
             var product_packets = $('#purchase_products_packets_i').val();
             var product_cartons = $('#purchase_products_cartons_i').val();
             var product_unit_price = $('#purchase_products_unit_price_i').val();
+            var product_packet_price = $('#purchase_products_packet_price_i').val();
+            var product_carton_price = $('#purchase_products_carton_price_i').val();
             var product_discount = $('#purchase_products_discount_i').val();
             var pieces_per_packet = $('#purchase_pieces_per_packet_i').val();
             var packets_per_carton = $('#purchase_packets_per_carton_i').val();
@@ -1277,8 +1316,13 @@
             grandtotal_amount = $('#purchase_grandtotal_price').val();
             // purchase_amount_received = $('#purchase_amount_received').val();
 
-            product_quantity = Number(product_pieces) + (product_packets * pieces_per_packet) + (product_cartons *
+            product_quantity = Number(product_pieces) + Number(product_packets * pieces_per_packet) + Number(
+                product_cartons *
                 pieces_per_carton);
+
+            product_sub_total = ((Number(product_pieces) * product_unit_price) + (Number(product_packets) *
+                product_packet_price) + (Number(product_cartons) * product_carton_price)) - Number(
+                product_discount);
 
             // var data = $(".purchase-product").row( $(this).parents('row prtr') ).data();
             // var data = $(".purchase-product").find('.prtr').html();
@@ -1308,24 +1352,30 @@
             $('#purchase_packets_per_carton_i').val(0);
             $('#purchase_pieces_per_carton_i').val(0);
             $('#purchase_products_unit_price_i').val(0);
+            $('#purchase_products_packet_price_i').val(0);
+            $('#purchase_products_carton_price_i').val(0);
             $('#purchase_products_discount_i').val(0);
             $('#purchase_products_sub_total_i').val(0);
 
-            if (product_name !== "" && product_quantity !== 0 && product_unit_price !== 0 && repeated !== 1) {
+            if (product_name !== "" && product_quantity !== 0 && (product_unit_price !== 0 ||
+                    product_packet_price !== 0 || product_carton_price !== 0) && repeated !== 1) {
 
-                product_quantity = Number(product_pieces) + (product_packets * pieces_per_packet) + (
+                product_quantity = Number(product_pieces) + Number(product_packets * pieces_per_packet) + Number(
                     product_cartons * pieces_per_carton);
 
                 if (product_quantity == 0 || product_unit_price == 0) {
                     product_discount = 0;
                     product_unit_price = 0;
+                    product_packet_price = 0;
+                    product_carton_price = 0;
                 }
 
                 total_items = Number(total_items) + 1;
                 total_quantity = Number(total_quantity) + (Number(product_quantity));
                 total_discount = Number(total_discount) + Number(product_discount);
 
-                product_sub_total = Number(product_unit_price) * (Number(product_quantity)) - Number(
+                product_sub_total = ((Number(product_pieces) * product_unit_price) + (Number(product_packets) *
+                    product_packet_price) + (Number(product_cartons) * product_carton_price)) - Number(
                     product_discount);
 
                 if (product_quantity == 0) {
@@ -1358,13 +1408,21 @@
                     rownum + '" class="form-control form-col-12" value=' + product_cartons +
                     '><input readonly type="hidden" name="purchase_pieces_per_carton[]" id="purchase_pieces_per_carton' +
                     rownum + '" class="form-control form-col-12" value=' + pieces_per_carton +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="purchase_products_unit_price[]" id="purchase_products_unit_price' +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="purchase_products_unit_price[]" id="purchase_products_unit_price' +
                     rownum + '" class="form-control form-col-12"  value=' + product_unit_price +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="purchase_products_discount[]" id="purchase_products_discount' +
+                    '><input readonly type="hidden" name="purchase_products_packet_price[]" id="purchase_products_packet_price' +
+                    rownum + '" class="form-control col-12"  value=' + product_packet_price +
+                    '><input readonly type="hidden" name="purchase_products_carton_price[]" id="purchase_products_carton_price' +
+                    rownum + '" class="form-control col-12"  value=' + product_carton_price +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="purchase_products_discount[]" id="purchase_products_discount' +
                     rownum + '" class="form-control form-col-12"  value=' + product_discount +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="purchase_products_sub_total[]" id="purchase_products_sub_total' +
+                    '><input readonly type="hidden" name="purchase_products_qty[]" id="purchase_products_qty' +
+                    rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' + product_quantity +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="purchase_products_sub_total[]" id="purchase_products_sub_total' +
                     rownum + '" class="form-control form-col-12"  value=' + product_sub_total +
-                    '></td><td class="col-1 lastcol" align="center"><button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm delete-productfield" id="delete-productfield' +
+                    '></td><td class="col-1 lastcol" align="center"><input type="checkbox" rel="tooltip" class=" col-6 edit-productfield" id="edit-productfield' +
+                    rownum + '" row-id="' + rownum +
+                    '" data-original-title="edit" title="edit"></input><button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm delete-productfield" id="delete-productfield' +
                     rownum + '" row-id="' + rownum +
                     '" data-original-title="X" title="X"><i class="fa fa-times"></i></button></td></tr>');
                 // alert(rownum);
@@ -1420,6 +1478,53 @@
             //   $('#purchase_amount_received').val(0);
             // }
         });
+        $(document).on('click', '.edit-productfield', function() {
+            var thisrow = $(this).attr('row-id');
+
+            var edit_sub_total = $('#purchase_products_sub_total' + thisrow).val();
+            var edit_discount = $('#purchase_products_discount' + thisrow).val();
+            var edit_product_qty = $('#purchase_products_qty' + thisrow).val();
+            var edit_final_subtotal = $('#purchase_total_price').val();
+            var edit_final_grandtotal = $('#purchase_grandtotal_price').val();
+            var edit_total_qty = $('#purchase_total_qty').val();
+            var edit_pieces = $('#purchase_products_pieces' + thisrow).val();
+            var edit_packets = $('#purchase_products_packets' + thisrow).val();
+            var edit_cartons = $('#purchase_products_cartons' + thisrow).val();
+            var edit_pieces_per_packet = $('#purchase_pieces_per_packet' + thisrow).val();
+            // var edit_packets_per_carton = $('#purchase_packets_per_carton' + thisrow).val();
+            var edit_pieces_per_carton = $('#purchase_pieces_per_carton' + thisrow).val();
+            var edit_unit_price = $('#purchase_products_unit_price' + thisrow).val();
+            var edit_packet_price = $('#purchase_products_packet_price' + thisrow).val();
+            var edit_carton_price = $('#purchase_products_carton_price' + thisrow).val();
+
+            $('#purchase_products_pieces' + thisrow).focus()
+            // $(this).attr('checked')
+            if ($(this).prop("checked") == true) {
+                $('#purchase_products_pieces' + thisrow).removeAttr("readonly");
+                $('#purchase_products_packets' + thisrow).removeAttr("readonly");
+                $('#purchase_products_cartons' + thisrow).removeAttr("readonly");
+                // $('#purchase_products_sub_total' + thisrow).removeAttr("readonly");
+            } else if ($(this).prop("checked") == false) {
+                $('#purchase_products_pieces' + thisrow).attr("readonly", "readonly");
+                $('#purchase_products_packets' + thisrow).attr("readonly", "readonly")
+                $('#purchase_products_cartons' + thisrow).attr("readonly", "readonly")
+                // $('#purchase_products_sub_total' + thisrow).attr("readonly", "readonly")
+            }
+            var edited_sub_total = Number(edit_pieces * edit_unit_price) + Number(edit_packets *
+                edit_packet_price) + Number(edit_cartons * edit_carton_price) - Number(edit_discount);
+            var edited_total_quantity = Number(edit_pieces) + Number(edit_packets * edit_pieces_per_packet) +
+                Number(edit_cartons * edit_pieces_per_carton);
+            $('#purchase_products_sub_total' + thisrow).val(edited_sub_total);
+            $('#purchase_products_qty' + thisrow).val(edited_total_quantity);
+            var edit_diff_sub_total = Number(edited_sub_total) - Number(edit_sub_total);
+            var edit_diff_total_qty = Number(edited_total_quantity) - Number(edit_product_qty);
+            var myedit_total_price = Number(edit_final_subtotal) + Number(edit_diff_sub_total);
+            var myedit_grandtotal_price = Number(edit_final_grandtotal) + Number(edit_diff_sub_total);
+            var myedit_total_qty = Number(edit_total_qty) + Number(edit_diff_total_qty);
+            $('#purchase_total_price').val(myedit_total_price);
+            $('#purchase_grandtotal_price').val(myedit_grandtotal_price);
+            $('#purchase_total_qty').val(myedit_total_qty);
+        });
         $(document).on("click", ".delete-productfield", function(event) {
 
             if (confirm('Do you really want to delete this?')) {
@@ -1470,52 +1575,6 @@
 
             }
 
-        });
-        $(document).on("click", ".olddelete-productfield", function(event) {
-
-            rowid = $(this).attr('row-id');
-            thisproduct_discount = $('#purchase_products_discount' + rowid).val();
-            thisproduct_sub_total = $('#purchase_products_sub_total' + rowid).val();
-            thisproduct_pieces = $('#purchase_products_pieces' + rowid).val();
-            thisproduct_packets = $('#purchase_products_packets' + rowid).val();
-            thisproduct_cartons = $('#purchase_products_cartons' + rowid).val();
-            thispieces_per_packet = $('#purchase_pieces_per_packet' + rowid).val();
-            thispieces_per_carton = $('#purchase_pieces_per_carton' + rowid).val();
-
-            alert(rowid);
-            // return;
-            // rowindex = $(this).closest('tr').index();
-            total_quantity = Number(total_quantity) - (Number(thisproduct_pieces) + (thisproduct_packets *
-                thispieces_per_packet) + (thisproduct_cartons * thispieces_per_carton));
-            total_items = Number(total_items) - 1;
-            total_discount = Number(total_discount) - Number(thisproduct_discount);
-            // var product_sub_total = $('#purchase_products_sub_total').val();
-            subtotal_amount = Number(subtotal_amount) - Number(thisproduct_sub_total);
-            grandtotal_amount = Number(grandtotal_amount) - Number(thisproduct_sub_total);
-
-            $('#purchase_total_qty').val('');
-            $('#purchase_total_qty').val(total_quantity);
-            $('#purchase_total_items').val('');
-            $('#purchase_total_items').val(total_items);
-            $('#purchase_discount').val('');
-            $('#purchase_discount').val(total_discount);
-            $('#purchase_total_price').val('');
-            $('#purchase_total_price').val(subtotal_amount);
-            $('#purchase_grandtotal_price').val('');
-            $('#purchase_grandtotal_price').val(grandtotal_amount);
-
-            $(this).closest('.prtr').remove();
-
-            // product_barcode.splice(rowindex, 1);
-            // product_name.splice(rowindex, 1);
-            // product_pieces.splice(rowindex, 1);
-            // product_packets.splice(rowindex, 1);
-            // product_cartons.splice(rowindex, 1);
-            // product_unit_price.splice(rowindex, 1);
-            // product_discount.splice(rowindex, 1);
-            // product_total_price.splice(rowindex, 1);
-            // $(this).closest('.prtr').remove();
-            // calculateTotal();
         });
 
         var productsbarcodes_array = <?php echo json_encode($barcodeArray); ?>;
@@ -1581,6 +1640,8 @@
                     var pieces_per_packet = data[0]['product_piece_per_packet'];
                     var packets_per_carton = data[0]['product_packet_per_carton'];
                     var product_trade_price_piece = data[0]['product_trade_price_piece'];
+                    var product_trade_price_packet = data[0]['product_trade_price_packet'];
+                    var product_trade_price_carton = data[0]['product_trade_price_carton'];
                     // console.log(total_items);
                     $('#product_name_i').val('');
                     $('#product_name_i').val(catchproduct_name);
@@ -1592,12 +1653,23 @@
                     // $('#purchase_products_barcode_i').val(catchbarcode);
                     $('#pieces_per_carton').val('');
                     $('#pieces_per_carton').val(pieces_per_carton);
+                    $('#purchase_pieces_per_carton_i').val('');
+                    $('#purchase_pieces_per_carton_i').val(pieces_per_carton);
                     $('#pieces_per_packet').val('');
                     $('#pieces_per_packet').val(pieces_per_packet);
+                    $('#purchase_pieces_per_packet_i').val('');
+                    $('#purchase_pieces_per_packet_i').val(pieces_per_packet);
                     $('#packets_per_carton').val('');
                     $('#packets_per_carton').val(packets_per_carton);
+                    $('#purchase_packets_per_carton_i').val('');
+                    $('#purchase_packets_per_carton_i').val(packets_per_carton);
+
                     $('#purchase_products_unit_price_i').val('');
-                    $('#purchase_products_unit_price_i').val(product_trade_price_piece)
+                    $('#purchase_products_unit_price_i').val(product_trade_price_piece);
+                    $('#purchase_products_packet_price_i').val('');
+                    $('#purchase_products_packet_price_i').val(product_trade_price_packet)
+                    $('#purchase_products_carton_price_i').val('');
+                    $('#purchase_products_carton_price_i').val(product_trade_price_carton)
 
                     // $('#product_barcode2').val(data[0]['product_barcode']);
                     barcodeSearch2(catchproduct_id);

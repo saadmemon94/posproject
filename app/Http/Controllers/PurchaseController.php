@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Company;
 use App\Models\PurchaseProducts;
 use App\Models\PurchaseReturn;
+use App\Models\PurchaseReturnProducts;
 use App\Models\User;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
@@ -74,6 +75,9 @@ class PurchaseController extends Controller
         // dd($purchases);
         return Datatables::of($purchasereturns)
         ->addIndexColumn()
+        ->addColumn('action', function ($purchasereturns) {
+            return '<a type="button" href="purchase_return/'.$purchasereturns->purchase_return_id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>';
+        })
         ->make(true);
     }
 
@@ -85,6 +89,25 @@ class PurchaseController extends Controller
         $attachedbarcodes = ProductBarcodes::get();
 
         return view('purchases.returnadd', compact('purchasereturns', 'suppliers', 'products', 'attachedbarcodes') );
+    }
+
+    public function return_view($id)
+    {
+        $j = 1;
+        $total_quantity = 0;
+        $total_discount = 0;
+        $subtotal_amount = 0;
+        $grandtotal_amount = 0;
+        $purchase_return = DB::table('purchase_returns')->where('purchase_return_id', $id)->first();
+        $s_id = $purchase_return->purchase_return_supplier_id;
+        $supplier = DB::table('suppliers')->where('supplier_id','=', $s_id)->first();
+        $suppliers = Supplier::where('status_id', 1)->get();
+        $products = Product::where('status_id', 1)->get();
+        $attachedbarcodes = ProductBarcodes::get();
+
+        $purchasereturnproducts = PurchaseReturnProducts::where('purchase_return_id', $id)->orderBy('purchasereturn_products_id', 'desc')->get();
+
+        return view('purchases.returnview', compact('purchase_return', 'suppliers', 'products', 'purchasereturnproducts', 'supplier', 'attachedbarcodes') );//'selectedproducts'
     }
 
     /**
@@ -257,6 +280,9 @@ class PurchaseController extends Controller
 
         return Datatables::of($products)
         ->addIndexColumn()
+        ->addColumn('action', function ($products) {
+            return '<a type="button" href="/product/'. $products->product_id.'/edit" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>';
+        })
         ->make(true);
     }
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserWarehouses extends Model
 {
     public $table = "user_warehouses";
-    // public $fillable = ['user_id', 'warehouse_id'];
+    public $fillable = ['user_id', 'warehouse_id'];
 
     public function users()
     {

@@ -610,9 +610,9 @@
                         return intVal(a) + intVal(b);
                     }, 0);
 
-                $(api.column(4).footer()).html(total_1.toFixed(3));
-                $(api.column(5).footer()).html(total_2.toFixed(3));
-                $(api.column(9).footer()).html(total_3.toFixed(3));
+                $(api.column(4).footer()).html(total_1.toFixed(2));
+                $(api.column(5).footer()).html(total_2.toFixed(2));
+                $(api.column(9).footer()).html(total_3.toFixed(2));
 
             },
         });

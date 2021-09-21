@@ -371,6 +371,10 @@
                                                                 <input readonly type="number" name="customer_credit_limit"
                                                                     id="customer_credit_limit" class="form-control col-12"
                                                                     value="0">
+                                                                <div id="credit_limit_alert"
+                                                                    class="alert alert-danger alert-dismissible fade hide">
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1593,8 +1597,8 @@
                                 </div>
                             </div>
                             <!-- <div class="mt-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button id="submit-btn" type="button" class="btn btn-primary">submit</button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button id="submit-btn" type="button" class="btn btn-primary">submit</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
                         </div>
                     </div>
                 </div>
@@ -1857,7 +1861,7 @@
                     '><input readonly type="hidden" name="sale_pieces_per_carton[]" id="sale_pieces_per_carton' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '" value=' +
                     pieces_per_carton +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_unit_price[]" id="sale_products_unit_price' +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_unit_price[]" id="sale_products_unit_price' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
                     product_unit_price +
                     '><input readonly type="hidden" name="sale_products_packet_price[]" id="sale_products_packet_price' +
@@ -1866,13 +1870,16 @@
                     '><input readonly type="hidden" name="sale_products_carton_price[]" id="sale_products_carton_price' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
                     product_carton_price +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_discount[]" id="sale_products_discount' +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_discount[]" id="sale_products_discount' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
                     product_discount +
                     '><input readonly type="hidden" name="sale_products_punch[]" id="sale_products_punch' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
                     punch_time2 +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_sub_total[]" id="sale_products_sub_total' +
+                    '><input readonly type="hidden" name="sale_products_qty[]" id="sale_products_qty' +
+                    rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
+                    product_quantity +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_sub_total[]" id="sale_products_sub_total' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
                     product_sub_total +
                     '></td><td class="col-1 lastcol" align="center"><input type="checkbox" rel="tooltip" class=" col-6 edit-productfield" id="edit-productfield' +
@@ -1911,6 +1918,9 @@
                     // if (customer_balance_dues2 > customer_credit_limit) {
                     if (customer_balance_dues3 > customer_credit_limit) {
                         alert('Sum of Total Amount & Dues should be less than Credit limit');
+                        var element = document.getElementById("credit_limit_alert");
+                        element.classList.add("show");
+                        $('#credit_limit_alert').html('Credit limit exceeded');
                         // $('#sale_amount_recieved').val(0);
                     }
                 }
@@ -1971,13 +1981,6 @@
             var customer_dues2 = $('#customer_balance_dues2').val();
             sale_amount_recieved = $('#sale_amount_recieved').val();
 
-            if (sale_payment_method == 'credit') {
-                if (customer_dues2 > customer_credit_limit) {
-                    alert('Sum of Total Amount & Dues should be less than Credit limit');
-                    // $('#sale_amount_recieved').val(0);
-                }
-            }
-
             if (Number(sale_amount_recieved) >= Number(grandtotal_amount)) {
                 sale_return_change = Number(sale_amount_recieved) - Number(grandtotal_amount);
                 $('#sale_return_change').val(sale_return_change);
@@ -1992,19 +1995,52 @@
         });
         $(document).on('click', '.edit-productfield', function() {
             var thisrow = $(this).attr('row-id');
+
+            var edit_sub_total = $('#sale_products_sub_total' + thisrow).val();
+            var edit_discount = $('#sale_products_discount' + thisrow).val();
+            var edit_product_qty = $('#sale_products_qty' + thisrow).val();
+            var edit_final_subtotal = $('#sale_total_price').val();
+            var edit_final_grandtotal = $('#sale_grandtotal_price').val();
+            var edit_total_qty = $('#sale_total_qty').val();
+            var edit_pieces = $('#sale_products_pieces' + thisrow).val();
+            var edit_packets = $('#sale_products_packets' + thisrow).val();
+            var edit_cartons = $('#sale_products_cartons' + thisrow).val();
+            var edit_pieces_per_packet = $('#sale_pieces_per_packet' + thisrow).val();
+            // var edit_packets_per_carton = $('#sale_packets_per_carton' + thisrow).val();
+            var edit_pieces_per_carton = $('#sale_pieces_per_carton' + thisrow).val();
+            var edit_unit_price = $('#sale_products_unit_price' + thisrow).val();
+            var edit_packet_price = $('#sale_products_packet_price' + thisrow).val();
+            var edit_carton_price = $('#sale_products_carton_price' + thisrow).val();
+            console.log(edit_discount);
+
             $('#sale_products_pieces' + thisrow).focus()
             // $(this).attr('checked')
             if ($(this).prop("checked") == true) {
                 $('#sale_products_pieces' + thisrow).removeAttr("readonly");
                 $('#sale_products_packets' + thisrow).removeAttr("readonly");
                 $('#sale_products_cartons' + thisrow).removeAttr("readonly");
-                $('#sale_products_sub_total' + thisrow).removeAttr("readonly");
+                // $('#sale_products_sub_total' + thisrow).removeAttr("readonly");
             } else if ($(this).prop("checked") == false) {
                 $('#sale_products_pieces' + thisrow).attr("readonly", "readonly");
                 $('#sale_products_packets' + thisrow).attr("readonly", "readonly")
                 $('#sale_products_cartons' + thisrow).attr("readonly", "readonly")
-                $('#sale_products_sub_total' + thisrow).attr("readonly", "readonly")
+                // $('#sale_products_sub_total' + thisrow).attr("readonly", "readonly")
             }
+            var edited_sub_total = Number(edit_pieces * edit_unit_price) + Number(edit_packets *
+                edit_packet_price) + Number(edit_cartons * edit_carton_price) - Number(edit_discount);
+            console.log(edited_sub_total);
+            var edited_total_quantity = Number(edit_pieces) + Number(edit_packets * edit_pieces_per_packet) +
+                Number(edit_cartons * edit_pieces_per_carton);
+            $('#sale_products_sub_total' + thisrow).val(edited_sub_total);
+            $('#sale_products_qty' + thisrow).val(edited_total_quantity);
+            var edit_diff_sub_total = Number(edited_sub_total) - Number(edit_sub_total);
+            var edit_diff_total_qty = Number(edited_total_quantity) - Number(edit_product_qty);
+            var myedit_total_price = Number(edit_final_subtotal) + Number(edit_diff_sub_total);
+            var myedit_grandtotal_price = Number(edit_final_grandtotal) + Number(edit_diff_sub_total);
+            var myedit_total_qty = Number(edit_total_qty) + Number(edit_diff_total_qty);
+            $('#sale_total_price').val(myedit_total_price);
+            $('#sale_grandtotal_price').val(myedit_grandtotal_price);
+            $('#sale_total_qty').val(myedit_total_qty);
         });
         $(document).on('click', ".delete-productfield", function() {
 
@@ -2041,6 +2077,15 @@
                 $('#sale_grandtotal_price').val('');
                 $('#sale_grandtotal_price').val(grandtotal_amount);
                 $('#customer_balance_dues2').val(customer_balance_dues2);
+                var sale_payment_method = $('#sale_payment_method').val();
+                var customer_credit_limit = $('#customer_credit_limit').val();
+                if (sale_payment_method == 'credit') {
+                    if (customer_balance_dues2 < customer_credit_limit) {
+                        var element = document.getElementById("credit_limit_alert");
+                        element.classList.remove("show");
+                        element.classList.add("hide");
+                    }
+                }
                 if (sale_amount_recieved >= grandtotal_amount) {
                     sale_return_change = Number(sale_amount_recieved) - Number(grandtotal_amount);
                     $('#sale_return_change').val(sale_return_change);
@@ -2356,8 +2401,47 @@
             });
         }
 
-        $("#sale_products_barcode_i").on('focus', function() {
+
+
+        $("#sale_products_barcode_i").autocomplete({
+            source: productsbarcodes_array,
+            autoFocus: true,
+            minLength: 0,
+            // select: $('#sale_product_barcode').val();
+            // source: function(request, response) {
+            //   var matcher = new RegExp(".?" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            //     response($.grep(productsnamescodes_array, function(item) {
+            //     return matcher.test(item);
+            //   }));
+            // },
+            // response: function(event, ui) {
+            //   if (ui.content.length == 1) {
+            //         var data = ui.content[0].value;
+            //         $(this).autocomplete( "close" );
+            //         // productSearch(data);
+            //   };
+            // },
+            select: function(event, ui) {
+                var data = ui.item.value;
+                // console.log(data);
+                barcodeSearch(data);
+            },
+            // change: function(event, ui) {
+            //   var data = ui.item;
+            //   console.log(data);
+            //   if (ui.item == null) {
+            //       this.setCustomValidity("You must select a product");
+            //   }
+            // }
+        }).on('click', function(event) {
+            // $(this).trigger('keydown.autocomplete');
+            $(this).autocomplete("search", $(this).val());
+            // .focus(function(){
+        });
+
+        $("#sale_products_barcode_i").on('focus', function(e) {
             // $( "product_name" ).autocomplete({
+            $(this).trigger('keydown.autocomplete');
             $(this).autocomplete({
                 source: productsbarcodes_array,
                 autoFocus: true,
@@ -2396,13 +2480,33 @@
             // $(this).autocomplete("search", "");
 
         });
-
-        $("#sale_products_barcode_i").on('change', function() {
+        $("#sale_products_barcode_i").on('input', function() {
             setTimeout(function() {
                 // console.log('barcode entered');
                 // $("#product_name_i").focus();
                 // $('#product_name_i').trigger('click');
+
             }, 1000);
+            // console.log('barcode 2 entered');
+            // $("#sale_products_barcode_i").autocomplete.trigger("select");
+
+            // $('#sale_products_barcode_i').trigger('keydown');
+            // $(this).trigger('keydown.autocomplete');
+            $(this).autocomplete({
+                source: productsbarcodes_array,
+                autoFocus: true,
+                minLength: 0,
+                select: function(event, ui) {
+                    var data = ui.item.value;
+                    // console.log(data);
+                    barcodeSearch(data);
+                    $("#product_name_i").focus();
+                },
+            }).on('click', function(event) {
+                $(this).autocomplete("search", $(this).val());
+            });
+            $(this).autocomplete("search", $(this).val());
+
         });
 
         function barcodeSearch(data) {

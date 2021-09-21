@@ -329,8 +329,14 @@ class ProductController extends Controller
            return redirect()->back()->withErrors($validate);
         }
 
+        $old_damage_quantity = $request->old_damage_quantity;
+        $damage_quantity = $request->product_damage_quantity - $old_damage_quantity;
+
         $quantity_total = $request->product_quantity_total;
         $quantity_available = $request->product_quantity_available;
+
+        $quantity_available = $quantity_available - $damage_quantity;
+
         $piece_per_packet = $request->product_piece_per_packet;
         $packet_per_carton = $request->product_packet_per_carton;
         $piece_per_carton = $request->product_piece_per_carton;

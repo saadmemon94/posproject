@@ -216,11 +216,13 @@
                 {
                     className: 'dt-body-center',
                     data: 'product_packets_total',
+                    render: $.fn.dataTable.render.number(',', '.', 2, ''),
                     name: 'product_packets_total'
                 },
                 {
                     className: 'dt-body-center',
                     data: 'product_cartons_total',
+                    render: $.fn.dataTable.render.number(',', '.', 2, ''),
                     name: 'product_cartons_total'
                 },
                 {
@@ -236,11 +238,13 @@
                 {
                     className: 'dt-body-center',
                     data: 'product_packets_available',
+                    render: $.fn.dataTable.render.number(',', '.', 2, ''),
                     name: 'product_packets_available'
                 },
                 {
                     className: 'dt-body-center',
                     data: 'product_cartons_available',
+                    render: $.fn.dataTable.render.number(',', '.', 2, ''),
                     name: 'product_cartons_available'
                 },
                 {

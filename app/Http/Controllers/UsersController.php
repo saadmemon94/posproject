@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserWarehouses;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\File;
@@ -69,7 +70,8 @@ class UsersController extends Controller
             'password_confirmation' => 'required_with:password|same:password|min:1|max:256'
         ]);
         if ($validate->fails()) {    
-           return response()->json("Fields Requireds", 400);
+        //    return response()->json("Fields Requireds", 400);
+           return redirect('users/create')->withErrors($validate);
         }
 
         // $user_add = array(
@@ -85,6 +87,11 @@ class UsersController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
         $user->assignRole('user');
+
+        UserWarehouses::create([
+            'warehouse_id' => 1,
+            'user_id' => $user->id,
+        ]);
 
         $request->session()->flash('message', 'Successfully Created User');
         return redirect()->route('users.index');
@@ -133,7 +140,8 @@ class UsersController extends Controller
             // 'password_confirmation' => 'required_with:password|same:password|min:6|max:256'
         ]);
         if ($validate->fails()) {    
-            return response()->json("Fields Requireds", 400);
+            // return response()->json("Fields Requireds", 400);
+            return redirect()->back()->withErrors($validate);
         }
         // dd($validate);
 

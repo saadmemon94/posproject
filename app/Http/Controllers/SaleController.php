@@ -10,6 +10,7 @@ use App\Models\ProductBarcodes;
 use App\Models\Payment;
 use App\Models\SaleProducts;
 use App\Models\SaleReturn;
+use App\Models\SaleReturnProducts;
 use App\Models\User;
 use App\Models\Warehouse;
 use App\Models\UserWarehouses;
@@ -71,8 +72,12 @@ class SaleController extends Controller
         $salereturns = SaleReturn::join('customers', 'sale_returns.sale_return_customer_id', '=', 'customers.customer_id')->join('users', 'sale_returns.sale_return_returned_by', '=', 'users.id')->select('sale_returns.*', 'customers.customer_name', 'users.name')->get();
         $customers = Customer::where('status_id', 1)->get();
         // dd($salereturns);
-        return Datatables::of($salereturns)
+        // $route = "{{ route('sale.return.view', ['id' => $salereturns->sale_return_id]) }}";
+        return $dt = Datatables::of($salereturns)
         ->addIndexColumn()
+        ->addColumn('action', function ($salereturns) {
+            return '<a type="button" href="sale_return/'.$salereturns->sale_return_id.'" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>';
+        })
         ->make(true);
     }
 
@@ -91,6 +96,30 @@ class SaleController extends Controller
         $attachedbarcodes = ProductBarcodes::whereIn('product_id', $products_arr)->get();
 
         return view('sales.returnadd', compact('salereturns', 'customers', 'products', 'attachedbarcodes') );
+    }
+
+    public function return_view($id)
+    {
+        $j = 1;
+        $total_quantity = 0;
+        $total_discount = 0;
+        $subtotal_amount = 0;
+        $grandtotal_amount = 0;
+        $products_arr = [];
+        $sale_return = DB::table('sale_returns')->where('sale_return_id', $id)->first();
+        $s_id = $sale_return->sale_return_customer_id;
+        $customer = DB::table('customers')->where('customer_id','=', $s_id)->first();
+        $customers = Customer::where('status_id', 1)->get();
+        $products = Product::where('status_id', 1)->get();
+        foreach($products as $p){
+            array_push($products_arr, $p->product_id);
+        }
+        $attachedbarcodes = ProductBarcodes::whereIn('product_id', $products_arr)->get();
+
+        $salereturnproducts = SaleReturnProducts::where('sale_return_id', $id)->orderBy('salereturn_products_id', 'desc')->get();
+
+        return view('sales.returnview', compact('sale_return', 'customers', 'products', 'attachedbarcodes', 'salereturnproducts', 'customer') );//'selectedsales'
+        // return view('sales.edit', ['sales' => $model->paginate(15)->items()[$id-1], 'customers' => $model2->paginate(15)->items(), 'products' => $model3->paginate(15)->items()]);
     }
 
     /**
@@ -466,6 +495,10 @@ class SaleController extends Controller
             $customer_data = Customer::where('customer_id', $sale_data->sale_customer_id)->first();
             $customer_data->previous = $previous_balance;
             $payment_data = Payment::where('sale_id', $id)->get();
+
+            if($request->pending == 1){
+                return redirect()->back();
+            }
 
             if($customer_id == 1){
                 return view('sales.invoicewalk', compact('sale_data', 'sale_products_data', 'user_data', 'warehouse_data', 'customer_data', 'payment_data',));

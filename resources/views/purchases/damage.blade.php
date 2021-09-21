@@ -26,7 +26,8 @@
                                                     <div class=" col-12">
                                                         <select name="product_company"
                                                             class="selectpicker form-control col-12" data-live-search="true"
-                                                            data-live-search-style="begins" title="Select Company for Print...">
+                                                            data-live-search-style="begins"
+                                                            title="Select Company for Print...">
                                                             <option selected value="">Select Company for Print</option>
                                                             @foreach ($companies as $single_company)
                                                                 <option value="{{ $single_company->company_name }}">
@@ -56,6 +57,7 @@
                                         <th class="text-center">Brand</th>
                                         <th class="text-center">Product Quantity(Pcs)</th>
                                         <th class="text-center">Product Damage</th>
+                                        <th class="disabled-sorting text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 {{-- <tbody>
@@ -77,6 +79,7 @@
                                         <th style="text-align:center"></th>
                                         <th style="text-align:center"></th>
                                         <th style="text-align:center">Total:</th>
+                                        <th style="text-align:center"></th>
                                         <th style="text-align:center"></th>
                                         <th style="text-align:center"></th>
                                     </tr>
@@ -150,6 +153,11 @@
                     className: 'dt-body-center',
                     data: 'product_quantity_damage',
                     name: 'product_quantity_damage'
+                },
+                {
+                    className: 'dt-body-center',
+                    data: 'action',
+                    name: 'action'
                 },
                 // { className: 'dt-body-center', width:'25%', data: 'name', name: 'name' },
                 // {
@@ -238,8 +246,8 @@
                         return intVal(a) + intVal(b);
                     }, 0);
 
-                $(api.column(5).footer()).html(total_1+' pcs');
-                $(api.column(6).footer()).html(total_2+' pcs');
+                $(api.column(5).footer()).html(total_1 + ' pcs');
+                $(api.column(6).footer()).html(total_2 + ' pcs');
 
             },
         });
@@ -249,6 +257,5 @@
         //         cell.innerHTML = i + 1;
         //   });
         // }).draw();
-
     </script>
 @endsection

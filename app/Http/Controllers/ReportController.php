@@ -215,14 +215,55 @@ class ReportController extends Controller
     {
         $purchases = Purchase::all();
         $sales = Sale::all();
-        $customers = Customer::where('status_id', 1)->get();
+        $customers = Customer::where('status_id', 1)
+        // ->where('customer_sale_rate', 'credit')
+        // ->where('customer_balance_dues', '>=', 'customer_credit_limit')
+        ->orderByRaw('(customer_balance_dues - customer_credit_limit) DESC')
+        // ->orderBy('customer_credit_duration', 'desc')
+        ->get();
+
+        foreach($customers as $customer){
+            $customer_balance_dues = $customer->customer_balance_dues;
+            $customer_credit_limit = $customer->customer_credit_limit;
+            // $diff = $customer_balance_dues - $customer_credit_limit;
+            if($customer_balance_dues > $customer_credit_limit){
+                $customer['credit_overdue'] = 'yes';
+            }
+            else{
+                $customer['credit_overdue'] = 'no';
+            }
+            // dd($customer_balance_dues, $customer_credit_limit,  $customer);
+
+        }
+
+        // dd($customers);
 
         return view('balance.creditduration', compact('sales', 'purchases', 'customers',) );
         // return view('balance.creditduration, ['sales', 'purchases' => $purchases, 'customers' => $customers, 'payments' => $payments]);
     }
     public function getBalanceCreditDurationData()
     {
-        $customers = Customer::where('status_id', 1)->get();
+        $customers = Customer::where('status_id', 1)
+        // ->where('customer_sale_rate', 'credit')
+        // ->where('customer_balance_dues', '>=', 'customer_credit_limit')
+        ->orderByRaw('(customer_balance_dues - customer_credit_limit) DESC')
+        // ->orderBy('customer_credit_duration', 'desc')
+        ->get();
+
+        foreach($customers as $customer){
+            $customer_balance_dues = $customer->customer_balance_dues;
+            $customer_credit_limit = $customer->customer_credit_limit;
+            // $diff = $customer_balance_dues - $customer_credit_limit;
+            if($customer_balance_dues > $customer_credit_limit){
+                $customer['credit_overdue'] = 'yes';
+                //<div class="badge badge-success">Yes</div>
+            }
+            else{
+                $customer['credit_overdue'] = 'no';
+            }
+
+        }
+
 
         return Datatables::of($customers)
         // ->editColumn('customer_id', '{{$customer_id}}')
@@ -260,7 +301,7 @@ class ReportController extends Controller
         ->with('warehouse', 'cashier')
         ->get();
         $payment_data = DB::table('payments')
-        ->join('sales', 'payments.sale_id', '=', 'sales.sale_id')
+        ->leftJoin('sales', 'payments.sale_id', '=', 'sales.sale_id')
         ->whereDate('payments.created_at', '>=' , $start_date)
         ->whereDate('payments.created_at', '<=' , $end_date)
         ->select('payments.*', 'sales.sale_invoice_id as sale_reference')
@@ -315,7 +356,7 @@ class ReportController extends Controller
         ->with('warehouse', 'cashier')
         ->get();
         // dd($return_data[0]->cashier->name);
-        $payment_data = DB::table('payments')->join('sales', 'payments.sale_id', '=', 'sales.sale_id')->where('payment_method', $cashcredit)->whereDate('payments.created_at', '>=' , $start_date)->whereDate('payments.created_at', '<=' , $end_date)->select('payments.*', 'sales.sale_invoice_id as sale_reference')->orderBy('payments.created_at', 'desc')->get();
+        $payment_data = DB::table('payments')->leftJoin('sales', 'payments.sale_id', '=', 'sales.sale_id')->where('payment_method', $cashcredit)->whereDate('payments.created_at', '>=' , $start_date)->whereDate('payments.created_at', '<=' , $end_date)->select('payments.*', 'sales.sale_invoice_id as sale_reference')->orderBy('payments.created_at', 'desc')->get();
         // dd($payment_data);
 
         $product_sale_data = [];
@@ -366,7 +407,7 @@ class ReportController extends Controller
         ->with('warehouse', 'cashier')
         ->get();
         // dd($return_data[0]->cashier->name);
-        $payment_data = DB::table('payments')->join('sales', 'payments.sale_id', '=', 'sales.sale_id')->where('payment_customer_id', $customer_id)->whereDate('payments.created_at', '>=' , $start_date)->whereDate('payments.created_at', '<=' , $end_date)->select('payments.*', 'sales.sale_invoice_id as sale_reference')->orderBy('payments.created_at', 'desc')->get();
+        $payment_data = DB::table('payments')->leftJoin('sales', 'payments.sale_id', '=', 'sales.sale_id')->where('payment_customer_id', $customer_id)->whereDate('payments.created_at', '>=' , $start_date)->whereDate('payments.created_at', '<=' , $end_date)->select('payments.*', 'sales.sale_invoice_id as sale_reference')->orderBy('payments.created_at', 'desc')->get();
         // dd($payment_data);
 
         $product_sale_data = [];
@@ -418,39 +459,39 @@ class ReportController extends Controller
         $saleproducts_data = SaleProducts::where('sale_product_brand',  $brand_name)->orderBy('created_at', 'desc')->get();
         $sale_data = [];
         if(!empty($saleproducts_data)){
-            foreach($saleproducts_data as $saleproduct){
-                $sale_data = Sale::where('sale_id', $saleproduct->sale_id)
+            foreach($saleproducts_data as $key => $saleproduct){
+                $sale_data[$key] = Sale::where('sale_id', $saleproduct->sale_id)
                 ->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)
                 ->orderBy('created_at', 'desc')
                 ->with('warehouse')
-                ->get();
+                ->first();
             }
         }
 
         $salereturn_products_data = SaleReturnProducts::where('salereturn_product_brand',  $brand_name)->orderBy('created_at', 'desc')->get();
         $return_data = [];
         if(!empty($salereturn_products_data)){
-            foreach($salereturn_products_data as $salereturn_product){
-                $return_data = SaleReturn::where('sale_return_id', $salereturn_product->sale_return_id)
+            foreach($salereturn_products_data as $key => $salereturn_product){
+                $return_data[$key] = SaleReturn::where('sale_return_id', $salereturn_product->sale_return_id)
                 ->where('created_at', '>=' , $start_date)->where('created_at', '<=' , $end_date)
                 ->orderBy('created_at', 'desc')
                 ->with('warehouse', 'cashier')
-                ->get();
+                ->first();
             }
         }
 
         // dd($return_data[0]->cashier->name);
         $payment_data = [];
         if(!empty($sale_data)){
-            foreach($sale_data as $single_sale){
-                $payment_data = DB::table('payments')
-                ->join('sales', 'payments.sale_id', '=', 'sales.sale_id')
+            foreach($sale_data as $key => $single_sale){
+                $payment_data[$key] = DB::table('payments')
+                ->leftJoin('sales', 'payments.sale_id', '=', 'sales.sale_id')
                 ->where('payments.sale_id', $single_sale->sale_id)
                 ->where('payments.created_at', '>=' , $start_date)
                 ->where('payments.created_at', '<=' , $end_date)
                 ->select('payments.*', 'sales.sale_invoice_id as sale_reference')
                 ->orderBy('payments.created_at', 'desc')
-                ->get();
+                ->first();
             }
         }
 
@@ -498,52 +539,59 @@ class ReportController extends Controller
         $saleproducts_data = SaleProducts::where('sale_product_company',  $company_name)->orderBy('created_at', 'desc')->get();
         $sale_data = [];
         if(!empty($saleproducts_data)){
-            foreach($saleproducts_data as $saleproduct){
-                $sale_data = Sale::where('sale_id', $saleproduct->sale_id)
+            foreach($saleproducts_data as $key => $saleproduct){
+                $sale_data[$key] = Sale::where('sale_id', $saleproduct->sale_id)
                 ->where('created_at', '>=', $start_date)->where('created_at', '<=', $end_date)
                 ->orderBy('created_at', 'desc')
                 ->with('warehouse')
-                ->get();
+                ->first();
             }
         }
+        // dd($sale_data);
 
         $salereturn_products_data = SaleReturnProducts::where('salereturn_product_company',  $company_name)->orderBy('created_at', 'desc')->get();
         $return_data = [];
         if(!empty($salereturn_products_data)){
-            foreach($salereturn_products_data as $salereturn_product){
-                $return_data = SaleReturn::where('sale_return_id', $salereturn_product->sale_return_id)
+            foreach($salereturn_products_data as $key => $salereturn_product){
+                $return_data[$key] = SaleReturn::where('sale_return_id', $salereturn_product->sale_return_id)
                 ->where('created_at', '>=' , $start_date)->where('created_at', '<=' , $end_date)
                 ->orderBy('created_at', 'desc')
                 ->with('warehouse', 'cashier')
-                ->get();
+                ->first();
             }
         }
 
         // dd($return_data[0]->cashier->name);
         $payment_data = [];
         if(!empty($sale_data)){
-            foreach($sale_data as $single_sale){
-                $payment_data = DB::table('payments')
-                ->join('sales', 'payments.sale_id', '=', 'sales.sale_id')
-                ->where('payments.sale_id', $single_sale->sale_id)
-                ->where('payments.created_at', '>=' , $start_date)
-                ->where('payments.created_at', '<=' , $end_date)
-                ->select('payments.*', 'sales.sale_invoice_id as sale_reference')
-                ->orderBy('payments.created_at', 'desc')
-                ->get();
+            foreach($sale_data as $key => $single_sale){
+
+                    $payment_data[$key] = DB::table('payments')
+                    ->leftJoin('sales', 'payments.sale_id', '=', 'sales.sale_id')
+                    ->where('payments.sale_id', $single_sale->sale_id)
+                    ->where('payments.created_at', '>=' , $start_date)
+                    ->where('payments.created_at', '<=' , $end_date)
+                    ->select('payments.*', 'sales.sale_invoice_id as sale_reference')
+                    ->orderBy('payments.created_at', 'desc')
+                    ->first();
             }
         }
+        // dd($payment_data);
 
         $product_sale_data = [];
         $product_return_data = [];
 
-        foreach ($sale_data as $key => $sale) {
-            $product_sale_data[$key] = SaleProducts::where('sale_id', $sale->sale_id)->get();
-        }
-        foreach ($return_data as $key => $return) {
-            // SaleReturnProducts::
-            $product_return_data[$key] = DB::table('salereturn_products')->where('sale_return_id', $return->sale_return_id)->get();
-        }
+        // if(!empty($sale_data)){
+            foreach ($sale_data as $key => $sale) {
+                $product_sale_data[$key] = SaleProducts::where('sale_id', $sale->sale_id)->get();
+            }
+        // }
+        // if(!empty($return_data)){
+            foreach ($return_data as $key => $return) {
+                // SaleReturnProducts::
+                $product_return_data[$key] = DB::table('salereturn_products')->where('sale_return_id', $return->sale_return_id)->get();
+            }
+        // }
         $company_list = Company::where('status_id', 1)->get();
 
         return view('report2.company_report', compact('sale_data','company_name', 'start_date', 'end_date', 'product_sale_data', 'payment_data', 'company_list', 'return_data', 'product_return_data'));

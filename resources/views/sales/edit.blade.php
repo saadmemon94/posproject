@@ -111,10 +111,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-col-2">
+                                                    {{-- <div class="form-col-1">
                                                         <div class="form-group">
                                                             <label for="customer_status"
-                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Customer Status') }}</label>
+                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Cust Status') }}</label>
                                                             <div class="form-col-12">
                                                                 <input readonly type="text" name="customer_status"
                                                                     id="customer_status" class="form-control col-12"
@@ -122,8 +122,8 @@
                                                                 @include('alerts.feedback', ['field' => 'customer_status'])
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-col-3">
+                                                    </div> --}}
+                                                    <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_amount_paid"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Sale Amount Paid') }}</label>
@@ -135,13 +135,13 @@
                                                                     id="sale_balance_paid" class="form-control"
                                                                     value="{{ $sale->sale_amount_paid }}">
                                                                 <input readonly type="hidden" name="customer_balance_paid"
-                                                                    id="customer_balance_paid" class="form-control"
+                                                                    id="customer_balance_paid" class="form-control col-12"
                                                                     value="{{ $customer->customer_balance_paid }}">
                                                                 @include('alerts.feedback', ['field' => 'sale_amount_paid'])
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-last-col-3">
+                                                    <div class="form-col-2">
                                                         <div class="form-group">
                                                             <label for="sale_amount_dues"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Sale Dues') }}</label>
@@ -153,9 +153,39 @@
                                                                     id="sale_balance_dues" class="form-control"
                                                                     value="{{ $sale->sale_amount_dues }}">
                                                                 <input readonly type="hidden" name="customer_balance_dues"
-                                                                    id="customer_balance_dues" class="form-control"
+                                                                    id="customer_balance_dues" class="form-control col-12"
                                                                     value="{{ $customer->customer_balance_dues }}">
                                                                 @include('alerts.feedback', ['field' => 'sale_amount_dues'])
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-col-2">
+                                                        <div class="form-group">
+                                                            <label for="customer_balance_paid"
+                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Customer Paid') }}</label>
+                                                            <div class="form-col-12 input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text rs">Rs: </span>
+                                                                </div>
+                                                                <input readonly type="number" name="customer_balance_paid"
+                                                                    id="customer_balance_paid" class="form-control col-12"
+                                                                    value="{{ $customer->customer_balance_paid }}">
+                                                                @include('alerts.feedback', ['field' => 'customer_balance_paid'])
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-last-col-2">
+                                                        <div class="form-group">
+                                                            <label for="customer_balance_dues"
+                                                                class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Customer Dues') }}</label>
+                                                            <div class="form-col-12 input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text rs">Rs: </span>
+                                                                </div>
+                                                                <input readonly type="number" name="customer_balance_dues"
+                                                                    id="customer_balance_dues" class="form-control col-12"
+                                                                    value="{{ $customer->customer_balance_dues }}">
+                                                                @include('alerts.feedback', ['field' => 'customer_balance_dues'])
                                                             </div>
                                                         </div>
                                                     </div>
@@ -186,7 +216,6 @@
                                                             <label for="sale_payment_method"
                                                                 class="form-col-12 control-label">&nbsp;&nbsp;{{ __(' Payment Method') }}</label>
                                                             <div class="form-col-12">
-                                                                {{-- <input readonly type="text" name="sale_payment_method" class="form-control col-12" value="{{ old('sale_payment_method', 'Cash') }}"> --}}
                                                                 <select readonly required id="sale_payment_method"
                                                                     name="sale_payment_method"
                                                                     class="selectpicker form-control col-12"
@@ -270,7 +299,7 @@
                                                                 <div class="form-col-12">
                                                                     <input readonly type="text" name="payterm_duratype"
                                                                         id="payterm_duratype" class="form-control col-12"
-                                                                        value="0 Days">
+                                                                        value="{{ $customer->customer_credit_duration.' ' }}{{ $customer->customer_credit_type  }}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-last-col-6">
@@ -280,7 +309,8 @@
                                                                     <input readonly type="number"
                                                                         name="customer_credit_limit"
                                                                         id="customer_credit_limit"
-                                                                        class="form-control col-12" value="0">
+                                                                        class="form-control col-12" value="{{ $customer->customer_credit_limit }}">
+                                                                    <div id="credit_limit_alert" class="alert alert-danger alert-dismissible fade hide" ></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -344,11 +374,11 @@
                                                                         $myproduct_quantity = $singlesaleproduct->sale_quantity_total;
                                                                         $myproduct_discount = $singlesaleproduct->sale_trade_discount;
                                                                         $myproduct_unit_price = $singlesaleproduct->sale_trade_price_piece;
-                                                                        
+
                                                                         $mytotal_items = $j;
                                                                         $mytotal_quantity = $mytotal_quantity + $myproduct_quantity;
                                                                         $mytotal_discount = $mytotal_discount + $myproduct_discount;
-                                                                        
+
                                                                         $myproduct_sub_total = $singlesaleproduct->sale_product_sub_total;
                                                                         $mysubtotal_amount = $mysubtotal_amount + $myproduct_sub_total;
                                                                         $mygrandtotal_amount = $mysubtotal_amount + $sale->sale_free_amount + $sale->sale_add_amount;
@@ -785,77 +815,77 @@
                                 </div>
                                 <!-- payment modal -->
                                 {{-- <div id="add-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-                  <div role="document" class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <h5 id="exampleModalLabel" class="modal-title">Finalize sale</h5>
-                              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                          </div>
-                          <div class="modal-body">
-                              <div class="row">
-                                  <div class="col-10">
-                                      <div class="row">
-                                          <div class="col-6 mt-1">
-                                              <label>Recieved Amount *</label>
-                                              <input type="text" name="paying_amount" class="form-control numkey" required step="any">
-                                          </div>
-                                          <div class="col-6 mt-1">
-                                              <label>Paying Amount *</label>
-                                              <input type="text" name="paid_amount" class="form-control numkey"  step="any">
-                                          </div>
-                                          <div class="col-6 mt-1">
-                                              <label>Change : </label>
-                                              <p id="change" class="ml-2">0.00</p>
-                                          </div>
-                                          <div class="col-6 mt-1">
-                                              <input type="hidden" name="paid_by_id">
-                                              <label>Paid By</label>
-                                              <select name="paid_by_id_select" class="form-control selectpicker">
-                                                  <option value="1">Credit Card</option>
-                                                  <option value="2">Cash</option>
-                                                  <option value="3">Cheque</option>
-                                                  <option value="4">Deposit</option>
-                                              </select>
-                                          </div>
-                                          <div class="form-group col-12 mt-3">
-                                              <div class="card-element form-control">
-                                              </div>
-                                              <div class="card-errors" role="alert"></div>
-                                          </div>
-                                          <div class="form-group col-12 cheque">
-                                              <label>Cheque Number *</label>
-                                              <input type="text" name="cheque_no" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-6 form-group">
-                                              <label>sale Note</label>
-                                              <textarea rows="3" class="form-control" name="sale_note"></textarea>
-                                          </div>
-                                          <div class="col-6 form-group">
-                                              <label>Payment Note</label>
-                                              <textarea rows="3" class="form-control" name="payment_note"></textarea>
-                                          </div>
-                                      </div>
-                                      <div class="mt-3">
-                                          <button id="submit-btn" type="button" class="btn btn-primary">submit</button>
-                                      </div>
-                                  </div>
-                                  <div class="col-2 qc" data-initial="1">
-                                      <h4><strong>Quick Cash</strong></h4>
-                                      <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="10" type="button">10</button>
-                                      <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="20" type="button">20</button>
-                                      <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="50" type="button">50</button>
-                                      <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="100" type="button">100</button>
-                                      <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="500" type="button">500</button>
-                                      <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="1000" type="button">1000</button>
-                                      <button class="btn btn-block btn-danger qc-btn sound-btn" data-amount="0" type="button">Clear</button>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                </div> --}}
+                                    <div role="document" class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 id="exampleModalLabel" class="modal-title">Finalize sale</h5>
+                                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                        <div class="row">
+                                                            <div class="col-6 mt-1">
+                                                                <label>Recieved Amount *</label>
+                                                                <input type="text" name="paying_amount" class="form-control numkey" required step="any">
+                                                            </div>
+                                                            <div class="col-6 mt-1">
+                                                                <label>Paying Amount *</label>
+                                                                <input type="text" name="paid_amount" class="form-control numkey"  step="any">
+                                                            </div>
+                                                            <div class="col-6 mt-1">
+                                                                <label>Change : </label>
+                                                                <p id="change" class="ml-2">0.00</p>
+                                                            </div>
+                                                            <div class="col-6 mt-1">
+                                                                <input type="hidden" name="paid_by_id">
+                                                                <label>Paid By</label>
+                                                                <select name="paid_by_id_select" class="form-control selectpicker">
+                                                                    <option value="1">Credit Card</option>
+                                                                    <option value="2">Cash</option>
+                                                                    <option value="3">Cheque</option>
+                                                                    <option value="4">Deposit</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-12 mt-3">
+                                                                <div class="card-element form-control">
+                                                                </div>
+                                                                <div class="card-errors" role="alert"></div>
+                                                            </div>
+                                                            <div class="form-group col-12 cheque">
+                                                                <label>Cheque Number *</label>
+                                                                <input type="text" name="cheque_no" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 form-group">
+                                                                <label>sale Note</label>
+                                                                <textarea rows="3" class="form-control" name="sale_note"></textarea>
+                                                            </div>
+                                                            <div class="col-6 form-group">
+                                                                <label>Payment Note</label>
+                                                                <textarea rows="3" class="form-control" name="payment_note"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <button id="submit-btn" type="button" class="btn btn-primary">submit</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 qc" data-initial="1">
+                                                        <h4><strong>Quick Cash</strong></h4>
+                                                        <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="10" type="button">10</button>
+                                                        <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="20" type="button">20</button>
+                                                        <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="50" type="button">50</button>
+                                                        <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="100" type="button">100</button>
+                                                        <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="500" type="button">500</button>
+                                                        <button class="btn btn-block btn-primary qc-btn sound-btn" data-amount="1000" type="button">1000</button>
+                                                        <button class="btn btn-block btn-danger qc-btn sound-btn" data-amount="0" type="button">Clear</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
                                 <!-- product list modal -->
                                 <div id="product-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true" class="modal fade text-left">
@@ -1237,6 +1267,9 @@
         var sale_return_change;
         var product_quantity;
         var product_sub_total;
+        var customer_balance_dues;
+        var customer_balance_dues2;
+        var customer_balance_dues3;
         var my_total_qty;
         var i = 1;
 
@@ -1263,9 +1296,9 @@
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
-            // var years = date.getFullYear();  
-            // var months = date.getMonth() + 1; 
-            // var days = date.getDate(); 
+            // var years = date.getFullYear();
+            // var months = date.getMonth() + 1;
+            // var days = date.getDate();
             // var dateString = date.toLocaleDateString();
             // var dateString = days + "/" + months + "/" + years;
             var timeString = date.toLocaleTimeString();
@@ -1391,7 +1424,7 @@
                     rownum + '" class="form-control col-12" value=' + product_cartons +
                     '><input readonly type="hidden" name="sale_pieces_per_carton[]" id="sale_pieces_per_carton' +
                     rownum + '" class="form-control col-12" value=' + pieces_per_carton +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_unit_price[]" id="sale_products_unit_price' +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_unit_price[]" id="sale_products_unit_price' +
                     rownum + '" class="form-control col-12"  value=' + product_unit_price +
                     '><input readonly type="hidden" name="sale_products_packet_price[]" id="sale_products_packet_price' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
@@ -1399,12 +1432,15 @@
                     '><input readonly type="hidden" name="sale_products_carton_price[]" id="sale_products_carton_price' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
                     product_carton_price +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_discount[]" id="sale_products_discount' +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_discount[]" id="sale_products_discount' +
                     rownum + '" class="form-control col-12"  value=' + product_discount +
                     '><input readonly type="hidden" name="sale_products_punch[]" id="sale_products_punch' +
                     rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
                     punch_time2 +
-                    '></td><td class="col-1 mycol" scope="col"><input readonly type="text" name="sale_products_sub_total[]" id="sale_products_sub_total' +
+                    '><input readonly type="hidden" name="sale_products_qty[]" id="sale_products_qty' +
+                    rownum + '" class="form-control col-12 p-row-' + rownum + '"  value=' +
+                    product_quantity +
+                    '></td><td class="col-1 mycol" scope="col"><input readonly type="number" name="sale_products_sub_total[]" id="sale_products_sub_total' +
                     rownum + '" class="form-control col-12"  value=' + product_sub_total +
                     '></td><td class="col-1 lastcol" align="center"><input type="checkbox" rel="tooltip" class=" col-6 edit-productfield" id="edit-productfield' +
                     rownum + '" row-id="' + rownum +
@@ -1426,6 +1462,21 @@
                 $('#sale_discount').val(total_discount);
                 $('#sale_grandtotal_price').val('');
                 $('#sale_grandtotal_price').val(grandtotal_amount);
+                customer_balance_dues2 = $('#customer_balance_dues').val();
+                customer_balance_dues3 = Number(customer_balance_dues2) + Number(grandtotal_amount);
+                $('#customer_balance_dues2').val(customer_balance_dues3);
+                var sale_payment_method = $('#sale_payment_method').val();
+                var customer_credit_limit = $('#customer_credit_limit').val();
+                if (sale_payment_method == 'credit') {
+                    // if (customer_balance_dues2 > customer_credit_limit) {
+                    if (customer_balance_dues3 > customer_credit_limit) {
+                        alert('Sum of Total Amount & Dues should be less than Credit limit');
+                        var element = document.getElementById("credit_limit_alert");
+                        element.classList.add("show");
+                        $('#credit_limit_alert').html('Credit limit exceeded');
+                        // $('#sale_amount_recieved').val(0);
+                    }
+                }
                 if (sale_amount_recieved >= grandtotal_amount) {
                     sale_return_change = Number(sale_amount_recieved) - Number(grandtotal_amount);
                     $('#sale_return_change').val(sale_return_change);
@@ -1479,15 +1530,15 @@
             var sale_payment_method = $('#sale_payment_method').val();
             var customer_credit_limit = $('#customer_credit_limit').val();
             grandtotal_amount = $('#sale_grandtotal_price').val();
-            var customer_dues2 = $('#customer_balance_dues2').val();
+            var customer_dues2 = $('#customer_balance_dues').val();
             sale_amount_recieved = $('#sale_amount_recieved').val();
 
-            if (sale_payment_method == 'credit') {
-                if (customer_dues2 > customer_credit_limit) {
-                    alert('Sum of Total Amount & Dues should be less than Credit limit');
-                    // $('#sale_amount_recieved').val(0);
-                }
-            }
+            // if (sale_payment_method == 'credit') {
+            //     if (customer_dues2 > customer_credit_limit) {
+            //         alert('Sum of Total Amount & Dues should be less than Credit limit');
+            //         // $('#sale_amount_recieved').val(0);
+            //     }
+            // }
 
             if (Number(sale_amount_recieved) >= Number(grandtotal_amount)) {
                 sale_return_change = Number(sale_amount_recieved) - Number(grandtotal_amount);
@@ -1500,19 +1551,48 @@
         });
         $(document).on('click', '.edit-productfield', function() {
             var thisrow = $(this).attr('row-id');
+
+            var edit_sub_total = $('#sale_products_sub_total' + thisrow).val();
+            var edit_discount = $('#sale_products_discount' + thisrow).val();
+            var edit_product_qty = $('#sale_products_qty' + thisrow).val();
+            var edit_final_subtotal = $('#sale_total_price').val();
+            var edit_final_grandtotal = $('#sale_grandtotal_price').val();
+            var edit_total_qty = $('#sale_total_qty').val();
+            var edit_pieces = $('#sale_products_pieces' + thisrow).val();
+            var edit_packets = $('#sale_products_packets' + thisrow).val();
+            var edit_cartons = $('#sale_products_cartons' + thisrow).val();
+            var edit_pieces_per_packet = $('#sale_pieces_per_packet' + thisrow).val();
+            // var edit_packets_per_carton = $('#sale_packets_per_carton' + thisrow).val();
+            var edit_pieces_per_carton = $('#sale_pieces_per_carton' + thisrow).val();
+            var edit_unit_price = $('#sale_products_unit_price' + thisrow).val();
+            var edit_packet_price = $('#sale_products_packet_price' + thisrow).val();
+            var edit_carton_price = $('#sale_products_carton_price' + thisrow).val();
+
             $('#sale_products_pieces' + thisrow).focus()
             // $(this).attr('checked')
             if ($(this).prop("checked") == true) {
                 $('#sale_products_pieces' + thisrow).removeAttr("readonly");
                 $('#sale_products_packets' + thisrow).removeAttr("readonly");
                 $('#sale_products_cartons' + thisrow).removeAttr("readonly");
-                $('#sale_products_sub_total' + thisrow).removeAttr("readonly");
+                // $('#sale_products_sub_total' + thisrow).removeAttr("readonly");
             } else if ($(this).prop("checked") == false) {
                 $('#sale_products_pieces' + thisrow).attr("readonly", "readonly");
                 $('#sale_products_packets' + thisrow).attr("readonly", "readonly")
                 $('#sale_products_cartons' + thisrow).attr("readonly", "readonly")
-                $('#sale_products_sub_total' + thisrow).attr("readonly", "readonly")
+                // $('#sale_products_sub_total' + thisrow).attr("readonly", "readonly")
             }
+            var edited_sub_total = Number(edit_pieces * edit_unit_price) + Number(edit_packets * edit_packet_price) + Number(edit_cartons * edit_carton_price) - Number(edit_discount);
+            var edited_total_quantity = Number(edit_pieces) + Number(edit_packets * edit_pieces_per_packet) + Number(edit_cartons * edit_pieces_per_carton);
+            $('#sale_products_sub_total' + thisrow).val(edited_sub_total);
+            $('#sale_products_qty' + thisrow).val(edited_total_quantity);
+            var edit_diff_sub_total = Number(edited_sub_total) - Number(edit_sub_total);
+            var edit_diff_total_qty = Number(edited_total_quantity) - Number(edit_product_qty);
+            var myedit_total_price = Number(edit_final_subtotal) + Number(edit_diff_sub_total);
+            var myedit_grandtotal_price = Number(edit_final_grandtotal) + Number(edit_diff_sub_total);
+            var myedit_total_qty = Number(edit_total_qty) + Number(edit_diff_total_qty);
+            $('#sale_total_price').val(myedit_total_price);
+            $('#sale_grandtotal_price').val(myedit_grandtotal_price);
+            $('#sale_total_qty').val(myedit_total_qty);
         });
         $(document).on("click", ".delete-productfield", function(event) {
 
@@ -1525,6 +1605,8 @@
                 thisproduct_cartons = $('#sale_products_cartons' + rowid).val();
                 thispieces_per_packet = $('#sale_pieces_per_packet' + rowid).val();
                 thispieces_per_carton = $('#sale_pieces_per_carton' + rowid).val();
+                sale_amount_recieved = $('#sale_amount_recieved').val();
+                party_balance_dues2 = $('#customer_balance_dues').val();
 
                 product_quantity = (Number(thisproduct_pieces) + Number(thisproduct_packets *
                     thispieces_per_packet) + Number(thisproduct_cartons * thispieces_per_carton));
@@ -1538,10 +1620,10 @@
                 total_quantity = Number(total_quantity) - Number(product_quantity);
                 total_items = Number(total_items) - 1;
                 total_discount = Number(total_discount) - Number(thisproduct_discount);
-                console.log(total_quantity);
                 // var product_sub_total = $('#sale_products_sub_total').val();
                 subtotal_amount = Number(subtotal_amount) - Number(thisproduct_sub_total);
                 grandtotal_amount = Number(grandtotal_amount) - Number(thisproduct_sub_total);
+                customer_balance_dues2 = Number(party_balance_dues2) + Number(grandtotal_amount);
 
                 $('#sale_total_qty').val(Number(0));
                 $('#sale_total_qty').val(total_quantity);
@@ -1553,6 +1635,16 @@
                 $('#sale_total_price').val(subtotal_amount);
                 $('#sale_grandtotal_price').val(Number(0));
                 $('#sale_grandtotal_price').val(grandtotal_amount);
+                var customer_balance_dues = $('#customer_balance_dues').val();
+                var sale_payment_method = $('#sale_payment_method').val();
+                var customer_credit_limit = $('#customer_credit_limit').val();
+                if (sale_payment_method == 'credit') {
+                    if (customer_balance_dues2 < customer_credit_limit) {
+                        var element = document.getElementById("credit_limit_alert");
+                        element.classList.remove("show");
+                        element.classList.add("hide");
+                    }
+                }
                 if (sale_amount_recieved >= grandtotal_amount) {
                     sale_return_change = Number(sale_amount_recieved) - Number(grandtotal_amount);
                     $('#sale_return_change').val(sale_return_change);
